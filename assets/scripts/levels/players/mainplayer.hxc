@@ -1,0 +1,80 @@
+import flixel.FlxG;
+import flixel.FlxObject;
+import jta.input.Input;
+import jta.objects.level.Player;
+import jta.objects.Vector;
+import jta.Paths;
+
+// TO-DO: Fix infinite jump bug, do jump animation
+class MainPlayer extends Player
+{
+	var jumping:Bool = false;
+	var jumpTimer:Float = 0;
+
+	public function new():Void
+	{
+		super('mainplayer');
+
+		loadGraphic(Paths.image('player/player'), true, 16, 16);
+
+		animation.add("idle", [0], 1);
+		animation.add("walk", [1, 0, 2, 0], 12);
+		animation.add("jump", [3], 1);
+		animation.add("dead", [4], 1);
+
+		animation.play("idle");
+
+		maxVelocity.y = 200;
+		acceleration.y = 900;
+	}
+
+	public override function update(elapsed:Float):Void
+	{
+		if (characterControllable)
+		{
+			if (jumping && !Input.pressed('up'))
+				jumping = false;
+
+			// yes, this doesn't look right, but it was the only way to get it to work
+			if (jumpTimer >= 0 && Input.pressed('up') && !isTouching(FlxObject.FLOOR))
+			{
+				jumpTimer += elapsed;
+				jumping = true;
+				if (jumpTimer > 0 && jumpTimer < 0.25)
+					velocity.y = -200;
+			}
+			else
+			{
+				jumpTimer = 0;
+				jumping = false;
+			}
+		}
+
+		super.update(elapsed);
+
+		if (characterControllable)
+		{
+			if (velocity.x != 0)
+				animation.play("walk");
+			else
+				animation.play("idle");
+
+			velocity.x = Input.pressed('left') ? -150 : Input.pressed('right') ? 150 : 0;
+			if (velocity.x != 0)
+				flipX = velocity.x < 0;
+
+			if (Input.pressed('run'))
+			{
+				if (Input.pressed('left'))
+					velocity.x -= 50;
+				else if (Input.pressed('right'))
+					velocity.x += 50;
+			}
+
+			#if debug
+			if (FlxG.keys.justPressed.SPACE)
+				trace('player position:' + x + ', ' + y);
+			#end
+		}
+	}
+}

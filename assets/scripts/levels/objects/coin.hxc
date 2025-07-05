@@ -1,0 +1,31 @@
+import jta.Paths;
+import jta.objects.level.Object;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+
+class CoinObject extends Object
+{
+	public function new():Void
+	{
+		super('coin');
+
+		loadGraphic(Paths.image('objects/' + objectID), true, 16, 16);
+
+		animation.add("floating", [0, 1, 2, 1], 12, true);
+		animation.play("floating");
+	}
+
+	public override function overlap():Void
+	{
+		objectInteractable = false;
+
+		alive = false;
+		FlxTween.tween(this, {alpha: 0, y: y - 16}, 0.22, {
+			ease: FlxEase.circOut,
+			onComplete: function():Void
+			{
+				exists = false;
+			}
+		});
+	}
+}

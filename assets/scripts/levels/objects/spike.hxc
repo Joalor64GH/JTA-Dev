@@ -1,0 +1,15 @@
+import jta.Paths;
+import jta.objects.level.Object;
+
+class SpikeObject extends Object
+{
+	public function new():Void
+	{
+		super('spike');
+
+		loadGraphic(Paths.image('objects/' + objectID), true, 16, 16);
+
+		animation.add("idle", [0], 1, true);
+		animation.play("idle");
+	}
+}

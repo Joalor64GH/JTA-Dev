@@ -1,0 +1,16 @@
+import jta.Paths;
+import jta.objects.level.Object;
+
+class FlagObject extends Object
+{
+	public function new():Void
+	{
+		super('flag');
+
+		loadGraphic(Paths.image('objects/' + objectID), true, 16, 16);
+
+		animation.add("wave", [1, 2, 3, 4, 5, 0], 12, true);
+		animation.add("stop", [0], 12, true);
+		animation.play("wave");
+	}
+}

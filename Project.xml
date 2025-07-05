@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+	<!-- [ Application Settings ] -->
+
+	<app title="Journey Through Aubekhia" package="com.joalor64.jta" file="JTA" main="Main"
+		path="export" version="0.1.0" company="Joalor64" />
+
+	<!-- [ Window Settings ] -->
+
+	<!-- All targets -->
+	<window width="800" height="600" fps="60" background="#000000" hardware="true" vsync="false" />
+
+	<!-- HTML5 -->
+	<window if="html5" resizable="false" />
+
+	<!-- Desktop -->
+	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
+
+	<!-- macOS -->
+	<window if="mac" orientation="auto" fullscreen="false" resizable="true" vsync="false"
+		allow-high-dpi="true" />
+
+	<!-- [ Path Settings ] -->
+
+	<source path="source" />
+	<assets path="assets" />
+
+	<!-- [ Libraries ] -->
+
+	<haxelib name="flixel" />
+	<haxelib name="flixel-addons" />
+
+	<haxelib name="hscript" />
+	<haxelib name="polymod" />
+	<haxelib name="hxdiscord_rpc" if="desktop" />
+	<haxelib name="hxcpp-debug-server" if="desktop debug" />
+
+	<haxelib name="jsonpath" />
+	<haxelib name="jsonpatch" />
+
+	<haxelib name="thx.core" />
+	<haxelib name="thx.semver" />
+
+	<!-- [ Haxe Defines ] -->
+
+	<haxedef name="hscriptPos" />
+
+	<haxedef name="FLX_NO_DEBUG" unless="debug" />
+	<haxedef name="FLX_NO_MOUSE" if="mobile" />
+	<haxedef name="FLX_NO_TOUCH" if="desktop" />
+
+	<haxedef name="FLX_NO_SOUND_TRAY" />
+	<haxedef name="FLX_NO_HEALTH" />
+
+	<section if="polymod">
+		<haxedef name="POLYMOD_DEBUG" value="true" if="debug" />
+		<haxedef name="POLYMOD_SCRIPT_CLASS_EXT" value=".hxc" />
+		<haxedef name="POLYMOD_SCRIPT_LIBRARY" value="scripts" />
+		<haxedef name="POLYMOD_ROOT_PATH" value="scripts/" />
+		<haxedef name="POLYMOD_MOD_METADATA_FILE" value="_polymod_meta.json" />
+		<haxedef name="POLYMOD_MOD_ICON_FILE" value="_polymod_icon.png" />
+	</section>
+
+	<haxedef name="analyzer-optimize" />
+	<haxedef name="no-deprecation-warnings" />
+	<haxedef name="message.reporting" value="pretty" />
+
+	<!-- [ Haxe Flags ] -->
+
+	<haxeflag name="-dce" value="no" />
+
+	<haxeflag name="--macro" value="include('jta')" />
+	<haxeflag name="--macro"
+		value="include('flixel', true, ['flixel.addons.editors.spine.*', 'flixel.addons.nape.*', 'flixel.system.macros.*'])" />
+
+	<!-- [ Icons ] -->
+
+	<!-- <icon path="icon.png" unless="linux" /> -->
+	<!-- <assets path="icon.png" embed="true" if="linux" /> -->
+
+</project>

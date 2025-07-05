@@ -1,0 +1,30 @@
+import flixel.FlxG;
+import flixel.FlxSprite;
+import jta.states.level.Level;
+
+class TestLevel extends Level
+{
+	public function new():Void
+	{
+		super(272);
+		levelName = "Test";
+	}
+
+	public override function create():Void
+	{
+		camFollowControllable = true;
+
+		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0xFFFFFFFFF);
+		bg.screenCenter();
+		add(bg);
+
+		FlxG.camera.zoom = 2.95;
+
+		loadMapBackground('test', 'test');
+		loadMap('test', 'test');
+
+		loadPlayer('mainplayer', FlxG.width / 2, FlxG.height / 2);
+
+		super.create();
+	}
+}
