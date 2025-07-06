@@ -8,7 +8,7 @@
 * [ ] Cutscenes
 * [ ] Splash Screen
 * [ ] Dialogue (Talking Signs)
-* [ ] More Polymod Features
+* [ ] Added flixel modding feature
 * [ ] HTML5 Port
 * [ ] World 1 Demo
 
