@@ -24,7 +24,11 @@
 	<!-- [ Path Settings ] -->
 
 	<source path="source" />
-	<assets path="assets" />
+
+	<assets path="assets" exclude="*.ogg|*.wav" if="web" />
+	<assets path="assets" exclude="*.mp3|*.wav" unless="web" />
+
+	<define name="NO_REDIRECT_ASSETS_FOLDER" />
 
 	<!-- [ Libraries ] -->
 
@@ -53,11 +57,17 @@
 	<haxedef name="FLX_NO_SOUND_TRAY" />
 	<haxedef name="FLX_NO_HEALTH" />
 
+	<section if="debug" unless="NO_REDIRECT_ASSETS_FOLDER || html5">
+		<haxedef name="REDIRECT_ASSETS_FOLDER" />
+	</section>
+
 	<section if="polymod">
 		<haxedef name="POLYMOD_DEBUG" value="true" if="debug" />
 		<haxedef name="POLYMOD_SCRIPT_CLASS_EXT" value=".hxc" />
 		<haxedef name="POLYMOD_SCRIPT_LIBRARY" value="scripts" />
 		<haxedef name="POLYMOD_ROOT_PATH" value="scripts/" />
+		<haxedef name="POLYMOD_APPEND_FOLDER" value="_append" />
+		<haxedef name="POLYMOD_MERGE_FOLDER" value="_merge" />
 		<haxedef name="POLYMOD_MOD_METADATA_FILE" value="_polymod_meta.json" />
 		<haxedef name="POLYMOD_MOD_ICON_FILE" value="_polymod_icon.png" />
 	</section>
@@ -73,6 +83,7 @@
 	<haxeflag name="--macro" value="include('jta')" />
 	<haxeflag name="--macro"
 		value="include('flixel', true, ['flixel.addons.editors.spine.*', 'flixel.addons.nape.*', 'flixel.system.macros.*'])" />
+	<haxeflag name="--macro" value="nullSafety('jta.registries')" />
 
 	<!-- [ Icons ] -->
 

@@ -1,0 +1,104 @@
+package jta.objects.dialogue;
+
+import flixel.addons.display.shapes.FlxShapeBox;
+import jta.registries.dialogue.PortraitRegistry;
+import jta.objects.dialogue.portraits.Portrait;
+import jta.objects.dialogue.Writer;
+
+enum DialogueBoxPosition
+{
+	TOP;
+	BOTTOM;
+	CUSTOM(x:Int, y:Int);
+}
+
+class DialogueBox extends FlxSpriteGroup
+{
+	private static final BOX_WIDTH:Int = 600;
+	private static final BOX_HEIGHT:Int = 150;
+
+	public var finishCallback:Void->Void;
+
+	private var box:FlxShapeBox;
+	private var portrait:Portrait;
+
+	private var writer(default, null):Writer;
+
+	public function new(?position:DialogueBoxPosition = BOTTOM):Void
+	{
+		super();
+
+		var x:Float = Std.int((FlxG.width - BOX_WIDTH) / 2);
+		var y:Float = switch (position)
+		{
+			case TOP: 10;
+			case BOTTOM: 320;
+			case CUSTOM(cx, cy): cy;
+		};
+
+		box = new FlxShapeBox(x, y, BOX_WIDTH, BOX_HEIGHT, {thickness: 6, jointStyle: MITER, color: FlxColor.WHITE}, FlxColor.BLACK);
+		box.scrollFactor.set();
+		box.active = false;
+		add(box);
+
+		writer = new Writer(box.x, box.y);
+		writer.finishCallback = function():Void
+		{
+			if (finishCallback != null)
+				finishCallback();
+		}
+		writer.onPortraitChange.add(function(id:String):Void
+		{
+			if (id == null || id.length <= 0)
+				writer.setPosition(box.x, box.y);
+			else if (portrait == null || portrait.portraitID != id)
+			{
+				if (portrait != null)
+					remove(portrait);
+
+				portrait = PortraitRegistry.fetchPortrait(id);
+				portrait.setPosition(box.x, box.y);
+				portrait.scrollFactor.set();
+				insert(members.indexOf(box) + 1, portrait);
+
+				writer.setPosition(box.x + 104, box.y);
+			}
+		});
+		writer.onFaceChange.add(function(expression:String):Void
+		{
+			if (portrait != null)
+				portrait.changeFace(expression);
+		});
+		writer.scrollFactor.set();
+		add(writer);
+	}
+
+	public function setBoxPosition(x:Int, y:Int):Void
+	{
+		box.setPosition(x, y);
+		if (portrait != null)
+		{
+			portrait.setPosition(box.x, box.y);
+			writer.setPosition(box.x + 104, box.y);
+		}
+		else
+			writer.setPosition(box.x, box.y);
+	}
+
+	public function setPositionType(position:DialogueBoxPosition):Void
+	{
+		var x = Std.int((FlxG.width - BOX_WIDTH) / 2);
+		var y = switch (position)
+		{
+			case TOP: 10;
+			case BOTTOM: FlxG.height - BOX_HEIGHT - 10;
+			case CUSTOM(_, cy): cy;
+		};
+		setBoxPosition(x, y);
+	}
+
+	public inline function startDialogue(list:Array<WriterData>):Void
+	{
+		writer.startDialogue(list);
+	}
+}

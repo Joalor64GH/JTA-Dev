@@ -5,8 +5,27 @@ import polymod.format.ParseRules;
 
 class PolymodHandler
 {
-	static final MOD_DIR:String = 'mods';
-	static final CORE_DIR:String = 'assets';
+	static final MOD_DIR:String =
+		#if (REDIRECT_ASSETS_FOLDER && macos)
+		'../../../../../../../mods'
+		#elseif REDIRECT_ASSETS_FOLDER
+		'../../../../mods'
+		#else
+		'mods'
+		#end;
+	static final CORE_DIR:String =
+		#if (REDIRECT_ASSETS_FOLDER && macos)
+		'../../../../../../../assets'
+		#elseif REDIRECT_ASSETS_FOLDER
+		'../../../../assets'
+		#else
+		#if desktop
+		'assets'
+		#else
+		null
+		#end
+		#end;
+
 	static final API_VERSION:String = '1.0.0';
 
 	public static var trackedMods:Array<ModMetadata> = [];
@@ -14,8 +33,6 @@ class PolymodHandler
 	public static function init(?framework:Null<Framework>):Void
 	{
 		Polymod.clearScripts();
-
-		Polymod.addDefaultImport(jta.Paths);
 
 		Polymod.addImportAlias('flixel.effects.particles.FlxEmitter', flixel.effects.particles.FlxEmitter);
 		Polymod.addImportAlias('flixel.group.FlxContainer', flixel.group.FlxContainer);
@@ -39,8 +56,10 @@ class PolymodHandler
 		Polymod.blacklistImport('Reflect');
 		Polymod.blacklistImport('Type');
 
+		#if sys
 		if (!FileSystem.exists(MOD_DIR))
 			FileSystem.createDirectory(MOD_DIR);
+		#end
 
 		framework ??= FLIXEL;
 
@@ -55,11 +74,16 @@ class PolymodHandler
 			},
 			parseRules: getParseRules(),
 			useScriptedClasses: true,
+			loadScriptsAsync: #if html5 true #else false #end,
 			ignoredFiles: Polymod.getDefaultIgnoreList()
 		});
 
+		jta.registries.dialogue.TyperRegistry.loadTypers();
+		jta.registries.dialogue.PortraitRegistry.loadPortraits();
+
 		jta.registries.level.PlayerRegistry.loadPlayers();
 		jta.registries.level.ObjectRegistry.loadObjects();
+
 		jta.registries.LevelRegistry.loadLevels();
 	}
 

@@ -5,6 +5,8 @@ import jta.registries.level.PlayerRegistry;
 import jta.registries.level.ObjectRegistry;
 import jta.objects.level.Player;
 import jta.objects.level.Object;
+import jta.objects.dialogue.DialogueBox;
+import jta.objects.dialogue.Writer;
 import jta.objects.HUD;
 import jta.input.Input;
 import jta.Paths;
@@ -24,6 +26,8 @@ class Level extends FlxState
 	private var hud:HUD;
 
 	private var camFollowControllable:Bool = false;
+
+	private var dialogueBox:DialogueBox;
 
 	public function new(levelNumber:Int):Void
 	{
@@ -53,6 +57,12 @@ class Level extends FlxState
 		hud.cameras = [camHUD];
 		add(hud);
 
+		dialogueBox = new DialogueBox(DialogueBoxPosition.BOTTOM);
+		dialogueBox.cameras = [camHUD];
+		dialogueBox.scrollFactor.set();
+		dialogueBox.kill();
+		add(dialogueBox);
+
 		super.create();
 	}
 
@@ -70,16 +80,15 @@ class Level extends FlxState
 
 			if (objects != null)
 			{
-				FlxG.collide(objects, player);
 				objects.forEach(function(obj:Object):Void
 				{
-					if (obj != null && player.characterControllable && player.overlaps(obj))
+					if (obj != null && player.characterControllable && player.overlaps(obj) && obj.objectInteractable)
 					{
 						if (Input.pressed('confirm'))
 							obj.interact();
+						else
+							obj.overlap();
 					}
-					else
-						obj.overlap();
 				});
 			}
 		}
@@ -112,12 +121,30 @@ class Level extends FlxState
 		return map;
 	}
 
-	public function loadMapBackground(path:String, image:String, ?w:Int = 16, ?h:Int = 16):FlxTilemap
+	public function loadMapBackground(path:String, image:String, ?w:Int = 16, ?h:Int = 16, ?scrollFactorX:Float = 1, ?scrollFactorY:Float = 1):FlxTilemap
 	{
 		background = new FlxTilemap();
 		background.loadMapFromCSV(Paths.csv('levels/' + path + '-background'), Paths.image('tiles/' + image + '_bg'), w, h);
+		background.scrollFactor.set(scrollFactorX, scrollFactorY);
 		background.screenCenter();
 		add(background);
 		return background;
+	}
+
+	public function startDialogue(dialogue:Array<WriterData>, ?finishCallback:Void->Void, ?position:DialogueBoxPosition = DialogueBoxPosition.BOTTOM):Void
+	{
+		if (dialogueBox == null || dialogueBox.alive)
+			return;
+
+		dialogueBox.finishCallback = function():Void
+		{
+			if (finishCallback != null)
+				finishCallback();
+
+			dialogueBox.kill();
+		}
+		dialogueBox.setPositionType(position);
+		dialogueBox.revive();
+		dialogueBox.startDialogue(dialogue);
 	}
 }

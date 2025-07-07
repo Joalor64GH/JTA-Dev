@@ -9,6 +9,8 @@ class CoinObject extends Object
 	{
 		super('coin');
 
+		objectInteractable = true;
+
 		loadGraphic(Paths.image('objects/' + objectID), true, 16, 16);
 
 		animation.add("floating", [0, 1, 2, 1], 12, true);
@@ -18,14 +20,7 @@ class CoinObject extends Object
 	public override function overlap():Void
 	{
 		objectInteractable = false;
-
-		alive = false;
-		FlxTween.tween(this, {alpha: 0, y: y - 16}, 0.22, {
-			ease: FlxEase.circOut,
-			onComplete: function():Void
-			{
-				exists = false;
-			}
-		});
+		this.kill();
+		this.destroy();
 	}
 }

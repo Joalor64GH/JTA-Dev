@@ -17,30 +17,42 @@ enum SpriteSheetType
 @:keep
 class Paths
 {
-	inline static public function csv(key:String)
-		return 'assets/$key.csv';
-
-	inline static public function sound(key:String, ?cache:Bool = true):Null<Sound>
-		return Assets.getSound('assets/sounds/$key.ogg', cache);
-
-	inline static public function music(key:String, ?cache:Bool = true):Null<Sound>
-		return Assets.getSound('assets/music/$key.ogg', cache);
-
-	inline static public function image(key:String)
-		return 'assets/images/$key.png';
-
-	inline static public function font(key:String)
+	static function findAsset(path:String, exts:Array<String>):String
 	{
-		var path:String = 'assets/fonts/$key';
-
-		for (i in ["ttf", "otf"])
-			if (path.extension() == '' && Assets.exists(path.withExtension(i)))
-				path = path.withExtension(i);
-
+		for (ext in exts)
+			if (path.extension() == '' && Assets.exists(path.withExtension(ext)))
+				return path.withExtension(ext);
 		return path;
 	}
 
-	public static inline function spritesheet(key:String, ?type:SpriteSheetType):FlxAtlasFrames
+	public static function exists(path:String):Bool
+		return Assets.exists(path);
+
+	inline static public function csv(key:String):String
+		return 'assets/$key.csv';
+
+	inline static public function sound(key:String, ?cache:Bool = true):Null<Sound>
+	{
+		var path = findAsset('assets/sounds/$key', [#if !web "ogg" #else "mp3" #end, "wav"]);
+		return Assets.getSound(path, cache);
+	}
+
+	inline static public function music(key:String, ?cache:Bool = true):Null<Sound>
+	{
+		var path = findAsset('assets/music/$key', [#if !web "ogg" #else "mp3" #end, "wav"]);
+		return Assets.getSound(path, cache);
+	}
+
+	inline static public function font(key:String, ?cache:Bool = true):Null<String>
+	{
+		var path = findAsset('assets/fonts/$key', ["ttf", "otf"]);
+		return Assets.getFont(path, cache).fontName;
+	}
+
+	inline static public function image(key:String):String
+		return 'assets/images/$key.png';
+
+	public static inline function spritesheet(key:String, ?type:SpriteSheetType):Null<FlxAtlasFrames>
 	{
 		type = type ?? SPARROW;
 		return switch (type)

@@ -1,5 +1,6 @@
 package jta.api;
 
+#if hxdiscord_rpc
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types;
 import sys.thread.Thread;
@@ -109,3 +110,4 @@ class DiscordClient
 		trace('(Discord) Error ($errorCode: ${cast (message, String)})');
 	}
 }
+#end

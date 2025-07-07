@@ -7,9 +7,10 @@
 * [ ] Enemies
 * [ ] Cutscenes
 * [ ] Splash Screen
-* [ ] Dialogue (Talking Signs)
+* [X] Dialogue
 * [ ] Added more polymod feature
-* [ ] HTML5 Port
+* [ ] Crash Handler
+* [X] HTML5 Compatibility [Partial]
 * [ ] World 1 Demo
 
 ## Future To-Dos
