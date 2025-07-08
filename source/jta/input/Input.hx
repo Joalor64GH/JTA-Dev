@@ -26,7 +26,7 @@ class Input
 			'cancel' => {key: kBinds[7], gamepad: gBinds[7]}
 		];
 
-	public static function refreshControls()
+	public static function refreshControls():Void
 		binds = getDefaultBinds();
 
 	public static function justPressed(tag:String):Bool

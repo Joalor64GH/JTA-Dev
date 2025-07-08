@@ -1,6 +1,7 @@
 package jta.states.level;
 
 import flixel.tile.FlxTilemap;
+import jta.substates.PauseMenu;
 import jta.registries.level.PlayerRegistry;
 import jta.registries.level.ObjectRegistry;
 import jta.objects.level.Player;
@@ -68,6 +69,12 @@ class Level extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		if (Input.justPressed('cancel') && !dialogueBox.alive)
+		{
+			persistentUpdate = false;
+			openSubState(new PauseMenu());
+		}
+
 		super.update(elapsed);
 
 		if (player != null)
@@ -116,7 +123,6 @@ class Level extends FlxState
 	{
 		map = new FlxTilemap();
 		map.loadMapFromCSV(Paths.csv('levels/' + path + '-map'), Paths.image('tiles/' + image), w, h);
-		map.screenCenter();
 		add(map);
 		return map;
 	}
@@ -126,9 +132,24 @@ class Level extends FlxState
 		background = new FlxTilemap();
 		background.loadMapFromCSV(Paths.csv('levels/' + path + '-background'), Paths.image('tiles/' + image + '_bg'), w, h);
 		background.scrollFactor.set(scrollFactorX, scrollFactorY);
-		background.screenCenter();
 		add(background);
 		return background;
+	}
+
+	public function loadObjects(path:String, ?w:Int = 16, ?h:Int = 16):Void
+	{
+		var rows = Assets.getText(Paths.csv('levels/' + path + '-objects')).split("\n");
+
+		for (rowIndex in 0...rows.length)
+		{
+			var cols = rows[rowIndex].split(",");
+			for (colIndex in 0...cols.length)
+			{
+				var objID = StringTools.trim(cols[colIndex]);
+				if (objID != "" && objID != "0" && objID != ".")
+					createObject(objID, colIndex * w, rowIndex * h);
+			}
+		}
 	}
 
 	public function startDialogue(dialogue:Array<WriterData>, ?finishCallback:Void->Void, ?position:DialogueBoxPosition = DialogueBoxPosition.BOTTOM):Void

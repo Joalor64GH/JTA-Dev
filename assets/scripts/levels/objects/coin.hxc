@@ -1,7 +1,5 @@
 import jta.Paths;
 import jta.objects.level.Object;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
 
 class CoinObject extends Object
 {

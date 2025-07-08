@@ -12,7 +12,7 @@ class DiscordClient
 	private static final _defaultID:String = "1390837442701168730";
 	public static var clientID(default, set):String = _defaultID;
 
-	private static function set_clientID(newID:String)
+	private static function set_clientID(newID:String):String
 	{
 		var change:Bool = (clientID != newID);
 		clientID = newID;
@@ -89,12 +89,12 @@ class DiscordClient
 		changePresence('Just Started');
 	}
 
-	public static function resetClientID()
+	public static function resetClientID():Void
 	{
 		clientID = _defaultID;
 	}
 
-	public static function shutdown()
+	public static function shutdown():Void
 	{
 		initialized = false;
 		Discord.Shutdown();

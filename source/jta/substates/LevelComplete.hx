@@ -1,6 +1,6 @@
 package jta.substates;
 
-class GameOver extends FlxSubState
+class LevelComplete extends FlxSubState
 {
 	override public function create():Void
 	{

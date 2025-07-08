@@ -38,7 +38,7 @@ class Main extends openfl.display.Sprite
 	static function get_framerate():Float
 		return Lib.current.stage.frameRate;
 
-	public function new()
+	public function new():Void
 	{
 		super();
 

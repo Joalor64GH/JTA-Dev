@@ -8,6 +8,9 @@ package jta;
 	#if desktop
 	public var fullscreen:Bool = false;
 	#end
+
+	public var skipSplash:Bool = false;
+
 	public var keyboardBinds:Array<FlxKey> = [LEFT, DOWN, UP, RIGHT, SPACE, SHIFT, ENTER, ESCAPE];
 	public var gamepadBinds:Array<FlxGamepadInputID> = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B, START, BACK];
 }
@@ -16,7 +19,7 @@ class Data
 {
 	public static var settings:Settings = {};
 
-	public static function init()
+	public static function init():Void
 	{
 		for (key in Reflect.fields(settings))
 			if (Reflect.field(FlxG.save.data, key) != null)
@@ -34,7 +37,7 @@ class Data
 		Main.framerate = settings.framerate;
 	}
 
-	public static function saveSettings()
+	public static function saveSettings():Void
 	{
 		for (key in Reflect.fields(settings))
 			Reflect.setField(FlxG.save.data, key, Reflect.field(settings, key));

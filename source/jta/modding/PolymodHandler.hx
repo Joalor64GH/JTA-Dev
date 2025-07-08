@@ -2,6 +2,7 @@ package jta.modding;
 
 import polymod.Polymod;
 import polymod.format.ParseRules;
+import flixel.util.FlxStringUtil;
 
 class PolymodHandler
 {
@@ -127,24 +128,16 @@ class PolymodHandler
 
 	static function onError(error:PolymodError):Void
 	{
-		switch (error.code)
+		var code:String = FlxStringUtil.toTitleCase(Std.string(error.code).split('_').join(' '));
+
+		switch (error.severity)
 		{
-			case MOD_LOAD_PREPARE:
-				trace(error.message);
-			case MOD_LOAD_DONE:
-				trace(error.message);
-			case MISSING_ICON:
-				trace(error.message);
-			default:
-				switch (error.severity)
-				{
-					case NOTICE:
-						trace(error.message);
-					case WARNING:
-						trace(error.message);
-					case ERROR:
-						trace(error.message);
-				}
+			case NOTICE:
+				FlxG.log.notice('($code) ${error.message}');
+			case WARNING:
+				FlxG.log.warn('($code) ${error.message}');
+			case ERROR:
+				FlxG.log.error('($code) ${error.message}');
 		}
 	}
 }

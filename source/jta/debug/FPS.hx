@@ -12,7 +12,7 @@ class FPS extends TextField
 
 	var times:Array<Float> = [];
 
-	public function new(x:Float, y:Float, color:Int, ?font:String)
+	public function new(x:Float, y:Float, color:Int, ?font:String):Void
 	{
 		super();
 

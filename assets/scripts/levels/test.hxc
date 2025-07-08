@@ -14,7 +14,7 @@ class TestLevel extends Level
 	{
 		camFollowControllable = true;
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0xFFFFFFFFF);
+		var bg:FlxSprite = new FlxSprite().makeGraphic(2048, 2048, 0xFFFFFFFFF);
 		bg.screenCenter();
 		add(bg);
 
@@ -22,8 +22,9 @@ class TestLevel extends Level
 
 		loadMapBackground('test', 'test');
 		loadMap('test', 'test');
+		loadObjects('test');
 
-		loadPlayer('mainplayer', FlxG.width / 2, FlxG.height / 2);
+		loadPlayer('mainplayer', 16, 200);
 
 		super.create();
 	}

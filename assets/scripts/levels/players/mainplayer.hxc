@@ -2,10 +2,8 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import jta.input.Input;
 import jta.objects.level.Player;
-import jta.objects.Vector;
 import jta.Paths;
 
-// TO-DO: Fix infinite jump bug, do jump animation
 class MainPlayer extends Player
 {
 	var jumping:Bool = false;
@@ -24,7 +22,7 @@ class MainPlayer extends Player
 
 		animation.play("idle");
 
-		maxVelocity.y = 200;
+		maxVelocity.y = 290;
 		acceleration.y = 900;
 	}
 
@@ -35,13 +33,12 @@ class MainPlayer extends Player
 			if (jumping && !Input.pressed('up'))
 				jumping = false;
 
-			// yes, this doesn't look right, but it was the only way to get it to work
-			if (jumpTimer >= 0 && Input.pressed('up') && !isTouching(FlxObject.FLOOR))
+			if (jumpTimer >= 0 && Input.pressed('up') && velocity.y == 0)
 			{
 				jumpTimer += elapsed;
 				jumping = true;
 				if (jumpTimer > 0 && jumpTimer < 0.25)
-					velocity.y = -200;
+					velocity.y = -290;
 			}
 			else
 			{
@@ -54,7 +51,9 @@ class MainPlayer extends Player
 
 		if (characterControllable)
 		{
-			if (velocity.x != 0)
+			if (velocity.y < 0)
+				animation.play("jump");
+			else if (velocity.x != 0)
 				animation.play("walk");
 			else
 				animation.play("idle");
