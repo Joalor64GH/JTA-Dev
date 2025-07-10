@@ -10,7 +10,7 @@
 * [X] Dialogue
 * [ ] Added more polymod feature
 * [ ] Crash Handler
-* [X] HTML5 Compatibility [Partial]
+* [X] HTML5 Compatibility
 * [ ] World 1 Demo
 
 ## Future To-Dos
