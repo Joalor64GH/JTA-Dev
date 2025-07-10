@@ -1,6 +1,8 @@
 package jta.states.level;
 
 import flixel.tile.FlxTilemap;
+import jta.states.BaseState;
+import jta.substates.GameOver;
 import jta.substates.PauseMenu;
 import jta.registries.level.PlayerRegistry;
 import jta.registries.level.ObjectRegistry;
@@ -10,9 +12,10 @@ import jta.objects.dialogue.DialogueBox;
 import jta.objects.dialogue.Writer;
 import jta.objects.HUD;
 import jta.input.Input;
+import jta.Global;
 import jta.Paths;
 
-class Level extends FlxState
+class Level extends BaseState
 {
 	public var levelNumber:Int;
 	public var levelName:String;
@@ -38,6 +41,10 @@ class Level extends FlxState
 
 	override public function create():Void
 	{
+		#if hxdiscord_rpc
+		jta.api.DiscordClient.changePresence('Playing the Game', null);
+		#end
+
 		camHUD = new FlxCamera();
 		camHUD.bgColor = 0;
 		FlxG.cameras.add(camHUD, false);
@@ -73,6 +80,12 @@ class Level extends FlxState
 		{
 			persistentUpdate = false;
 			openSubState(new PauseMenu());
+		}
+
+		if (Global.lives == 0)
+		{
+			persistentUpdate = false;
+			openSubState(new GameOver());
 		}
 
 		super.update(elapsed);
@@ -127,11 +140,10 @@ class Level extends FlxState
 		return map;
 	}
 
-	public function loadMapBackground(path:String, image:String, ?w:Int = 16, ?h:Int = 16, ?scrollFactorX:Float = 1, ?scrollFactorY:Float = 1):FlxTilemap
+	public function loadMapBackground(path:String, image:String, ?w:Int = 16, ?h:Int = 16):FlxTilemap
 	{
 		background = new FlxTilemap();
 		background.loadMapFromCSV(Paths.csv('levels/' + path + '-background'), Paths.image('tiles/' + image + '_bg'), w, h);
-		background.scrollFactor.set(scrollFactorX, scrollFactorY);
 		add(background);
 		return background;
 	}

@@ -10,19 +10,16 @@ import flixel.input.keyboard.*;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-
+import flixel.addons.transition.FlxTransitionableState;
 import openfl.Lib;
 import openfl.Assets;
-import openfl.system.System;
 import lime.app.Application;
-
 #if sys
 import sys.*;
 import sys.io.*;
 #else
 import openfl.Assets;
 #end
-
 import haxe.*;
 
 using StringTools;

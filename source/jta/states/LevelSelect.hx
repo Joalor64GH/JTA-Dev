@@ -1,6 +1,8 @@
 package jta.states;
 
-class LevelSelect extends FlxState
+import jta.states.BaseState;
+
+class LevelSelect extends BaseState
 {
 	override public function create():Void
 	{

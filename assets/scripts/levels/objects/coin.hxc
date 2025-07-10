@@ -1,4 +1,5 @@
 import jta.Paths;
+import jta.Global;
 import jta.objects.level.Object;
 
 class CoinObject extends Object
@@ -18,6 +19,14 @@ class CoinObject extends Object
 	public override function overlap():Void
 	{
 		objectInteractable = false;
+		Global.coins += 1;
+		Global.score += 200;
+		if (Global.coins >= 100)
+		{
+			Global.coins = 0;
+			Global.lives += 1;
+		}
+		Global.save();
 		this.kill();
 		this.destroy();
 	}

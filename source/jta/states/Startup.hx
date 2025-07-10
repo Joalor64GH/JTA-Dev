@@ -2,12 +2,17 @@ package jta.states;
 
 import jta.Data;
 import jta.Global;
+import jta.input.Input;
 import jta.modding.PolymodHandler;
+import jta.states.BaseState;
 
-class Startup extends FlxState
+class Startup extends BaseState
 {
+	var bg:FlxSprite;
 	var haxeflixel:FlxSprite;
 	var haxeflixelTxt:FlxText;
+
+	static public var transitionsAllowed:Bool = false;
 
 	override public function create():Void
 	{
@@ -15,10 +20,15 @@ class Startup extends FlxState
 
 		Data.init();
 		Global.load();
+		Input.refreshControls();
 		PolymodHandler.init(OPENFL);
 
 		if (!Data.settings.skipSplash)
 		{
+			bg = new FlxSprite().loadGraphic(Paths.image('menu/start_bg'));
+			bg.screenCenter();
+			add(bg);
+
 			haxeflixel = new FlxSprite().loadGraphic(Paths.image('haxeflixel'), true, 16, 16);
 			haxeflixel.animation.add("green", [0], 1);
 			haxeflixel.animation.add("yellow", [1], 1);
@@ -31,7 +41,7 @@ class Startup extends FlxState
 			add(haxeflixel);
 
 			haxeflixelTxt = new FlxText(0, haxeflixel.y + 130, FlxG.width, "");
-			haxeflixelTxt.setFormat(Paths.font("main.ttf"), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			haxeflixelTxt.setFormat(Paths.font("main.ttf"), 24, FlxColor.WHITE, CENTER);
 			haxeflixelTxt.screenCenter(X);
 			add(haxeflixelTxt);
 
@@ -67,24 +77,13 @@ class Startup extends FlxState
 				haxeflixelTxt.color = 0x04cdfb;
 				new FlxTimer().start(1.5, function(tmr:FlxTimer):Void
 				{
-					FlxTween.tween(haxeflixel, {alpha: 0}, 0.5, {
-						onComplete: function(twn:FlxTween):Void
-						{
-							haxeflixel.kill();
-							haxeflixel.destroy();
-							new FlxTimer().start(0.5, function(tmr:FlxTimer):Void
-							{
-								FlxG.switchState(() -> new MainMenu());
-							});
-						}
-					});
-					FlxTween.tween(haxeflixelTxt, {alpha: 0}, 0.5);
+					transitionState(new MainMenu());
 				});
 			});
 		}
 		else
 		{
-			FlxG.switchState(() -> new MainMenu());
+			transitionState(new MainMenu());
 		}
 	}
 }

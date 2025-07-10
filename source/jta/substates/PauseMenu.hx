@@ -2,8 +2,9 @@ package jta.substates;
 
 import jta.input.Input;
 import jta.states.MainMenu;
+import jta.substates.BaseSubState;
 
-class PauseMenu extends FlxSubState
+class PauseMenu extends BaseSubState
 {
 	var selections:Array<String> = ["Resume", "Return to Menu"];
 	var selectedIndex:Int = 0;
@@ -14,7 +15,7 @@ class PauseMenu extends FlxSubState
 	{
 		cameras = [FlxG.cameras.list[1]];
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		var bg:FlxSprite = new FlxSprite().makeGraphic(900, FlxG.height, FlxColor.BLACK);
 		bg.scrollFactor.set();
 		bg.alpha = 0.5;
 		add(bg);
@@ -42,17 +43,9 @@ class PauseMenu extends FlxSubState
 	override public function update(elapsed:Float):Void
 	{
 		if (Input.justPressed('up'))
-		{
-			selectedIndex--;
-			if (selectedIndex < 0)
-				selectedIndex = selections.length - 1;
-		}
+			selectedIndex = FlxMath.wrap(selectedIndex - 1, 0, selections.length - 1);
 		else if (Input.justPressed('down'))
-		{
-			selectedIndex++;
-			if (selectedIndex >= selections.length)
-				selectedIndex = 0;
-		}
+			selectedIndex = FlxMath.wrap(selectedIndex + 1, 0, selections.length - 1);
 
 		if (Input.justPressed('confirm'))
 		{
@@ -62,7 +55,7 @@ class PauseMenu extends FlxSubState
 					close();
 					persistentUpdate = true;
 				case 1:
-					FlxG.switchState(() -> new MainMenu());
+					transitionState(new MainMenu());
 			}
 		}
 

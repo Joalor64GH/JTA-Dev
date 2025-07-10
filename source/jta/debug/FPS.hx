@@ -3,6 +3,7 @@ package jta.debug;
 import jta.Paths;
 import openfl.text.*;
 import openfl.events.Event;
+import openfl.system.System;
 
 class FPS extends TextField
 {

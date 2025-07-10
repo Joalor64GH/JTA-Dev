@@ -1,10 +1,12 @@
 package jta.states;
 
+import jta.Paths;
 import jta.input.Input;
+import jta.states.BaseState;
 import jta.states.config.Settings;
 import jta.registries.LevelRegistry;
 
-class MainMenu extends FlxState
+class MainMenu extends BaseState
 {
 	var selections:Array<String> = ["Start Game", "Options"];
 	var selectedIndex:Int = 0;
@@ -22,6 +24,14 @@ class MainMenu extends FlxState
 
 	override public function create():Void
 	{
+		#if hxdiscord_rpc
+		jta.api.DiscordClient.changePresence('Main Menu', null);
+		#end
+
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/menu_bg'));
+		bg.screenCenter();
+		add(bg);
+
 		var title:FlxText = new FlxText(10, 10, FlxG.width, "Journey Through Aubekhia");
 		title.setFormat(Paths.font('main'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(title);
@@ -43,26 +53,18 @@ class MainMenu extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		if (Input.justPressed('up'))
-		{
-			selectedIndex--;
-			if (selectedIndex < 0)
-				selectedIndex = selections.length - 1;
-		}
+			selectedIndex = FlxMath.wrap(selectedIndex - 1, 0, selections.length - 1);
 		else if (Input.justPressed('down'))
-		{
-			selectedIndex++;
-			if (selectedIndex >= selections.length)
-				selectedIndex = 0;
-		}
+			selectedIndex = FlxMath.wrap(selectedIndex + 1, 0, selections.length - 1);
 
 		if (Input.justPressed('confirm'))
 		{
 			switch (selectedIndex)
 			{
 				case 0:
-					FlxG.switchState(() -> LevelRegistry.fetchLevel(272));
+					transitionState(LevelRegistry.fetchLevel(272));
 				case 1:
-					FlxG.switchState(() -> new Settings());
+					transitionState(new Settings());
 				#if desktop
 				case 2:
 					Sys.exit(0);
@@ -74,6 +76,16 @@ class MainMenu extends FlxState
 		{
 			text.color = (text.ID == selectedIndex) ? FlxColor.YELLOW : FlxColor.WHITE;
 		});
+
+		#if debug
+		if (Input.justPressed('v'))
+		{
+			transitionState(new jta.video.VideoState('paint', () ->
+			{
+				transitionState(new jta.states.MainMenu());
+			}));
+		}
+		#end
 
 		super.update(elapsed);
 	}

@@ -5,7 +5,7 @@
 * [ ] New Assets (Logo, Tiles, etc.)
 * [ ] Sounds and Music
 * [ ] Enemies
-* [ ] Cutscenes
+* [X] Cutscenes
 * [X] Splash Screen
 * [X] Dialogue
 * [ ] Added more polymod feature

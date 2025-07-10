@@ -1,7 +1,14 @@
 package;
 
 import jta.debug.FPS;
+import jta.video.GlobalVideo;
+import jta.video.VideoHandler;
+import jta.video.WebmHandler;
 
+#if (linux && !debug)
+@:cppInclude('./external/gamemode_client.h')
+@:cppFileCode('#define GAMEMODE_AUTO')
+#end
 class Main extends openfl.display.Sprite
 {
 	public final config:Dynamic = {
@@ -49,6 +56,27 @@ class Main extends openfl.display.Sprite
 		framerate = 60; // Default framerate
 		addChild(new FlxGame(config.gameDimensions[0], config.gameDimensions[1], config.initialState, config.framerate, config.framerate, config.skipSplash,
 			config.startFullscreen));
+
+		var ourSource:String = "assets/videos/DO NOT DELETE OR GAME WILL CRASH/dontDelete.webm";
+
+		#if web
+		var str1:String = "HTML CRAP";
+		var vHandler = new VideoHandler();
+		vHandler.init1();
+		vHandler.video.name = str1;
+		addChild(vHandler.video);
+		vHandler.init2();
+		GlobalVideo.setVid(vHandler);
+		vHandler.source(ourSource);
+		#elseif desktop
+		var str1:String = "WEBM SHIT";
+		var webmHandle = new WebmHandler();
+		webmHandle.source(ourSource);
+		webmHandle.makePlayer();
+		webmHandle.webm.name = str1;
+		addChild(webmHandle.webm);
+		GlobalVideo.setWebm(webmHandle);
+		#end
 
 		FlxG.sound.volumeUpKeys = [];
 		FlxG.sound.volumeDownKeys = [];

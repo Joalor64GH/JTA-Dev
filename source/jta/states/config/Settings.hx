@@ -3,9 +3,11 @@ package jta.states.config;
 import jta.Data;
 import jta.input.Input;
 import jta.states.MainMenu;
+import jta.states.BaseState;
 import jta.states.config.Option;
+import jta.states.config.Controls;
 
-class Settings extends FlxState
+class Settings extends BaseState
 {
 	var options:Array<Option> = [];
 	var selectedIndex:Int = 0;
@@ -28,6 +30,7 @@ class Settings extends FlxState
 		};
 		options.push(option);
 
+		#if !html5
 		var option:Option = new Option('Framerate', OptionType.Integer(60, 240, 10),
 			Std.int(FlxMath.bound(FlxG.stage.application.window.displayMode.refreshRate, 60, 240)));
 		option.onChange = (value:Dynamic) ->
@@ -36,6 +39,7 @@ class Settings extends FlxState
 			Main.framerate = Data.settings.framerate;
 		};
 		options.push(option);
+		#end
 
 		var option:Option = new Option('FPS Counter', OptionType.Toggle, Data.settings.fpsCounter);
 		option.onChange = (value:Dynamic) ->
@@ -63,20 +67,28 @@ class Settings extends FlxState
 		var option:Option = new Option('Controls', OptionType.Function, function():Void
 		{
 			Data.saveSettings();
-			FlxG.switchState(() -> new MainMenu());
+			openSubState(new Controls.DeviceSelect());
 		});
 		options.push(option);
 
 		var option:Option = new Option('Exit', OptionType.Function, function():Void
 		{
 			Data.saveSettings();
-			FlxG.switchState(() -> new MainMenu());
+			transitionState(new MainMenu());
 		});
 		options.push(option);
 	}
 
 	override public function create():Void
 	{
+		#if hxdiscord_rpc
+		jta.api.DiscordClient.changePresence('Settings Menu', null);
+		#end
+
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/settings_bg'));
+		bg.screenCenter();
+		add(bg);
+
 		var title:FlxText = new FlxText(10, 10, FlxG.width, "SETTINGS");
 		title.setFormat(Paths.font('main'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(title);
@@ -100,17 +112,9 @@ class Settings extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		if (Input.justPressed('up'))
-		{
-			selectedIndex--;
-			if (selectedIndex < 0)
-				selectedIndex = options.length - 1;
-		}
+			selectedIndex = FlxMath.wrap(selectedIndex - 1, 0, options.length - 1);
 		else if (Input.justPressed('down'))
-		{
-			selectedIndex++;
-			if (selectedIndex >= options.length)
-				selectedIndex = 0;
-		}
+			selectedIndex = FlxMath.wrap(selectedIndex + 1, 0, options.length - 1);
 
 		if (Input.justPressed('right'))
 			startHold(1);
@@ -129,6 +133,8 @@ class Settings extends FlxState
 			if (option != null)
 				option.execute();
 		}
+		else if (Input.justPressed('cancel'))
+			transitionState(new MainMenu());
 
 		selectionGroup.forEach(function(text:FlxText)
 		{

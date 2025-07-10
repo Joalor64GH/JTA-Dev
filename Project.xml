@@ -35,16 +35,13 @@
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
 
+	<haxelib name="actuate" />
+	<haxelib name="extension-webm" />
+
 	<haxelib name="hscript" />
 	<haxelib name="polymod" />
 	<haxelib name="hxdiscord_rpc" if="desktop" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
-
-	<haxelib name="jsonpath" />
-	<haxelib name="jsonpatch" />
-
-	<haxelib name="thx.core" />
-	<haxelib name="thx.semver" />
 
 	<!-- [ Haxe Defines ] -->
 

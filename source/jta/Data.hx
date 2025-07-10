@@ -12,7 +12,7 @@ package jta;
 	public var skipSplash:Bool = false;
 
 	public var keyboardBinds:Array<FlxKey> = [LEFT, DOWN, UP, RIGHT, SPACE, SHIFT, ENTER, ESCAPE];
-	public var gamepadBinds:Array<FlxGamepadInputID> = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, B, START, BACK];
+	public var gamepadBinds:Array<FlxGamepadInputID> = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, RIGHT_TRIGGER, START, BACK];
 }
 
 class Data

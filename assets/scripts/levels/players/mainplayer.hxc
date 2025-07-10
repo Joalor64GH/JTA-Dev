@@ -30,10 +30,10 @@ class MainPlayer extends Player
 	{
 		if (characterControllable)
 		{
-			if (jumping && !Input.pressed('up'))
+			if (jumping && !Input.pressed('jump'))
 				jumping = false;
 
-			if (jumpTimer >= 0 && Input.pressed('up') && velocity.y == 0)
+			if (jumpTimer >= 0 && Input.pressed('jump') && velocity.y == 0)
 			{
 				jumpTimer += elapsed;
 				jumping = true;
@@ -58,7 +58,13 @@ class MainPlayer extends Player
 			else
 				animation.play("idle");
 
-			velocity.x = Input.pressed('left') ? -150 : Input.pressed('right') ? 150 : 0;
+			if (Input.pressed('left'))
+				velocity.x = -150;
+			else if (Input.pressed('right'))
+				velocity.x = 150;
+			else
+				velocity.x = 0;
+
 			if (velocity.x != 0)
 				flipX = velocity.x < 0;
 
@@ -71,7 +77,7 @@ class MainPlayer extends Player
 			}
 
 			#if debug
-			if (FlxG.keys.justPressed.SPACE)
+			if (FlxG.keys.justPressed.F2)
 				trace('player position:' + x + ', ' + y);
 			#end
 		}
