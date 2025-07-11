@@ -17,6 +17,8 @@ enum SpriteSheetType
 @:keep
 class Paths
 {
+	public static inline final SOUND_EXT:String = #if !web "ogg" #else "mp3" #end;
+
 	static function findAsset(path:String, exts:Array<String>):String
 	{
 		for (ext in exts)
@@ -32,10 +34,10 @@ class Paths
 		return 'assets/$key.csv';
 
 	inline static public function sound(key:String, ?cache:Bool = true):Null<Sound>
-		return Assets.getSound(findAsset('assets/sounds/$key', [#if !web "ogg" #else "mp3" #end, "wav"]), cache);
+		return Assets.getSound(findAsset('assets/sounds/$key', [SOUND_EXT, "wav"]), cache);
 
 	inline static public function music(key:String, ?cache:Bool = true):Null<Sound>
-		return Assets.getSound(findAsset('assets/music/$key', [#if !web "ogg" #else "mp3" #end, "wav"]), cache);
+		return Assets.getSound(findAsset('assets/music/$key', [SOUND_EXT, "wav"]), cache);
 
 	inline static public function font(key:String, ?cache:Bool = true):Null<String>
 		return Assets.getFont(findAsset('assets/fonts/$key', ["ttf", "otf"]), cache).fontName;
@@ -47,7 +49,7 @@ class Paths
 		return 'assets/videos/$key.webm';
 
 	inline static public function videoSound(key:String, ?cache:Bool = true):Null<Sound>
-		return Assets.getSound(findAsset('assets/videos/$key', [#if !web "ogg" #else "mp3" #end, "wav"]), cache);
+		return Assets.getSound(findAsset('assets/videos/$key', [SOUND_EXT, "wav"]), cache);
 
 	public static inline function spritesheet(key:String, ?type:SpriteSheetType):Null<FlxAtlasFrames>
 	{

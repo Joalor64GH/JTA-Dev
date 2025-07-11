@@ -1,5 +1,8 @@
 import jta.Paths;
+import jta.Global;
 import jta.objects.level.Object;
+import jta.substates.LevelComplete;
+import flixel.FlxG;
 
 class FlagObject extends Object
 {
@@ -7,10 +10,19 @@ class FlagObject extends Object
 	{
 		super('flag');
 
-		loadGraphic(Paths.image('objects/' + objectID), true, 16, 16);
+		objectInteractable = true;
 
-		animation.add("wave", [1, 2, 3, 4, 5, 0], 12, true);
-		animation.add("stop", [0], 12, true);
+		loadGraphic(Paths.image('objects/' + objectID), true, 14, 16);
+
+		animation.add("wave", [1, 2, 3, 4, 0], 12, true);
 		animation.play("wave");
+	}
+
+	public override function overlap():Void
+	{
+		Global.score += 1000;
+		Global.save();
+		FlxG.state.persistentUpdate = false;
+		FlxG.state.openSubState(new LevelComplete());
 	}
 }

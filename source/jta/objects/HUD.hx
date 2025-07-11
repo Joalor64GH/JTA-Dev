@@ -20,7 +20,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		coinsTxt.setFormat(Paths.font('main'), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(coinsTxt);
 
-		scoreTxt = new FlxText(FlxG.width - 250 - 120, 10, 250, "", 24);
+		scoreTxt = new FlxText(0, 10, 250, "", 24);
 		scoreTxt.setFormat(Paths.font('main'), 24, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(scoreTxt);
 	}
@@ -30,6 +30,8 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		super.update(elapsed);
 
 		scoreTxt.text = "Score: " + Global.score;
+		scoreTxt.x = FlxG.width - scoreTxt.width - 10;
+
 		coinsTxt.text = "Coins: " + Global.coins;
 		livesTxt.text = "Lives: " + Global.lives;
 	}

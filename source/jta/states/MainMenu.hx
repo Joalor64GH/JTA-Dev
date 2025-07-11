@@ -13,6 +13,12 @@ class MainMenu extends BaseState
 
 	var selectionGroup:FlxTypedGroup<FlxText>;
 
+	var player:FlxSprite;
+
+	var animTimer:Float = 0;
+	var animCooldown:Float = 3 + FlxG.random.float(0, 2);
+	var isAnimating:Bool = false;
+
 	public function new():Void
 	{
 		super();
@@ -32,20 +38,34 @@ class MainMenu extends BaseState
 		bg.screenCenter();
 		add(bg);
 
-		var title:FlxText = new FlxText(10, 10, FlxG.width, "Journey Through Aubekhia");
-		title.setFormat(Paths.font('main'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(title);
+		var logo:FlxSprite = new FlxSprite(0, 125).loadGraphic(Paths.image('menu/mainmenu/logo'));
+		logo.scale.set(4, 4);
+		logo.screenCenter(X);
+		add(logo);
+
+		FlxTween.tween(logo, {y: logo.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
 
 		selectionGroup = new FlxTypedGroup<FlxText>();
 		add(selectionGroup);
 
 		for (i in 0...selections.length)
 		{
-			var selection:FlxText = new FlxText(10, 100 + i * 42, FlxG.width, selections[i]);
+			var selection:FlxText = new FlxText(10, 400 + i * 42, FlxG.width, selections[i]);
 			selection.setFormat(Paths.font('main'), 36, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			selection.ID = i;
 			selectionGroup.add(selection);
 		}
+
+		player = new FlxSprite(0, 700).loadGraphic(Paths.image('menu/mainmenu/playerTitle'), true, 15, 38);
+		player.animation.add('idle', [0], 1);
+		player.animation.add('blink', [1], 1);
+		player.animation.add('left', [2], 1);
+		player.animation.add('right', [3], 1);
+		player.scale.set(9.5, 9.5);
+		player.screenCenter(X);
+		add(player);
+
+		FlxTween.tween(player, {y: 500}, 1, {ease: FlxEase.quadOut});
 
 		super.create();
 	}
@@ -53,17 +73,19 @@ class MainMenu extends BaseState
 	override public function update(elapsed:Float):Void
 	{
 		if (Input.justPressed('up'))
-			selectedIndex = FlxMath.wrap(selectedIndex - 1, 0, selections.length - 1);
+			changeSelection(-1);
 		else if (Input.justPressed('down'))
-			selectedIndex = FlxMath.wrap(selectedIndex + 1, 0, selections.length - 1);
+			changeSelection(1);
 
 		if (Input.justPressed('confirm'))
 		{
 			switch (selectedIndex)
 			{
 				case 0:
+					FlxG.sound.play(Paths.sound('select'));
 					transitionState(LevelRegistry.fetchLevel(272));
 				case 1:
+					FlxG.sound.play(Paths.sound('select'));
 					transitionState(new Settings());
 				#if desktop
 				case 2:
@@ -88,5 +110,31 @@ class MainMenu extends BaseState
 		#end
 
 		super.update(elapsed);
+
+		animTimer += elapsed;
+
+		if (!isAnimating && animTimer >= animCooldown)
+		{
+			animTimer = 0;
+			animCooldown = 3 + FlxG.random.float(0, 2);
+			isAnimating = true;
+
+			var anims:Array<String> = ["idle", "left", "right"];
+			var nextAnim = FlxG.random.getObject(anims);
+
+			player.animation.play("blink");
+
+			FlxTimer.wait(0.2, function():Void
+			{
+				player.animation.play(nextAnim);
+				isAnimating = false;
+			});
+		}
+	}
+
+	private function changeSelection(num:Int):Void
+	{
+		FlxG.sound.play(Paths.sound('scroll'));
+		selectedIndex = FlxMath.wrap(selectedIndex + num, 0, selections.length - 1);
 	}
 }

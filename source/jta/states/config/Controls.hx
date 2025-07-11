@@ -6,7 +6,6 @@ import jta.input.Input;
 import jta.states.BaseState;
 import jta.states.config.Settings;
 import jta.substates.BaseSubState;
-import flixel.addons.display.shapes.FlxShapeBox;
 
 class DeviceSelect extends BaseSubState
 {
@@ -65,12 +64,13 @@ class DeviceSelect extends BaseSubState
 		}
 
 		if (Input.justPressed('up'))
-			selectedIndex = FlxMath.wrap(selectedIndex - 1, 0, selections.length - 1);
+			changeSelection(-1);
 		else if (Input.justPressed('down'))
-			selectedIndex = FlxMath.wrap(selectedIndex + 1, 0, selections.length - 1);
+			changeSelection(1);
 
 		if (Input.justPressed('confirm'))
 		{
+			FlxG.sound.play(Paths.sound('select'));
 			switch (selections[selectedIndex])
 			{
 				case "Keyboard":
@@ -82,7 +82,10 @@ class DeviceSelect extends BaseSubState
 			}
 		}
 		else if (Input.justPressed('cancel'))
+		{
+			FlxG.sound.play(Paths.sound('cancel'));
 			close();
+		}
 
 		selectionGroup.forEach(function(text:FlxText)
 		{
@@ -90,6 +93,12 @@ class DeviceSelect extends BaseSubState
 		});
 
 		super.update(elapsed);
+	}
+
+	private function changeSelection(num:Int):Void
+	{
+		FlxG.sound.play(Paths.sound('scroll'));
+		selectedIndex = FlxMath.wrap(selectedIndex + num, 0, selections.length - 1);
 	}
 }
 
@@ -128,15 +137,14 @@ class Controls extends BaseState
 
 		for (i in 0...controls.length)
 		{
-			var tag = controls[i];
-			var selection:FlxText = new FlxText(10, 100 + i * 42, FlxG.width, getBindLabel(tag, i));
+			var selection:FlxText = new FlxText(10, 100 + i * 42, FlxG.width, getBindLabel(controls[i], i));
 			selection.setFormat(Paths.font('main'), 36, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			selection.ID = i;
 			selectionGroup.add(selection);
 		}
 
 		tempBG = new FlxSprite().makeGraphic(900, FlxG.height, FlxColor.BLACK);
-		tempBG.alpha = 0.6;
+		tempBG.alpha = 0.5;
 		tempBG.visible = false;
 		add(tempBG);
 
@@ -155,9 +163,9 @@ class Controls extends BaseState
 		if (!isChangingBind)
 		{
 			if (Input.justPressed('up'))
-				selectedIndex = FlxMath.wrap(selectedIndex - 1, 0, controls.length - 1);
+				changeSelection(-1);
 			else if (Input.justPressed('down'))
-				selectedIndex = FlxMath.wrap(selectedIndex + 1, 0, controls.length - 1);
+				changeSelection(1);
 
 			if (Input.justPressed('confirm'))
 			{
@@ -170,12 +178,16 @@ class Controls extends BaseState
 				selectedText.text = controls[selectedIndex].toUpperCase() + ": ...";
 			}
 			else if (Input.justPressed('cancel'))
+			{
+				FlxG.sound.play(Paths.sound('cancel'));
 				transitionState(new Settings());
+			}
 		}
 		else
 		{
 			if (Input.justPressed('any'))
 			{
+				FlxG.sound.play(Paths.sound('select'));
 				if (isGamepad)
 				{
 					var pad:FlxGamepad = FlxG.gamepads.lastActive;
@@ -196,6 +208,12 @@ class Controls extends BaseState
 
 		updateSelection();
 		super.update(elapsed);
+	}
+
+	private function changeSelection(num:Int):Void
+	{
+		FlxG.sound.play(Paths.sound('scroll'));
+		selectedIndex = FlxMath.wrap(selectedIndex + num, 0, controls.length - 1);
 	}
 
 	function getBindLabel(tag:String, index:Int):String

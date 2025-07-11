@@ -3,7 +3,19 @@ package jta;
 class Global
 {
 	public static var coins:Int = 0;
-	public static var score:Int = 0;
+
+	private static var _score:Int = 0;
+	public static var score(get, set):Int;
+
+	static function get_score():Int
+		return _score;
+
+	static function set_score(value:Int):Int
+	{
+		_score = (value > 9999999) ? 9999999 : value;
+		return _score;
+	}
+
 	public static var lives:Int = 3;
 
 	public static function save():Void

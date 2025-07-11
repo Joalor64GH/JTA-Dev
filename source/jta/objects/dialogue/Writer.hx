@@ -2,11 +2,8 @@ package jta.objects.dialogue;
 
 import flixel.util.FlxSignal;
 import jta.registries.dialogue.TyperRegistry;
-import jta.objects.dialogue.typers.Typer;
 import jta.objects.dialogue.TextTyper;
 import jta.input.Input;
-import jta.Paths;
-import jta.Data;
 
 using flixel.util.FlxArrayUtil;
 

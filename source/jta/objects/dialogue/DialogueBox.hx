@@ -36,7 +36,7 @@ class DialogueBox extends FlxSpriteGroup
 			case CUSTOM(cx, cy): cy;
 		};
 
-		box = new FlxShapeBox(x, y, BOX_WIDTH, BOX_HEIGHT, {thickness: 6, jointStyle: MITER, color: FlxColor.WHITE}, FlxColor.BLACK);
+		box = new FlxShapeBox(x, y, BOX_WIDTH, BOX_HEIGHT, {thickness: 6, jointStyle: MITER, color: FlxColor.BLACK}, FlxColor.WHITE);
 		box.scrollFactor.set();
 		box.active = false;
 		add(box);

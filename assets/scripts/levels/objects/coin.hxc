@@ -1,6 +1,7 @@
 import jta.Paths;
 import jta.Global;
 import jta.objects.level.Object;
+import flixel.FlxG;
 
 class CoinObject extends Object
 {
@@ -19,9 +20,10 @@ class CoinObject extends Object
 	public override function overlap():Void
 	{
 		objectInteractable = false;
+		FlxG.sound.play(Paths.sound('coin'));
 		Global.coins += 1;
 		Global.score += 200;
-		if (Global.coins >= 100)
+		if (Global.coins > 99)
 		{
 			Global.coins = 0;
 			Global.lives += 1;

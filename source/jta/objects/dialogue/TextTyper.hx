@@ -29,6 +29,7 @@ class TextTyper extends FlxText
 	public function new(x:Float, y:Float):Void
 	{
 		super(x, y, 0, '', 8, true);
+		color = FlxColor.BLACK;
 	}
 
 	public override function update(elapsed:Float):Void

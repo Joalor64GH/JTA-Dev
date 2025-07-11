@@ -1,5 +1,6 @@
 package jta.substates;
 
+import jta.Paths;
 import jta.input.Input;
 import jta.states.MainMenu;
 import jta.substates.BaseSubState;
@@ -43,18 +44,20 @@ class PauseMenu extends BaseSubState
 	override public function update(elapsed:Float):Void
 	{
 		if (Input.justPressed('up'))
-			selectedIndex = FlxMath.wrap(selectedIndex - 1, 0, selections.length - 1);
+			changeSelection(-1);
 		else if (Input.justPressed('down'))
-			selectedIndex = FlxMath.wrap(selectedIndex + 1, 0, selections.length - 1);
+			changeSelection(1);
 
 		if (Input.justPressed('confirm'))
 		{
 			switch (selectedIndex)
 			{
 				case 0:
+					FlxG.sound.play(Paths.sound('select'));
 					close();
 					persistentUpdate = true;
 				case 1:
+					FlxG.sound.play(Paths.sound('cancel'));
 					transitionState(new MainMenu());
 			}
 		}
@@ -65,5 +68,11 @@ class PauseMenu extends BaseSubState
 		});
 
 		super.update(elapsed);
+	}
+
+	private function changeSelection(num:Int):Void
+	{
+		FlxG.sound.play(Paths.sound('scroll'));
+		selectedIndex = FlxMath.wrap(selectedIndex + num, 0, selections.length - 1);
 	}
 }

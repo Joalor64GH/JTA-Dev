@@ -112,9 +112,9 @@ class Settings extends BaseState
 	override public function update(elapsed:Float):Void
 	{
 		if (Input.justPressed('up'))
-			selectedIndex = FlxMath.wrap(selectedIndex - 1, 0, options.length - 1);
+			changeSelection(-1);
 		else if (Input.justPressed('down'))
-			selectedIndex = FlxMath.wrap(selectedIndex + 1, 0, options.length - 1);
+			changeSelection(1);
 
 		if (Input.justPressed('right'))
 			startHold(1);
@@ -129,12 +129,16 @@ class Settings extends BaseState
 
 		if (Input.justPressed('confirm'))
 		{
+			FlxG.sound.play(Paths.sound('select'));
 			var option:Option = options[selectedIndex];
 			if (option != null)
 				option.execute();
 		}
 		else if (Input.justPressed('cancel'))
+		{
+			FlxG.sound.play(Paths.sound('cancel'));
 			transitionState(new MainMenu());
+		}
 
 		selectionGroup.forEach(function(text:FlxText)
 		{
@@ -142,6 +146,12 @@ class Settings extends BaseState
 		});
 
 		super.update(elapsed);
+	}
+
+	private function changeSelection(num:Int):Void
+	{
+		FlxG.sound.play(Paths.sound('scroll'));
+		selectedIndex = FlxMath.wrap(selectedIndex + num, 0, options.length - 1);
 	}
 
 	private function changeValue(direction:Int = 0):Void
@@ -162,6 +172,8 @@ class Settings extends BaseState
 
 	private function startHold(direction:Int = 0):Void
 	{
+		FlxG.sound.play(Paths.sound('scroll'));
+
 		holdDirection = direction;
 
 		var option:Option = options[selectedIndex];

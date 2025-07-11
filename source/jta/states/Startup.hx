@@ -82,8 +82,6 @@ class Startup extends BaseState
 			});
 		}
 		else
-		{
 			transitionState(new MainMenu());
-		}
 	}
 }

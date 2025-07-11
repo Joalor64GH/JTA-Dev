@@ -44,9 +44,9 @@ class GameOver extends BaseSubState
 	override public function update(elapsed:Float):Void
 	{
 		if (Input.justPressed('up'))
-			selectedIndex = FlxMath.wrap(selectedIndex - 1, 0, selections.length - 1);
+			changeSelection(-1);
 		else if (Input.justPressed('down'))
-			selectedIndex = FlxMath.wrap(selectedIndex + 1, 0, selections.length - 1);
+			changeSelection(1);
 
 		if (Input.justPressed('confirm'))
 		{
@@ -55,8 +55,10 @@ class GameOver extends BaseSubState
 			switch (selectedIndex)
 			{
 				case 0:
+					FlxG.sound.play(Paths.sound('select'));
 					FlxG.resetState();
 				case 1:
+					FlxG.sound.play(Paths.sound('cancel'));
 					transitionState(new MainMenu());
 			}
 		}
@@ -67,5 +69,11 @@ class GameOver extends BaseSubState
 		});
 
 		super.update(elapsed);
+	}
+
+	private function changeSelection(num:Int):Void
+	{
+		FlxG.sound.play(Paths.sound('scroll'));
+		selectedIndex = FlxMath.wrap(selectedIndex + num, 0, selections.length - 1);
 	}
 }

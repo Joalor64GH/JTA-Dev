@@ -1,0 +1,16 @@
+import flixel.FlxG;
+import jta.Paths;
+import jta.objects.dialogue.typers.Typer;
+
+class DefaultTyper extends Typer
+{
+	public function new():Void
+	{
+		super('default');
+
+		fontName = Paths.font('main', false);
+		fontSize = 32;
+		typerSounds = [{sound: Paths.sound('txt_default', false), volume: 1}];
+		typerFPS = 2;
+	}
+}

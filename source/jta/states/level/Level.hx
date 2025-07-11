@@ -36,13 +36,14 @@ class Level extends BaseState
 	public function new(levelNumber:Int):Void
 	{
 		super();
+
 		this.levelNumber = levelNumber;
 	}
 
 	override public function create():Void
 	{
 		#if hxdiscord_rpc
-		jta.api.DiscordClient.changePresence('Playing the Game', null);
+		jta.api.DiscordClient.changePresence('Playing Level: ' + levelName, null);
 		#end
 
 		camHUD = new FlxCamera();
