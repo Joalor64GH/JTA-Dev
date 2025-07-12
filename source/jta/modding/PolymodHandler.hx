@@ -3,6 +3,10 @@ package jta.modding;
 import polymod.Polymod;
 import polymod.format.ParseRules;
 import flixel.util.FlxStringUtil;
+import jta.macros.ClassMacro;
+#if windows
+import jta.api.native.WindowsAPI;
+#end
 
 class PolymodHandler
 {
@@ -56,6 +60,24 @@ class PolymodHandler
 		Polymod.blacklistImport('Sys');
 		Polymod.blacklistImport('Reflect');
 		Polymod.blacklistImport('Type');
+
+		for (cls in ClassMacro.listClassesInPackage('polymod'))
+		{
+			if (cls == null)
+				continue;
+
+			Polymod.blacklistImport(Type.getClassName(cls));
+		}
+
+		#if sys
+		for (cls in ClassMacro.listClassesInPackage('sys'))
+		{
+			if (cls == null)
+				continue;
+
+			Polymod.blacklistImport(Type.getClassName(cls));
+		}
+		#end
 
 		#if sys
 		if (!FileSystem.exists(MOD_DIR))
@@ -136,8 +158,16 @@ class PolymodHandler
 				FlxG.log.notice('($code) ${error.message}');
 			case WARNING:
 				FlxG.log.warn('($code) ${error.message}');
+
+				#if (windows && debug)
+				WindowsAPI.messageBox(code, error.message);
+				#end
 			case ERROR:
 				FlxG.log.error('($code) ${error.message}');
+
+				#if windows
+				WindowsAPI.messageBox(code, error.message, MSG_ERROR);
+				#end
 		}
 	}
 }

@@ -12,7 +12,7 @@ class Global
 
 	static function set_score(value:Int):Int
 	{
-		_score = (value > 9999999) ? 9999999 : value;
+		_score = (value > 9999990) ? 9999990 : value;
 		return _score;
 	}
 

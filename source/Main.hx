@@ -49,6 +49,10 @@ class Main extends openfl.display.Sprite
 	{
 		super();
 
+		#if windows
+		jta.api.native.WindowsAPI.darkMode(true);
+		#end
+
 		#if hxdiscord_rpc
 		jta.api.DiscordClient.load();
 		#end

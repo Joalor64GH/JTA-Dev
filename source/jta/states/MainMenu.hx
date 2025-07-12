@@ -19,6 +19,8 @@ class MainMenu extends BaseState
 	var animCooldown:Float = 3 + FlxG.random.float(0, 2);
 	var isAnimating:Bool = false;
 
+	var versionTxt:FlxText;
+
 	public function new():Void
 	{
 		super();
@@ -67,6 +69,10 @@ class MainMenu extends BaseState
 
 		FlxTween.tween(player, {y: 500}, 1, {ease: FlxEase.quadOut});
 
+		versionTxt = new FlxText(0, FlxG.height - 30, 250, "v" + Lib.application.meta.get('version') + " (DEMO)", 24);
+		versionTxt.setFormat(Paths.font('main'), 24, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(versionTxt);
+
 		super.create();
 	}
 
@@ -87,10 +93,12 @@ class MainMenu extends BaseState
 				case 1:
 					FlxG.sound.play(Paths.sound('select'));
 					transitionState(new Settings());
-				#if desktop
 				case 2:
+					#if desktop
 					Sys.exit(0);
-				#end
+					#elseif web
+					lime.utils.Log.error('What?! This shouldn\'t be possible!');
+					#end
 			}
 		}
 
@@ -110,6 +118,8 @@ class MainMenu extends BaseState
 		#end
 
 		super.update(elapsed);
+
+		versionTxt.x = FlxG.width - versionTxt.width - 10;
 
 		animTimer += elapsed;
 

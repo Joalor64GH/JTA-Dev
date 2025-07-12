@@ -103,6 +103,10 @@ class TextTyper extends FlxText
 		if (offset != typer.typerOffset)
 			offset.copyFrom(typer.typerOffset);
 
+		for (s in sounds)
+			s.destroy();
+		sounds = [];
+
 		for (typingSound in typer.typerSounds)
 		{
 			if (typingSound == null)

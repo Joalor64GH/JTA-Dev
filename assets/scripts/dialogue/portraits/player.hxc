@@ -1,0 +1,24 @@
+import jta.Paths;
+import jta.objects.dialogue.portraits.Portrait;
+
+class PlayerPortrait extends Portrait
+{
+	public function new():Void
+	{
+		super('player');
+
+		loadGraphic(Paths.image('portraits/face_player'));
+		scale.set(2, 2);
+		updateHitbox();
+
+		offset.set(-45, -45);
+
+		active = false;
+	}
+
+	public override function changeFace(name:String):Void
+	{
+		if (Paths.exists(Paths.image('portraits/face_player' + name)))
+			loadGraphic(Paths.image('portraits/face_player' + name));
+	}
+}

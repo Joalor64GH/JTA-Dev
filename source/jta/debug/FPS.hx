@@ -1,9 +1,10 @@
 package jta.debug;
 
 import jta.Paths;
-import openfl.text.*;
 import openfl.events.Event;
 import openfl.system.System;
+import openfl.text.TextField;
+import openfl.text.TextFormat;
 
 class FPS extends TextField
 {
@@ -54,13 +55,13 @@ class FPS extends TextField
 			textColor = (times.length < FlxG.drawFramerate * 0.5) ? 0xFFFF0000 : 0xFFFFFFFF;
 		});
 
-		addEventListener(Event.REMOVED, function(_)
+		addEventListener(Event.REMOVED, function(_):Void
 		{
 			for (border in borders)
 				this.parent.removeChild(border);
 		});
 
-		addEventListener(Event.ADDED, function(_)
+		addEventListener(Event.ADDED, function(_):Void
 		{
 			for (border in borders)
 				this.parent.addChildAt(border, this.parent.getChildIndex(this));

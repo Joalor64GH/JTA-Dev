@@ -1,15 +1,17 @@
 import jta.Paths;
 import jta.objects.dialogue.typers.Typer;
 
-class DefaultTyper extends Typer
+class SignTyper extends Typer
 {
 	public function new():Void
 	{
-		super('default');
+		super('sign');
 
 		fontName = Paths.font('main', false);
 		fontSize = 32;
-		typerSounds = [{sound: Paths.sound('txt_default', false), volume: 1}];
+
+		typerOffset.set(-20, -20);
+		typerSounds = [{sound: Paths.sound('txt_sign', false), volume: 1}];
 		typerFPS = 2;
 	}
 }

@@ -1,0 +1,55 @@
+import jta.Paths;
+import jta.Global;
+import jta.objects.level.Object;
+import jta.substates.LevelComplete;
+import flixel.util.FlxTimer;
+import flixel.FlxG;
+
+class RouletteObject extends Object
+{
+	var locked:Bool = false;
+
+	public function new():Void
+	{
+		super('roulette');
+
+		objectInteractable = true;
+
+		loadGraphic(Paths.image('objects/' + objectID), true, 16, 16);
+		animation.add("random", [0, 1, 2, 3], 12, true);
+		animation.play("random");
+	}
+
+	public override function overlap():Void
+	{
+		if (FlxG.state.player != null && !locked)
+		{
+			locked = true;
+			animation.curAnim.stop();
+
+			FlxG.sound.play(Paths.sound('coin'));
+
+			switch (animation.curAnim.curFrame)
+			{
+				case 0:
+					Global.score += 100;
+				case 1:
+					Global.score += 300;
+				case 2:
+					Global.score += 500;
+				case 3:
+					Global.lives += 1;
+			}
+			Global.save();
+
+			FlxG.state.player.characterControllable = false;
+			FlxG.state.player.velocity.x = 0;
+
+			new FlxTimer().start(2, function(tmr:FlxTimer):Void
+			{
+				FlxG.state.persistentUpdate = false;
+				FlxG.state.openSubState(new LevelComplete());
+			});
+		}
+	}
+}
