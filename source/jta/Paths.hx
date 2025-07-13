@@ -17,7 +17,8 @@ enum SpriteSheetType
 @:keep
 class Paths
 {
-	public static inline final SOUND_EXT:String = #if !web "ogg" #else "mp3" #end;
+	public static final SOUND_EXT:String = #if !web "ogg" #else "mp3" #end;
+	public static final getText:String->String = #if sys File.getContent #else Assets.getText #end;
 
 	static function findAsset(path:String, exts:Array<String>):String
 	{
@@ -29,6 +30,12 @@ class Paths
 
 	public static function exists(path:String):Bool
 		return Assets.exists(path);
+
+	inline public static function getTextArray(path:String):Array<String>
+		return exists(path) ? [for (i in getText(path).trim().split('\n')) i.trim()] : [];
+
+	inline static public function txt(key:String):String
+		return 'assets/$key.txt';
 
 	inline static public function csv(key:String):String
 		return 'assets/$key.csv';

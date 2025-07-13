@@ -1,11 +1,11 @@
 # To-Dos
 ## Current To-Dos
-* [ ] Level Selection
+* [X] Level Selection
 * [ ] Tiles
 * [ ] Music
 * [ ] Enemies
 * [ ] Added more polymod feature
-* [ ] Crash Handler
+* [X] Crash Handler
 * [ ] World 1 Demo
 
 ## Future To-Dos

@@ -3,12 +3,12 @@ package jta.states;
 import jta.Paths;
 import jta.input.Input;
 import jta.states.BaseState;
+import jta.states.LevelSelect;
 import jta.states.config.Settings;
-import jta.registries.LevelRegistry;
 
 class MainMenu extends BaseState
 {
-	var selections:Array<String> = ["Start Game", "Options"];
+	var selections:Array<String> = ["Start Game", "Settings"];
 	var selectedIndex:Int = 0;
 
 	var selectionGroup:FlxTypedGroup<FlxText>;
@@ -89,7 +89,7 @@ class MainMenu extends BaseState
 			{
 				case 0:
 					FlxG.sound.play(Paths.sound('select'));
-					transitionState(LevelRegistry.fetchLevel(272));
+					transitionState(new LevelSelect());
 				case 1:
 					FlxG.sound.play(Paths.sound('select'));
 					transitionState(new Settings());

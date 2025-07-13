@@ -17,6 +17,7 @@ class Global
 	}
 
 	public static var lives:Int = 3;
+	public static var flags:Array<Int> = [for (i in 0...25) 0];
 
 	public static function save():Void
 	{
@@ -25,6 +26,7 @@ class Global
 		save.data.coins = coins;
 		save.data.score = score;
 		save.data.lives = lives;
+		save.data.flags = flags;
 		save.close();
 	}
 
@@ -42,6 +44,9 @@ class Global
 
 			if (save.data.lives != null)
 				lives = save.data.lives;
+
+			if (save.data.flags != null)
+				flags = save.data.flags;
 		}
 		save.destroy();
 	}

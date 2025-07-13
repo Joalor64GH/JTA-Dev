@@ -1,5 +1,5 @@
-import jta.Paths;
 import jta.objects.dialogue.portraits.Portrait;
+import jta.Paths;
 
 class SignPortrait extends Portrait
 {

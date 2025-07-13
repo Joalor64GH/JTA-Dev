@@ -4,7 +4,7 @@
 	<!-- [ Application Settings ] -->
 
 	<app title="Journey Through Aubekhia" package="com.joalor64.jta" file="JTA" main="Main"
-		path="export" version="0.1.0" company="Joalor64" />
+		version="0.1.0" company="Joalor64" />
 
 	<!-- [ Window Settings ] -->
 
@@ -22,6 +22,9 @@
 		allow-high-dpi="true" />
 
 	<!-- [ Path Settings ] -->
+
+	<set name="BUILD_DIR" value="export/debug" if="debug" />
+	<set name="BUILD_DIR" value="export/release" unless="debug" />
 
 	<source path="source" />
 
@@ -57,6 +60,12 @@
 
 	<section if="debug" unless="NO_REDIRECT_ASSETS_FOLDER || html5">
 		<haxedef name="REDIRECT_ASSETS_FOLDER" />
+	</section>
+
+	<section if="desktop release">
+		<haxedef name="HXCPP_CHECK_POINTER" />
+		<haxedef name="HXCPP_STACK_LINE" />
+		<haxedef name="HXCPP_STACK_TRACE" />
 	</section>
 
 	<section if="polymod">
