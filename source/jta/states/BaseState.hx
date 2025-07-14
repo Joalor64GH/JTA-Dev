@@ -4,6 +4,7 @@ import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.TransitionData;
 import flixel.graphics.FlxGraphic;
 import jta.states.Startup;
+import jta.Data;
 
 class BaseState extends FlxTransitionableState
 {
@@ -39,6 +40,9 @@ class BaseState extends FlxTransitionableState
 
 	override public function update(elapsed:Float):Void
 	{
+		if (FlxG.save.data != null)
+			FlxG.fullscreen = Data.settings.fullscreen;
+
 		super.update(elapsed);
 
 		if (FlxG.stage != null)
