@@ -42,10 +42,6 @@ jobs:
           haxelib install dox
           haxelib install format
           haxelib list
-
-      - name: Rebuild extension-webm
-        run: |
-          haxelib run lime rebuild extension-webm linux
       
       - name: Create Documentation Site
         run: |
