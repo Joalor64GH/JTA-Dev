@@ -67,7 +67,7 @@ class BaseState extends FlxTransitionableState
 		FlxG.switchState(state);
 	}
 
-	public function resetState():Void
+	public static function resetState():Void
 	{
 		transitionState(FlxG.state);
 	}
