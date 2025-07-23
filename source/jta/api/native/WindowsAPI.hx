@@ -1,7 +1,7 @@
 package jta.api.native;
 
 /**
- * Class for Windows API interactions.
+ * Class for Windows API-related functions.
  */
 #if windows
 @:buildXml('
