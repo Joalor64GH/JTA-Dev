@@ -3,7 +3,6 @@ package jta.substates;
 import jta.Paths;
 import jta.input.Input;
 import jta.states.MainMenu;
-import jta.states.BaseState;
 import jta.substates.BaseSubState;
 
 class PauseMenu extends BaseSubState
@@ -58,7 +57,7 @@ class PauseMenu extends BaseSubState
 					close();
 				case 1:
 					FlxG.sound.play(Paths.sound('select'));
-					BaseState.resetState();
+					FlxG.resetState();
 				case 2:
 					FlxG.sound.play(Paths.sound('cancel'));
 					transitionState(new MainMenu());
