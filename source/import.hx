@@ -21,10 +21,10 @@ import sys.io.*;
 import openfl.Assets;
 #end
 import haxe.*;
+#end
 
 using StringTools;
 
 #if !debug
 @:noDebug
-#end
 #end

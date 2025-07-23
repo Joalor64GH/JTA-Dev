@@ -14,12 +14,19 @@ typedef GameConfig =
 	var startFullscreen:Bool;
 }
 
+/**
+ * The main entry point for the game.
+ */
 #if (linux && !debug)
 @:cppInclude('./external/gamemode_client.h')
 @:cppFileCode('#define GAMEMODE_AUTO')
 #end
 class Main extends openfl.display.Sprite
 {
+	/**
+	 * Configuration for the game.
+	 * This includes the game dimensions, framerate, initial state, and options for splash screen and fullscreen.
+	 */
 	public final config:GameConfig = {
 		gameDimensions: [800, 600],
 		framerate: 60,
@@ -28,7 +35,11 @@ class Main extends openfl.display.Sprite
 		startFullscreen: false
 	};
 
+	/**
+	 * The frame rate display.
+	 */
 	public static var fpsDisplay:FPS;
+
 	public static var framerate(get, set):Float;
 
 	static function set_framerate(cap:Float):Float
@@ -44,6 +55,9 @@ class Main extends openfl.display.Sprite
 	static function get_framerate():Float
 		return Lib.current.stage.frameRate;
 
+	/**
+	 * Initialized the game and sets up the application.
+	 */
 	public function new():Void
 	{
 		super();

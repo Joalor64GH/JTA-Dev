@@ -1,14 +1,17 @@
 # To-Dos
 ## Current To-Dos
-* [X] Level Selection
-* [ ] Tiles
+* [X] Tiles
 * [ ] Music
 * [ ] Enemies
 * [ ] Added more polymod feature
-* [X] Crash Handler
 * [ ] World 1 Demo
+    * [ ] Level 1 (Fresh Start)
+    * [ ] Level 2 (Keep Going!)
+    * [ ] Level 3 (Walkathon)
+    * [ ] World 1 End Cutscene
 
 ## Future To-Dos
-* World Selection
+* Interactive World Selection
 * Credits Menu
 * Worlds 2-4
+* Android Support

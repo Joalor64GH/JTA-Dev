@@ -5,12 +5,15 @@ import jta.Global;
 import jta.input.Input;
 import jta.modding.PolymodHandler;
 import jta.states.BaseState;
+import flixel.sound.FlxSound;
 
 class Startup extends BaseState
 {
 	var bg:FlxSprite;
 	var haxeflixel:FlxSprite;
 	var haxeflixelTxt:FlxText;
+
+	var blipSnd:FlxSound;
 
 	static public var transitionsAllowed:Bool = false;
 
@@ -25,6 +28,8 @@ class Startup extends BaseState
 
 		if (!Data.settings.skipSplash)
 		{
+			blipSnd = FlxG.sound.load(Paths.sound('blip'));
+
 			bg = new FlxSprite().loadGraphic(Paths.image('menu/start_bg'));
 			bg.screenCenter();
 			add(bg);
@@ -47,6 +52,7 @@ class Startup extends BaseState
 
 			new FlxTimer().start(0.041, function(tmr:FlxTimer):Void
 			{
+				playBlip();
 				haxeflixel.alpha = 1;
 				haxeflixel.animation.play("green");
 				haxeflixelTxt.text = "Made";
@@ -54,24 +60,28 @@ class Startup extends BaseState
 			});
 			new FlxTimer().start(0.184, function(tmr:FlxTimer):Void
 			{
+				playBlip();
 				haxeflixel.animation.play("yellow");
 				haxeflixelTxt.text = "Made with";
 				haxeflixelTxt.color = 0xffc132;
 			});
 			new FlxTimer().start(0.334, function(tmr:FlxTimer):Void
 			{
+				playBlip();
 				haxeflixel.animation.play("red");
 				haxeflixelTxt.text = "Made with Haxe";
 				haxeflixelTxt.color = 0xf5274e;
 			});
 			new FlxTimer().start(0.495, function(tmr:FlxTimer):Void
 			{
+				playBlip();
 				haxeflixel.animation.play("blue");
 				haxeflixelTxt.text = "Made with HaxeFli";
 				haxeflixelTxt.color = 0x3641ff;
 			});
 			new FlxTimer().start(0.636, function(tmr:FlxTimer):Void
 			{
+				playBlip();
 				haxeflixel.animation.play("full");
 				haxeflixelTxt.text = "Made with HaxeFlixel";
 				haxeflixelTxt.color = 0x04cdfb;
@@ -83,5 +93,16 @@ class Startup extends BaseState
 		}
 		else
 			transitionState(new MainMenu());
+	}
+
+	function playBlip():Void
+	{
+		if (blipSnd != null)
+		{
+			blipSnd.play();
+			blipSnd.pitch = FlxG.random.float(0.8, 1.2);
+		}
+		else
+			FlxG.sound.play(Paths.sound('blip'));
 	}
 }

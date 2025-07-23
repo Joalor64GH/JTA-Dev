@@ -8,8 +8,15 @@ import jta.macros.ClassMacro;
 import jta.api.native.WindowsAPI;
 #end
 
+/**
+ * Handles the initialization and management of mods in the game.
+ * @see https://github.com/FunkinCrew/Funkin/blob/main/source/funkin/modding/PolymodHandler.hx
+ */
 class PolymodHandler
 {
+	/**
+	 * The root directory for mods.
+	 */
 	static final MOD_DIR:String =
 		#if (REDIRECT_ASSETS_FOLDER && macos)
 		'../../../../../../../mods'
@@ -18,6 +25,10 @@ class PolymodHandler
 		#else
 		'mods'
 		#end;
+
+	/**
+	 * The core directory for assets.
+	 */
 	static final CORE_DIR:String =
 		#if (REDIRECT_ASSETS_FOLDER && macos)
 		'../../../../../../../assets'
@@ -31,10 +42,20 @@ class PolymodHandler
 		#end
 		#end;
 
+	/**
+	 * The API version of the modding system.
+	 */
 	static final API_VERSION:String = '1.0.0';
 
+	/**
+	 * Stores the metadata of currently loaded mods.
+	 */
 	public static var trackedMods:Array<ModMetadata> = [];
 
+	/**
+	 * Loads all mods and initializes the Polymod system.
+	 * @param framework The framework to use for modding.
+	 */
 	public static function init(?framework:Null<Framework>):Void
 	{
 		Polymod.clearScripts();

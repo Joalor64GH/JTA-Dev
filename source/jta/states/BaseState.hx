@@ -6,8 +6,15 @@ import flixel.graphics.FlxGraphic;
 import jta.states.Startup;
 import jta.Data;
 
+/**
+ * Base class used for all states in the game.
+ * @author Joalor64
+ */
 class BaseState extends FlxTransitionableState
 {
+	/**
+	 * @param noTransition Whether or not to skip the transition when entering a state.
+	 */
 	override public function new(?noTransition:Bool = false):Void
 	{
 		super();
@@ -58,5 +65,10 @@ class BaseState extends FlxTransitionableState
 		FlxTransitionableState.skipNextTransOut = noTransition;
 
 		FlxG.switchState(state);
+	}
+
+	public function resetState():Void
+	{
+		transitionState(FlxG.state);
 	}
 }

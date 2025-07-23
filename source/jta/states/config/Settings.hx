@@ -7,6 +7,10 @@ import jta.states.BaseState;
 import jta.states.config.Option;
 import jta.states.config.Controls;
 
+/**
+ * Settings menu to configure game options.
+ * @author Joalor64
+ */
 class Settings extends BaseState
 {
 	var options:Array<Option> = [];

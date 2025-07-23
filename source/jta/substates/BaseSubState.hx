@@ -2,6 +2,10 @@ package jta.substates;
 
 import jta.Data;
 
+/**
+ * Base class used for all substates in the game.
+ * @author Joalor64
+ */
 class BaseSubState extends FlxSubState
 {
 	override public function create():Void
@@ -12,7 +16,7 @@ class BaseSubState extends FlxSubState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		
+
 		FlxG.stage.frameRate = Data.settings.framerate;
 	}
 

@@ -1,5 +1,8 @@
 package jta.api.native;
 
+/**
+ * Class for Windows API interactions.
+ */
 #if windows
 @:buildXml('
     <target id="haxe">
@@ -29,6 +32,10 @@ class WindowsAPI
     ')
 	public static function setDarkMode(enable:Bool) {}
 
+	/**
+	 * Enables or disables dark mode for the current application window.
+	 * @param enable Whether to enable or disable dark mode.
+	 */
 	public static function darkMode(enable:Bool)
 	{
 		setDarkMode(enable);
@@ -41,12 +48,21 @@ class WindowsAPI
     ')
 	public static function showMessageBox(caption:String, message:String, icon:MessageBoxIcon = MSG_WARNING) {}
 
+	/**
+	 * Shows a message box with the specified caption, message, and icon.
+	 * @param caption The caption of the message box.
+	 * @param message The message to display in the message box.
+	 * @param icon The icon to display in the message box.
+	 */
 	public static function messageBox(caption:String, message:String, icon:MessageBoxIcon = MSG_WARNING)
 	{
 		showMessageBox(caption, message, icon);
 	}
 }
 
+/**
+ * Enum for message box icons.
+ */
 @:enum abstract MessageBoxIcon(Int)
 {
 	var MSG_ERROR:MessageBoxIcon = 0x00000010;

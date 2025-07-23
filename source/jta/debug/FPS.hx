@@ -6,12 +6,19 @@ import openfl.system.System;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 
+/**
+ * Class for displaying FPS and memory usage in the game.
+ * @author Joalor64
+ */
 class FPS extends TextField
 {
 	public var borderSize:Int = 1;
 
 	private final borders:Array<TextField> = new Array<TextField>();
 
+	/**
+	 * Array to store timestamps for FPS calculation.
+	 */
 	var times:Array<Float> = [];
 
 	public function new(x:Float, y:Float, color:Int, ?font:String):Void

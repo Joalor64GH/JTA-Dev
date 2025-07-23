@@ -133,6 +133,11 @@ class LevelSelect extends BaseState
 		super.update(elapsed);
 	}
 
+	/**
+	 * Formats the level path to a consistent format.
+	 * @param path The path to format.
+	 * @return The formatted path.
+	 */
 	private function formatLevelPath(path:String):String
 		return path.toLowerCase().replace(' ', '-');
 }

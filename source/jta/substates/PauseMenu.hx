@@ -3,11 +3,12 @@ package jta.substates;
 import jta.Paths;
 import jta.input.Input;
 import jta.states.MainMenu;
+import jta.states.BaseState;
 import jta.substates.BaseSubState;
 
 class PauseMenu extends BaseSubState
 {
-	var selections:Array<String> = ["Resume", "Return to Menu"];
+	var selections:Array<String> = ["Resume", "Restart", "Return to Menu"];
 	var selectedIndex:Int = 0;
 
 	var selectionGroup:FlxTypedGroup<FlxText>;
@@ -55,8 +56,10 @@ class PauseMenu extends BaseSubState
 				case 0:
 					FlxG.sound.play(Paths.sound('select'));
 					close();
-					persistentUpdate = true;
 				case 1:
+					FlxG.sound.play(Paths.sound('select'));
+					BaseState.resetState();
+				case 2:
 					FlxG.sound.play(Paths.sound('cancel'));
 					transitionState(new MainMenu());
 			}

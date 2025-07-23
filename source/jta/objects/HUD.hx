@@ -2,10 +2,25 @@ package jta.objects;
 
 import jta.Global;
 
+/**
+ * Class to hold all HUD elements.
+ * @author Joalor64
+ */
 class HUD extends FlxTypedGroup<FlxSprite>
 {
+	/**
+	 * Displays the current score.
+	 */
 	var scoreTxt:FlxText;
+
+	/**
+	 * Displays the current coins.
+	 */
 	var coinsTxt:FlxText;
+
+	/**
+	 * Displays the current lives.
+	 */
 	var livesTxt:FlxText;
 
 	public function new():Void

@@ -15,10 +15,19 @@ package jta;
 	public var gamepadBinds:Array<FlxGamepadInputID> = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, RIGHT_TRIGGER, START, BACK];
 }
 
+/**
+ * Handles saving and loading game settings.
+ */
 class Data
 {
+	/**
+	 * Stores the game settings.
+	 */
 	public static var settings:Settings = {};
 
+	/**
+	 * Loads the settings from the save data and applies them.
+	 */
 	public static function init():Void
 	{
 		for (key in Reflect.fields(settings))
@@ -37,6 +46,9 @@ class Data
 		Main.framerate = settings.framerate;
 	}
 
+	/**
+	 * Saves the current settings to the save data.
+	 */
 	public static function saveSettings():Void
 	{
 		for (key in Reflect.fields(settings))

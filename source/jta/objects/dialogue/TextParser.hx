@@ -1,22 +1,57 @@
 package jta.objects.dialogue;
 
+/**
+ * Represents parsed text with cleaned content and extracted actions.
+ */
 typedef ParsedText =
 {
+	/**
+	 * The text with tags removed.
+	 */
 	cleanedText:String,
+
+	/**
+	 * List of actions extracted from the text.
+	 */
 	actions:Array<Action>
 }
 
+/**
+ * Represents an action found in the text.
+ */
 typedef Action =
 {
+	/**
+	 * Position in the cleaned text where the action occurs.
+	 */
 	index:Int,
+
+	/**
+	 * The action type.
+	 */
 	type:String,
+
+	/**
+	 * The action value.
+	 */
 	value:String
 }
 
+/**
+ * Class for parsing text with embedded actions.
+ */
 class TextParser
 {
+	/**
+	 * Regex for matching tags in the text.
+	 */
 	private static final PARSE_REGEX:EReg = ~/(\[([a-zA-Z]+):([^\]]+)\])/;
 
+	/**
+	 * Parses the text, removing tags and returning the cleaned text and actions.
+	 * @param text The input text with potential tags.
+	 * @return A ParsedText object with the cleaned text and extracted actions.
+	 */
 	public static function parse(text:String):ParsedText
 	{
 		final cleanedText:StringBuf = new StringBuf();

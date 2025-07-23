@@ -5,6 +5,9 @@ import jta.video.GlobalVideo;
 import jta.video.VideoHandler;
 import jta.video.WebmHandler;
 
+/**
+ * Class to initialize video playback.
+ */
 class VideoInitializer
 {
 	public static function setupVideo(container:Sprite, source:String):Void

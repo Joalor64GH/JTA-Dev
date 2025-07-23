@@ -17,7 +17,7 @@ class Global
 	}
 
 	public static var lives:Int = 3;
-	public static var flags:Array<Int> = [for (i in 0...25) 0];
+	public static var flags:Array<Int> = [for (i in 0...25) 0]; // 25 flags with the value 0
 
 	public static function save():Void
 	{

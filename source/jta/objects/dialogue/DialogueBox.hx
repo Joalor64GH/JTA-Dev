@@ -5,6 +5,9 @@ import jta.registries.dialogue.PortraitRegistry;
 import jta.objects.dialogue.portraits.Portrait;
 import jta.objects.dialogue.Writer;
 
+/**
+ * Enum for the position of the dialogue box.
+ */
 enum DialogueBoxPosition
 {
 	TOP;
@@ -12,18 +15,45 @@ enum DialogueBoxPosition
 	CUSTOM(x:Int, y:Int);
 }
 
+/**
+ * A dialogue box that displays text and a character portrait.
+ */
 class DialogueBox extends FlxSpriteGroup
 {
+	/**
+	 * The width of the dialogue box.
+	 */
 	private static final BOX_WIDTH:Int = 600;
+
+	/**
+	 * The height of the dialogue box.
+	 */
 	private static final BOX_HEIGHT:Int = 150;
 
+	/**
+	 * A function that's called when the dialogue finishes.
+	 */
 	public var finishCallback:Void->Void;
 
+	/**
+	 * The background box of the dialogue, rendered as a `FlxShapeBox`.
+	 */
 	private var box:FlxShapeBox;
+
+	/**
+	 * The current portrait being displayed in the dialogue box.
+	 */
 	private var portrait:Portrait;
 
+	/**
+	 * The writer that handles displaying text in the dialogue box.
+	 */
 	private var writer(default, null):Writer;
 
+	/**
+	 * Initializes the dialogue box with a specified position.
+	 * @param position The position of the dialogue box on the screen.
+	 */
 	public function new(?position:DialogueBoxPosition = BOTTOM):Void
 	{
 		super();
@@ -97,6 +127,10 @@ class DialogueBox extends FlxSpriteGroup
 		setBoxPosition(x, y);
 	}
 
+	/**
+	 * Starts the dialogue with the provided list of dialogue data.
+	 * @param list The list of `WriterData` objects representing dialogue pages.
+	 */
 	public inline function startDialogue(list:Array<WriterData>):Void
 	{
 		writer.startDialogue(list);

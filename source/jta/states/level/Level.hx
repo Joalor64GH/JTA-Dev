@@ -15,22 +15,60 @@ import jta.input.Input;
 import jta.Global;
 import jta.Paths;
 
+/**
+ * Base class for all levels in the game.
+ * @author Joalor64
+ */
 class Level extends BaseState
 {
+	/**
+	 * Current level number.
+	 */
 	public var levelNumber:Int;
+
+	/**
+	 * Current level name.
+	 */
 	public var levelName:String;
 
+	/**
+	 * Current player character in the level.
+	 */
 	private var player:Player;
 
+	/**
+	 * Main tilemap for the level.
+	 */
 	private var map:FlxTilemap;
+
+	/**
+	 * Background tilemap for the level.
+	 */
 	private var background:FlxTilemap;
+
+	/**
+	 * Group containing all objects in the level.
+	 */
 	private var objects:FlxTypedGroup<Object>;
 
+	/**
+	 * `flixel.FlxCamera` used for the HUD.
+	 */
 	private var camHUD:FlxCamera;
+
+	/**
+	 * UI used by `Level`.
+	 */
 	private var hud:HUD;
 
+	/**
+	 * Whether the camera should follow the `Player` or not.
+	 */
 	private var camFollowControllable:Bool = false;
 
+	/**
+	 * Dialogue box used for displaying dialogue.
+	 */
 	private var dialogueBox:DialogueBox;
 
 	public function new(levelNumber:Int):Void
@@ -115,6 +153,13 @@ class Level extends BaseState
 		}
 	}
 
+	/**
+	 * Creates a new player character in the level.
+	 * @param id The player ID to load.
+	 * @param x The x position to spawn the player at.
+	 * @param y The y position to spawn the player at.
+	 * @return The created player.
+	 */
 	public function loadPlayer(id:String, x:Float, y:Float):Player
 	{
 		player = PlayerRegistry.fetchPlayer(id);
@@ -123,6 +168,13 @@ class Level extends BaseState
 		return player;
 	}
 
+	/**
+	 * Creates a new object in the level.
+	 * @param id The object ID to load.
+	 * @param x The x position to spawn the object at.
+	 * @param y The y position to spawn the object at.
+	 * @return The created object.
+	 */
 	public function createObject(id:String, x:Float, y:Float):Object
 	{
 		if (objects == null)
@@ -133,6 +185,14 @@ class Level extends BaseState
 		return objects.add(object);
 	}
 
+	/**
+	 * Loads the main tilemap for the level.
+	 * @param path The path to the CSV file for the tilemap.
+	 * @param image The image to use for the tilemap.
+	 * @param w The width of each tile in the tilemap.
+	 * @param h The height of each tile in the tilemap.
+	 * @return The tilemap at `path` (if it exists).
+	 */
 	public function loadMap(path:String, image:String, ?w:Int = 16, ?h:Int = 16):FlxTilemap
 	{
 		map = new FlxTilemap();
@@ -141,14 +201,31 @@ class Level extends BaseState
 		return map;
 	}
 
-	public function loadMapBackground(path:String, image:String, ?w:Int = 16, ?h:Int = 16):FlxTilemap
+	/**
+	 * Loads the background tilemap for the level.
+	 * @param path The path to the CSV file for the background tilemap.
+	 * @param image The image to use for the background tilemap.
+	 * @param w The width of each tile in the tilemap.
+	 * @param h The height of each tile in the tilemap.
+	 * @param scrollFactorX The scroll factor for the X axis.
+	 * @param scrollFactorY The scroll factor for the Y axis.
+	 * @return The tilemap at `path` (if it exists).
+	 */
+	public function loadMapBackground(path:String, image:String, ?w:Int = 16, ?h:Int = 16, ?scrollFactorX:Float = 1, ?scrollFactorY:Float = 1):FlxTilemap
 	{
 		background = new FlxTilemap();
 		background.loadMapFromCSV(Paths.csv('levels/' + path + '-background'), Paths.image('tiles/' + image + '_bg'), w, h);
+		background.scrollFactor.set(scrollFactorX, scrollFactorY);
 		add(background);
 		return background;
 	}
 
+	/**
+	 * Loads objects from a CSV file.
+	 * @param path The path to the CSV file containing object IDs.
+	 * @param w The width of each object in the CSV file.
+	 * @param h The height of each object in the CSV file.
+	 */
 	public function loadObjects(path:String, ?w:Int = 16, ?h:Int = 16):Void
 	{
 		var rows = Assets.getText(Paths.csv('levels/' + path + '-objects')).split("\n");
@@ -165,6 +242,12 @@ class Level extends BaseState
 		}
 	}
 
+	/**
+	 * Starts dialogue with the given `dialogue` data.
+	 * @param dialogue The dialogue data needed for the `Writer` to display.
+	 * @param finishCallback What to do when the dialogue finishes.
+	 * @param position The position of the dialogue box on the screen.
+	 */
 	public function startDialogue(dialogue:Array<WriterData>, ?finishCallback:Void->Void, ?position:DialogueBoxPosition = DialogueBoxPosition.BOTTOM):Void
 	{
 		if (dialogueBox == null || dialogueBox.alive)

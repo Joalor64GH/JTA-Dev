@@ -6,8 +6,14 @@ import haxe.io.Path;
 import jta.api.DiscordClient;
 import jta.api.native.WindowsAPI;
 
+/**
+ * Class to handle crashes in the application.
+ */
 class CrashHandler
 {
+	/**
+	 * Initializes the crash handler.
+	 */
 	public static function init()
 	{
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
@@ -85,10 +91,11 @@ class CrashHandler
 		#end
 		Sys.println('Uncaught Error: \n'
 			+ msg
-			+ '\n\nPlease report this error to the GitHub page: https://github.com/JoaTH-Team/JTA/issues\n\n> Crash Handler written by: sqirra-rng');
+			+ '\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/JoaTH-Team/JTA/issues');
 		Sys.exit(1);
 	}
 
+	#if cpp
 	private static function onFatalCrash(msg:String):Void
 	{
 		var errMsg:String = "";
@@ -133,4 +140,5 @@ class CrashHandler
 		#end
 		Sys.exit(1);
 	}
+	#end
 }

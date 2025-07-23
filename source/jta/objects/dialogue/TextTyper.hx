@@ -5,19 +5,44 @@ import jta.objects.dialogue.TextParser;
 import flixel.sound.FlxSound;
 import flixel.util.FlxSignal;
 
+/**
+ * Displays text with a typewriter effect, revealing characters one by one.
+ * Optionally plays a sound for each character and supports skipping to the end.
+ */
 class TextTyper extends FlxText
 {
+	/**
+	 * Characters that will not trigger sound playback during the typing effect.
+	 */
 	private static final IGNORE_CHARACTERS:Array<String> = [' ', '\n', '*', '^', '/', '\\'];
 
+	/**
+	 * A callback that is dispatched when the dialogue tries to call a function.
+	 */
 	public var onFunctionCall:FlxTypedSignal<String->Void> = new FlxTypedSignal<String->Void>();
+
+	/**
+	 * A callback that is dispatched when the dialogue tries to change the face of the current portrait.
+	 */
 	public var onFaceChange:FlxTypedSignal<String->Void> = new FlxTypedSignal<String->Void>();
 
+	/**
+	 * Stores the original text that is being typed out.
+	 */
 	private var originalText:String = '';
 
 	private var actions:Array<Action> = [];
 
+	/**
+	 * Current position in the text that has been revealed.
+	 */
 	private var textPos:Int = 0;
+
+	/**
+	 * The `Typer` object controlling the appearance and behavior of the typing effect.
+	 */
 	private var typer:Typer;
+
 	private var delay:Float = 0;
 	private var counter:Float = 0;
 
@@ -26,6 +51,11 @@ class TextTyper extends FlxText
 	private var finished:Bool = false;
 	private var sounds:Array<FlxSound> = [];
 
+	/**
+	 * Initializes the typer.
+	 * @param x The x-coordinate of the text.
+	 * @param y The y-coordinate of the text.
+	 */
 	public function new(x:Float, y:Float):Void
 	{
 		super(x, y, 0, '', 8, true);
@@ -59,6 +89,11 @@ class TextTyper extends FlxText
 		typer = FlxDestroyUtil.destroy(typer);
 	}
 
+	/**
+	 * Starts typing out the specified text using the provided `Typer`.
+	 * @param typer The `Typer` instance controlling the typing effect.
+	 * @param text The text to be typed out.
+	 */
 	public function start(typer:Typer, text:String):Void
 	{
 		setupTyper(typer);
@@ -77,6 +112,9 @@ class TextTyper extends FlxText
 		typing = true;
 	}
 
+	/**
+	 * Skips the typing effect, immediately displaying the full text.
+	 */
 	public function skip():Void
 	{
 		if (typing && !waiting && !finished)
