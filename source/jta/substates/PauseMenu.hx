@@ -57,7 +57,7 @@ class PauseMenu extends BaseSubState
 					close();
 				case 1:
 					FlxG.sound.play(Paths.sound('select'));
-					FlxG.resetState();
+					transitionState(FlxG.state);
 				case 2:
 					FlxG.sound.play(Paths.sound('cancel'));
 					transitionState(new MainMenu());

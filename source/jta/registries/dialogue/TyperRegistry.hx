@@ -3,10 +3,19 @@ package jta.registries.dialogue;
 import jta.objects.dialogue.typers.ScriptedTyper;
 import jta.objects.dialogue.typers.Typer;
 
+/**
+ * Handles the loading and management of scripted dialogue typer classes.
+ */
 class TyperRegistry
 {
+	/**
+	 * Map to store associations between dialogue typer IDs and scripted dialogue typer classes.
+	 */
 	private static final typerScriptedClasses:Map<String, String> = [];
 
+	/**
+	 * Loads and initializes scripted dialogue typer classes.
+	 */
 	public static function loadTypers():Void
 	{
 		clearTypers();
@@ -33,6 +42,11 @@ class TyperRegistry
 		FlxG.log.notice('Successfully loaded ${Lambda.count(typerScriptedClasses)} typer(s)!');
 	}
 
+	/**
+	 * Fetches a scripted dialogue typer by its ID.
+	 * @param typerID The ID of the typer.
+	 * @return The typer or null if not found.
+	 */
 	public static function fetchTyper(typerID:String):Null<Typer>
 	{
 		if (!typerScriptedClasses.exists(typerID))
@@ -61,6 +75,9 @@ class TyperRegistry
 		return null;
 	}
 
+	/**
+	 * Clears all loaded dialogue typers scripted classes.
+	 */
 	public static function clearTypers():Void
 	{
 		if (typerScriptedClasses != null)

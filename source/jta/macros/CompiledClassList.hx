@@ -5,6 +5,10 @@ import haxe.macro.Context:
 #end
 import haxe.rtti.Meta;
 
+/**
+ * Class for managing and retrieving lists of compiled classes.
+ * @see https://github.com/FunkinCrew/Funkin/blob/main/source/funkin/util/macro/CompiledClassList.hx
+ */
 class CompiledClassList
 {
 	@:noCompletion
@@ -42,6 +46,12 @@ class CompiledClassList
 			throw 'Class lists not properly generated. Try cleaning out your export folder, restarting your IDE, and rebuilding your project.';
 	}
 
+	/**
+	 * Retrieves a list of classes based on the given request identifier.
+	 * Initializes the class lists if they have not been initialized yet.
+	 * @param request The identifier for the requested class list.
+	 * @return A list of classes corresponding to the request identifier.
+	 */
 	public static function get(request:String):Null<List<Class<Dynamic>>>
 	{
 		if (classLists == null || Lambda.count(classLists) <= 0)
@@ -59,6 +69,12 @@ class CompiledClassList
 		return classLists.get(request);
 	}
 
+	/**
+	 * Retrieves a typed list of classes based on the given request identifier.
+	 * @param request The identifier for the requested class list.
+	 * @param type The expected type of the classes in the list.
+	 * @return A list of classes of the specified type corresponding to the request identifier.
+	 */
 	public static inline function getTyped<T>(request:String, type:Class<T>):List<Class<T>>
 	{
 		return cast get(request);

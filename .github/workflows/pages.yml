@@ -37,6 +37,7 @@ jobs:
           haxelib install thx.semver
           haxelib git jsonpath https://github.com/EliteMasterEric/jsonpath.git
           haxelib install jsonpatch
+          haxelib install firetongue
           haxelib install hxdiscord_rpc
           haxelib install hxcpp-debug-server
           haxelib install dox

@@ -3,10 +3,19 @@ package jta.registries;
 import jta.states.level.Level;
 import jta.states.level.ScriptedLevel;
 
+/**
+ * Handles the loading and management of level classes within the game.
+ */
 class LevelRegistry
 {
+	/**
+	 * Map to store associations between level numbers and their classes.
+	 */
 	private static final levelScriptedClasses:Map<Int, String> = [];
 
+	/**
+	 * Loads and initializes level classes.
+	 */
 	public static function loadLevels():Void
 	{
 		clearLevels();
@@ -33,6 +42,11 @@ class LevelRegistry
 		FlxG.log.notice('Successfully loaded ${Lambda.count(levelScriptedClasses)} level(s)!');
 	}
 
+	/**
+	 * Fetches a level by its number.
+	 * @param levelNumber The number of the level.
+	 * @return The level or null if not found.
+	 */
 	public static function fetchLevel(levelNumber:Int):Null<Level>
 	{
 		if (!levelScriptedClasses.exists(levelNumber))
@@ -61,6 +75,9 @@ class LevelRegistry
 		return null;
 	}
 
+	/**
+	 * Clears all loaded level classes.
+	 */
 	public static function clearLevels():Void
 	{
 		if (levelScriptedClasses != null)

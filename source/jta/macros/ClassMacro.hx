@@ -5,8 +5,18 @@ import haxe.macro.Expr;
 import haxe.macro.Type;
 import jta.macros.MacroUtil;
 
+/**
+ * Macros to generate lists of classes at compile time.
+ * @see https://github.com/FunkinCrew/Funkin/blob/main/source/funkin/util/macro/ClassMacro.hx
+ */
 class ClassMacro
 {
+	/**
+	 * Gets a list of `Class<T>` for all classes in a specified package.
+	 * @param targetPackage A String containing the package name to query.
+	 * @param includeSubPackages Whether to include classes located in sub-packages of the target package.
+	 * @return A list of classes matching the specified criteria.
+	 */
 	public static macro function listClassesInPackage(targetPackage:String, includeSubPackages:Bool = true):ExprOf<Iterable<Class<Dynamic>>>
 	{
 		if (!onGenerateCallbackRegistered)
@@ -23,6 +33,11 @@ class ClassMacro
 		return macro jta.macros.CompiledClassList.get($v{request});
 	}
 
+	/**
+	 * Get a list of `Class<T>` for all classes extending a specified class.
+	 * @param targetClass The class to query for subclasses.
+	 * @return A list of classes matching the specified criteria.
+	 */
 	public static macro function listSubclassesOf<T>(targetClassExpr:ExprOf<Class<T>>):ExprOf<List<Class<T>>>
 	{
 		if (!onGenerateCallbackRegistered)

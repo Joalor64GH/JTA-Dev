@@ -56,7 +56,7 @@ class Main extends openfl.display.Sprite
 		return Lib.current.stage.frameRate;
 
 	/**
-	 * Initialized the game and sets up the application.
+	 * Initializes the game and sets up the application.
 	 */
 	public function new():Void
 	{

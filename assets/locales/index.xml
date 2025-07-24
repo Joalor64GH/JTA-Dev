@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+
+    <file id="data" value="data.csv" />
+    <file id="menu" value="menu.csv" />
+
+    <file id="fonts" value="fonts.xml" />
+
+    <!-- American English -->
+    <locale id="en-US" is_default="true" sort="0">
+        <contributors value="Joalor64" />
+        <ui language="Language" region="Region" accept="Okay" />
+        <label id="en-US" language="English" region="United States" />
+    </locale>
+</data>

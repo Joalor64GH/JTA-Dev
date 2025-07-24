@@ -3,10 +3,19 @@ package jta.registries.level;
 import jta.objects.level.Object;
 import jta.objects.level.ScriptedObject;
 
+/**
+ * Handles the loading and management of scripted level object classes.
+ */
 class ObjectRegistry
 {
+	/**
+	 * Map to store associations between level object IDs and scripted level object classes.
+	 */
 	private static final objectScriptedClasses:Map<String, String> = [];
 
+	/**
+	 * Loads and initializes scripted level object classes.
+	 */
 	public static function loadObjects():Void
 	{
 		clearObjects();
@@ -33,6 +42,11 @@ class ObjectRegistry
 		FlxG.log.notice('Successfully loaded ${Lambda.count(objectScriptedClasses)} object(s)!');
 	}
 
+	/**
+	 * Fetches a scripted level object by its ID.
+	 * @param objectID The ID of the object.
+	 * @return The object or null if not found.
+	 */
 	public static function fetchObject(objectID:String):Null<Object>
 	{
 		if (!objectScriptedClasses.exists(objectID))
@@ -61,6 +75,9 @@ class ObjectRegistry
 		return null;
 	}
 
+	/**
+	 * Clears all loaded level objects scripted classes.
+	 */
 	public static function clearObjects():Void
 	{
 		if (objectScriptedClasses != null)

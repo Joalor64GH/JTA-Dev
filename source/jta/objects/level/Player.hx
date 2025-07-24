@@ -8,12 +8,12 @@ import jta.objects.Vector;
 class Player extends FlxSprite
 {
 	/**
-	 * The direction the player is facing, represented as a `Vector`.
+	 * The direction the player is facing, represented as a `jta.objects.Vector`.
 	 */
 	public var direction:Vector = new Vector(0, 0);
 
 	/**
-	 * The speed of the player, represented as a `Vector`.
+	 * The speed of the player, represented as a `jta.objects.Vector`.
 	 */
 	public var speed:Vector = new Vector(0, 0);
 

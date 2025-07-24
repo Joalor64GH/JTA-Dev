@@ -43,6 +43,7 @@
 
 	<haxelib name="hscript" />
 	<haxelib name="polymod" />
+	<haxelib name="firetongue" />
 	<haxelib name="hxdiscord_rpc" if="desktop" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
 

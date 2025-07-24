@@ -2,6 +2,7 @@ package jta.states.config;
 
 import jta.Data;
 import jta.input.Input;
+import jta.locale.Locale;
 import jta.states.MainMenu;
 import jta.states.BaseState;
 import jta.states.config.Option;
@@ -66,6 +67,10 @@ class Settings extends BaseState
 
 		var option:Option = new Option('Skip Splash', OptionType.Toggle, Data.settings.skipSplash);
 		option.onChange = (value:Dynamic) -> Data.settings.skipSplash = value;
+		options.push(option);
+
+		var option:Option = new Option('Language', OptionType.Choice(Locale.locales), Data.settings.locale);
+		option.onChange = (value:Dynamic) -> Data.settings.locale = value;
 		options.push(option);
 
 		var option:Option = new Option('Controls', OptionType.Function, function():Void

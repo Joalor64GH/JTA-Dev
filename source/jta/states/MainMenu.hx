@@ -2,13 +2,14 @@ package jta.states;
 
 import jta.Paths;
 import jta.input.Input;
+import jta.locale.Locale;
 import jta.states.BaseState;
 import jta.states.LevelSelect;
 import jta.states.config.Settings;
 
 class MainMenu extends BaseState
 {
-	var selections:Array<String> = ["Start Game", "Settings"];
+	var selections:Array<String> = ["$START", "$SETTINGS"];
 	var selectedIndex:Int = 0;
 
 	var selectionGroup:FlxTypedGroup<FlxText>;
@@ -26,7 +27,7 @@ class MainMenu extends BaseState
 		super();
 
 		#if desktop
-		selections.push("Exit");
+		selections.push("$EXIT");
 		#end
 	}
 
@@ -52,7 +53,7 @@ class MainMenu extends BaseState
 
 		for (i in 0...selections.length)
 		{
-			var selection:FlxText = new FlxText(10, 400 + i * 42, FlxG.width, selections[i]);
+			var selection:FlxText = new FlxText(10, 400 + i * 42, FlxG.width, Locale.getMenu(selections[i]));
 			selection.setFormat(Paths.font('main'), 36, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			selection.ID = i;
 			selectionGroup.add(selection);

@@ -3,6 +3,7 @@ package jta.states;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.TransitionData;
 import flixel.graphics.FlxGraphic;
+import jta.registries.ModuleRegistry;
 import jta.states.Startup;
 import jta.Data;
 
@@ -43,6 +44,12 @@ class BaseState extends FlxTransitionableState
 	override public function create():Void
 	{
 		super.create();
+
+		for (module in ModuleRegistry.getAllModules(true))
+		{
+			module.create();
+			add(module);
+		}
 	}
 
 	override public function update(elapsed:Float):Void
@@ -54,6 +61,16 @@ class BaseState extends FlxTransitionableState
 
 		if (FlxG.stage != null)
 			FlxG.stage.frameRate = Data.settings.framerate;
+
+		for (module in ModuleRegistry.getAllModules())
+			module.update(elapsed);
+	}
+
+	override public function destroy():Void
+	{
+		for (module in ModuleRegistry.getAllModules())
+			module.destroy();
+		super.destroy();
 	}
 
 	public function transitionState(state:FlxState, ?noTransition:Bool = false):Void

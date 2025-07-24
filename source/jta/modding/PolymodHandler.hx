@@ -7,6 +7,7 @@ import jta.macros.ClassMacro;
 #if windows
 import jta.api.native.WindowsAPI;
 #end
+import jta.locale.Locale;
 
 /**
  * Handles the initialization and management of mods in the game.
@@ -107,6 +108,7 @@ class PolymodHandler
 
 		framework ??= FLIXEL;
 
+		Locale.init(); // Initialize localization before Polymod
 		Polymod.init({
 			modRoot: MOD_DIR,
 			dirs: getMods(),
@@ -119,7 +121,8 @@ class PolymodHandler
 			parseRules: getParseRules(),
 			useScriptedClasses: true,
 			loadScriptsAsync: #if html5 true #else false #end,
-			ignoredFiles: Polymod.getDefaultIgnoreList()
+			ignoredFiles: Polymod.getDefaultIgnoreList(),
+			firetongue: Locale.tongue
 		});
 
 		jta.registries.dialogue.TyperRegistry.loadTypers();
@@ -129,6 +132,8 @@ class PolymodHandler
 		jta.registries.level.ObjectRegistry.loadObjects();
 
 		jta.registries.LevelRegistry.loadLevels();
+
+		jta.registries.ModuleRegistry.loadModules();
 	}
 
 	public static function getMods():Array<String>

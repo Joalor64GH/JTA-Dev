@@ -3,10 +3,19 @@ package jta.registries.dialogue;
 import jta.objects.dialogue.portraits.ScriptedPortrait;
 import jta.objects.dialogue.portraits.Portrait;
 
+/**
+ * Handles the loading and management of scripted dialogue portrait classes.
+ */
 class PortraitRegistry
 {
+	/**
+	 * Map to store associations between dialogue portrait IDs and scripted dialogue portrait classes.
+	 */
 	private static final portraitScriptedClasses:Map<String, String> = [];
 
+	/**
+	 * Loads and initializes scripted dialogue portrait classes.
+	 */
 	public static function loadPortraits():Void
 	{
 		clearPortraits();
@@ -33,6 +42,11 @@ class PortraitRegistry
 		FlxG.log.notice('Successfully loaded ${Lambda.count(portraitScriptedClasses)} portrait(s)!');
 	}
 
+	/**
+	 * Fetches a scripted dialogue portrait by its ID.
+	 * @param portraitID The ID of the portrait.
+	 * @return The portrait or null if not found.
+	 */
 	public static function fetchPortrait(portraitID:String):Null<Portrait>
 	{
 		if (!portraitScriptedClasses.exists(portraitID))
@@ -61,6 +75,9 @@ class PortraitRegistry
 		return null;
 	}
 
+	/**
+	 * Clears all loaded dialogue portraits scripted classes.
+	 */
 	public static function clearPortraits():Void
 	{
 		if (portraitScriptedClasses != null)

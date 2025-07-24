@@ -71,6 +71,10 @@ class Level extends BaseState
 	 */
 	private var dialogueBox:DialogueBox;
 
+	/**
+	 * Initializes the level with a specified level number.
+	 * @param levelNumber The number of the level.
+	 */
 	public function new(levelNumber:Int):Void
 	{
 		super();
