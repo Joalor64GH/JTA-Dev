@@ -169,8 +169,8 @@ class PolymodHandler
 	public static function getParseRules():ParseRules
 	{
 		final output:ParseRules = ParseRules.getDefault();
-		output.addType("txt", TextFileFormat.LINES);
-		output.addType("hxc", TextFileFormat.PLAINTEXT);
+		output.addType('txt', TextFileFormat.LINES);
+		output.addType('hxc', TextFileFormat.PLAINTEXT);
 		return output != null ? output : null;
 	}
 

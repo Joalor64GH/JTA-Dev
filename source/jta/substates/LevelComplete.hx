@@ -2,6 +2,7 @@ package jta.substates;
 
 import jta.Paths;
 import jta.input.Input;
+import jta.locale.Locale;
 import jta.states.MainMenu;
 import jta.substates.BaseSubState;
 
@@ -9,7 +10,7 @@ class LevelComplete extends BaseSubState
 {
 	var onContinue:Void->Void;
 
-	var selections:Array<String> = ["Continue", "Return to Menu"];
+	var selections:Array<String> = ["$CONTINUE", "$RETURN"];
 	var selectedIndex:Int = 0;
 
 	var selectionGroup:FlxTypedGroup<FlxText>;
@@ -32,7 +33,7 @@ class LevelComplete extends BaseSubState
 		bg.alpha = 0.5;
 		add(bg);
 
-		var title:FlxText = new FlxText(10, 10, FlxG.width, "LEVEL COMPLETE");
+		var title:FlxText = new FlxText(10, 10, FlxG.width, Locale.getMenu("$LEVEL_COMPLETE"));
 		title.setFormat(Paths.font('main'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		title.scrollFactor.set();
 		add(title);
@@ -42,7 +43,7 @@ class LevelComplete extends BaseSubState
 
 		for (i in 0...selections.length)
 		{
-			var selection:FlxText = new FlxText(10, 100 + i * 42, FlxG.width, selections[i]);
+			var selection:FlxText = new FlxText(10, 100 + i * 42, FlxG.width, Locale.getMenu(selections[i]));
 			selection.setFormat(Paths.font('main'), 36, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			selection.scrollFactor.set();
 			selection.ID = i;

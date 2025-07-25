@@ -23,7 +23,7 @@ class GitMacro
 		}
 		catch (e) {}
 		#end
-		return macro $v{"-"};
+		return macro $v{'-'};
 	}
 
 	/**

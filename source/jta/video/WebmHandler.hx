@@ -8,7 +8,7 @@ class WebmHandler
 {
 	#if desktop
 	public var webm:WebmPlayer;
-	public var vidPath:String = "";
+	public var vidPath:String = '';
 	public var io:WebmIo;
 	public var initialized:Bool = false;
 
@@ -126,7 +126,7 @@ class WebmHandler
 
 	public function onEnd():Void
 	{
-		trace("IT ENDED!");
+		trace('IT ENDED!');
 		ended = true;
 	}
 
@@ -154,7 +154,7 @@ class WebmHandler
 
 	public function new():Void
 	{
-		trace("WebM playback is not supported on your platform! Sorry...");
+		trace('WebM playback is not supported on your platform! Sorry...');
 	}
 	#end
 }

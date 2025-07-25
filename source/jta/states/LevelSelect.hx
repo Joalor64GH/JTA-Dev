@@ -40,7 +40,7 @@ class LevelSelect extends BaseState
 			levelList.push({name: data[0], id: data[1]});
 		}
 
-		titleText = new FlxText(0, 60, FlxG.width, "");
+		titleText = new FlxText(0, 60, FlxG.width, '');
 		titleText.setFormat(Paths.font("main"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		titleText.screenCenter(X);
 		add(titleText);
@@ -69,12 +69,12 @@ class LevelSelect extends BaseState
 			var level = levelList[idx];
 			var sprite = new FlxSprite();
 
-			var imagePath:String = 'menu/level/' + formatLevelPath(level.name);
+			var imagePath:String = 'menu/level/${formatLevelPath(level.name)}';
 			if (Paths.exists(Paths.image(imagePath)))
 				sprite.loadGraphic(Paths.image(imagePath));
 			else
 			{
-				trace('Missing level image: ' + imagePath);
+				trace('Missing level image: $imagePath');
 				sprite.loadGraphic(Paths.image('menu/level/placeholder'));
 			}
 

@@ -13,8 +13,8 @@ class CoinObject extends Object
 
 		loadGraphic(Paths.image('objects/' + objectID), true, 16, 16);
 
-		animation.add("floating", [0, 1, 2, 1], 12, true);
-		animation.play("floating");
+		animation.add('floating', [0, 1, 2, 1], 12, true);
+		animation.play('floating');
 	}
 
 	public override function overlap():Void

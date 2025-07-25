@@ -4,6 +4,7 @@ import flixel.tile.FlxTilemap;
 import jta.states.BaseState;
 import jta.substates.GameOver;
 import jta.substates.PauseMenu;
+import jta.registries.LevelRegistry;
 import jta.registries.level.PlayerRegistry;
 import jta.registries.level.ObjectRegistry;
 import jta.objects.level.Player;
@@ -232,15 +233,15 @@ class Level extends BaseState
 	 */
 	public function loadObjects(path:String, ?w:Int = 16, ?h:Int = 16):Void
 	{
-		var rows = Assets.getText(Paths.csv('levels/' + path + '-objects')).split("\n");
+		var rows = Assets.getText(Paths.csv('levels/' + path + '-objects')).split('\n');
 
 		for (rowIndex in 0...rows.length)
 		{
-			var cols = rows[rowIndex].split(",");
+			var cols = rows[rowIndex].split(',');
 			for (colIndex in 0...cols.length)
 			{
 				var objID = StringTools.trim(cols[colIndex]);
-				if (objID != "" && objID != "0" && objID != ".")
+				if (objID != '' && objID != '0' && objID != '.')
 					createObject(objID, colIndex * w, rowIndex * h);
 			}
 		}
@@ -267,5 +268,18 @@ class Level extends BaseState
 		dialogueBox.setPositionType(position);
 		dialogueBox.revive();
 		dialogueBox.startDialogue(dialogue);
+	}
+
+	/**
+	 * Resets the current level.
+	 * Apparently, using `FlxG.resetState()` doesn't work, so this is a workaround.
+	 */
+	public static function resetLevel():Void
+	{
+		if (Std.isOfType(FlxG.state, Level))
+		{
+			var level = cast(FlxG.state, Level);
+			FlxG.switchState(LevelRegistry.fetchLevel(level.levelNumber));
+		}
 	}
 }

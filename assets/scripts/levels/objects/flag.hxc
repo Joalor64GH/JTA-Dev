@@ -14,8 +14,8 @@ class FlagObject extends Object
 
 		loadGraphic(Paths.image('objects/' + objectID), true, 14, 16);
 
-		animation.add("wave", [1, 2, 3, 4, 0], 12, true);
-		animation.play("wave");
+		animation.add('wave', [1, 2, 3, 4, 0], 12, true);
+		animation.play('wave');
 	}
 
 	public override function overlap():Void

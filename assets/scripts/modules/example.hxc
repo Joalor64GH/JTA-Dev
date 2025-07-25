@@ -8,12 +8,12 @@ class ExampleModule extends ScriptedModule
 {
 	public function new():Void
 	{
-		super("exampleModule", 1);
+		super('exampleModule', 1);
 	}
 
 	public override function create():Void
 	{
 		if (Std.isOfType(FlxG.state, MainMenu))
-			trace("ExampleModule created");
+			trace('ExampleModule created');
 	}
 }

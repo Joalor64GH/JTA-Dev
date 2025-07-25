@@ -7,7 +7,7 @@ class TestLevel extends Level
 	public function new():Void
 	{
 		super(272);
-		levelName = "Test";
+		levelName = 'Test';
 	}
 
 	public override function create():Void

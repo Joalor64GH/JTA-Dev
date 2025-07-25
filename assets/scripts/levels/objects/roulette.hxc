@@ -16,8 +16,8 @@ class RouletteObject extends Object
 		objectInteractable = true;
 
 		loadGraphic(Paths.image('objects/' + objectID), true, 16, 16);
-		animation.add("random", [0, 1, 2, 3], 12, true);
-		animation.play("random");
+		animation.add('random', [0, 1, 2, 3], 12, true);
+		animation.play('random');
 	}
 
 	public override function overlap():Void
@@ -43,7 +43,7 @@ class RouletteObject extends Object
 			Global.save();
 
 			FlxG.state.player.characterControllable = false;
-			FlxG.state.player.animation.play("idle");
+			FlxG.state.player.animation.play('idle');
 			FlxG.state.player.velocity.x = 0;
 
 			new FlxTimer().start(2, function(tmr:FlxTimer):Void

@@ -95,7 +95,7 @@
 
 	<!-- [ Icons ] -->
 
-	<!-- <icon path="icon.png" unless="linux" /> -->
-	<!-- <assets path="icon.png" embed="true" if="linux" /> -->
+	<icon path="icon.png" unless="linux" />
+	<assets path="icon.png" embed="true" if="linux" />
 
 </project>

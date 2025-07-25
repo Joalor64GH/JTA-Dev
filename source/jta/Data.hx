@@ -56,7 +56,5 @@ class Data
 			Reflect.setField(FlxG.save.data, key, Reflect.field(settings, key));
 
 		FlxG.save.flush();
-
-		trace('settings saved!');
 	}
 }

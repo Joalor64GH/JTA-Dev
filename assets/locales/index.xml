@@ -3,13 +3,24 @@
 
     <file id="data" value="data.csv" />
     <file id="menu" value="menu.csv" />
+    <file id="playState" value="playState.csv" />
+    <file id="settings" value="settings.csv" />
 
     <file id="fonts" value="fonts.xml" />
 
-    <!-- American English -->
+    <!-- English (United States) -->
     <locale id="en-US" is_default="true" sort="0">
         <contributors value="Joalor64" />
         <ui language="Language" region="Region" accept="Okay" />
         <label id="en-US" language="English" region="United States" />
+        <label id="es-ES" language="Spanish" region="Spain" />
+    </locale>
+
+    <!-- Spanish (Spain) -->
+    <locale id="es-ES" sort="1">
+        <contributors value="Joalor64" />
+        <ui language="Idioma" region="Región" accept="Okay" />
+        <label id="en-US" language="Inglés" region="Estados Unidos" />
+        <label id="es-ES" language="Español" region="España" />
     </locale>
 </data>

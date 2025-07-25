@@ -14,7 +14,7 @@ class VideoState extends BaseState
 	/**
 	 * The source of the video to play.
 	 */
-	var leSource:String = "";
+	var leSource:String = '';
 
 	/**
 	 * The sound associated with the video.

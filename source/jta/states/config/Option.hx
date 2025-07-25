@@ -1,6 +1,7 @@
 package jta.states.config;
 
 import haxe.Exception;
+import jta.locale.Locale;
 
 /**
  * Enum representing different types of options available.
@@ -134,7 +135,7 @@ class Option
 		switch (type)
 		{
 			case OptionType.Toggle:
-				formattedString = '$name: ${value ? "ON" : "OFF"}';
+				formattedString = '$name: ${value ? Locale.getSettings("$ON") : Locale.getSettings("$OFF")}';
 			case OptionType.Integer(_, _, _):
 				formattedString = '$name: $value${showPercentage ? '%' : ''}';
 			case OptionType.Decimal(_, _, _):

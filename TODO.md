@@ -3,9 +3,9 @@
 * [X] Tiles
 * [ ] Music
 * [ ] Enemies
-* [X] Base Firetongue Support
-    * [ ] English (Incomplete)
-    * [ ] Spanish
+* [X] Firetongue Support
+    * [X] English
+    * [X] Spanish
 * [X] Added more polymod feature
 * [ ] World 1 Demo
     * [ ] Level 1 (Fresh Start)

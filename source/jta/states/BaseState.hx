@@ -54,8 +54,10 @@ class BaseState extends FlxTransitionableState
 
 	override public function update(elapsed:Float):Void
 	{
+		#if desktop
 		if (FlxG.save.data != null)
 			FlxG.fullscreen = Data.settings.fullscreen;
+		#end
 
 		super.update(elapsed);
 

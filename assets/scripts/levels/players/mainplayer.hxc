@@ -15,12 +15,12 @@ class MainPlayer extends Player
 
 		loadGraphic(Paths.image('player/player'), true, 16, 16);
 
-		animation.add("idle", [0], 1);
-		animation.add("walk", [1, 0, 2, 0], 12);
-		animation.add("jump", [3], 1);
-		animation.add("dead", [4], 1);
+		animation.add('idle', [0], 1);
+		animation.add('walk', [1, 0, 2, 0], 12);
+		animation.add('jump', [3], 1);
+		animation.add('dead', [4], 1);
 
-		animation.play("idle");
+		animation.play('idle');
 
 		maxVelocity.y = 290;
 		acceleration.y = 900;
@@ -53,11 +53,11 @@ class MainPlayer extends Player
 		if (characterControllable)
 		{
 			if (velocity.y < 0)
-				animation.play("jump");
+				animation.play('jump');
 			else if (velocity.x != 0)
-				animation.play("walk");
+				animation.play('walk');
 			else
-				animation.play("idle");
+				animation.play('idle');
 
 			if (Input.pressed('left'))
 				velocity.x = -150;

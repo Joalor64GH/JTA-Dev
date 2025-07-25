@@ -90,12 +90,12 @@ class Typer implements IFlxDestroyable
 	public function toString():String
 	{
 		return FlxStringUtil.getDebugString([
-			LabelValuePair.weak("Typer ID", typerID),
-			LabelValuePair.weak("Font Name", fontName),
-			LabelValuePair.weak("Font Size", fontSize),
-			LabelValuePair.weak("Font Spacing", fontSpacing),
-			LabelValuePair.weak("Typer Sounds", typerSounds),
-			LabelValuePair.weak("Typer Letters Per Second", typerFPS)
+			LabelValuePair.weak('Typer ID', typerID),
+			LabelValuePair.weak('Font Name', fontName),
+			LabelValuePair.weak('Font Size', fontSize),
+			LabelValuePair.weak('Font Spacing', fontSpacing),
+			LabelValuePair.weak('Typer Sounds', typerSounds),
+			LabelValuePair.weak('Typer Letters Per Second', typerFPS)
 		]);
 	}
 }

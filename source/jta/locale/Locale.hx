@@ -29,7 +29,7 @@ class Locale
 	/**
 	 * The current locale being used.
 	 */
-	public static var locale:String = "en-US";
+	public static var locale:String = 'en-US';
 
 	/**
 	 * Initializes the localization system.
@@ -59,16 +59,16 @@ class Locale
 	static function onFinish():Void
 	{
 		var text:String = '';
-		var contextArray:Array<String> = ["data", "menu" /*, "options", "playState"*/];
+		var contextArray:Array<String> = ['data', 'menu', 'playState', 'settings'];
 		if (tongue.missingFiles != null)
 		{
 			for (context in contextArray)
 			{
 				var str:String = tongue.get("$MISSING_FILES", context);
-				str = Replace.flags(str, ["<X>"], [Std.string(tongue.missingFiles.length)]);
-				text += str + "\n";
+				str = Replace.flags(str, ['<X>'], [Std.string(tongue.missingFiles.length)]);
+				text += '$str\n';
 				for (file in tongue.missingFiles)
-					text += "    " + file + "\n";
+					text += '     $file\n';
 
 				trace(text);
 			}
@@ -83,19 +83,19 @@ class Locale
 				var miss_str:String = tongue.get("$MISSING_FLAGS", context);
 
 				var count:Int = 0;
-				var flag_str:String = "";
+				var flag_str:String = '';
 
 				for (key in missingFlags.keys())
 				{
 					var list:Array<String> = missingFlags.get(key);
 					count += list.length;
 					for (flag in list)
-						flag_str += "    Context(" + key + "): " + flag + "\n";
+						flag_str += '    Context($key): $flag\n';
 				}
 
-				miss_str = Replace.flags(miss_str, ["<X>"], [Std.string(count)]);
-				text += miss_str + "\n";
-				text += flag_str + "\n";
+				miss_str = Replace.flags(miss_str, ['<X>'], [Std.string(count)]);
+				text += '$miss_str\n';
+				text += '$flag_str\n';
 			}
 
 			trace(text);
@@ -114,11 +114,26 @@ class Locale
 		tongue.initialize({
 			locale: lang,
 			finishedCallback: onFinish,
-			directory: 'locales/',
 			checkMissing: true
 		});
 
 		fontName = getData("$FONT_NAME");
+	}
+
+	/**
+	 * Gets a localized string for the given key and context, and replaces flags with values.
+	 * @param key The key to look up in the localization files.
+	 * @param context The context in which to look up the key.
+	 * @param flags The flags to replace in the string.
+	 * @param values The values to replace the flags with.
+	 * @return The localized string with flags replaced.
+	 */
+	public static function replaceFlagsAndReturn(key:String, context:String, flags:Array<String>, values:Array<Dynamic>):String
+	{
+		var stringArray:Array<String> = [];
+		for (i in values)
+			stringArray.push(i.toString());
+		return Replace.flags(getString(key, context), flags, stringArray);
 	}
 
 	/**
@@ -128,7 +143,7 @@ class Locale
 	 */
 	public static function getData(key:String):String
 	{
-		return tongue.get(key, "data");
+		return tongue.get(key, 'data');
 	}
 
 	/**
@@ -138,7 +153,37 @@ class Locale
 	 */
 	public static function getMenu(key:String):String
 	{
-		return tongue.get(key, "menu");
+		return tongue.get(key, 'menu');
+	}
+
+	/**
+	 * Gets the localized string for the given key.
+	 * @param key The key to look up in the localization files.
+	 * @return The localized string.
+	 */
+	public static function getPlayState(key:String):String
+	{
+		return tongue.get(key, 'playState');
+	}
+
+	/**
+	 * Gets the localized string for the given key.
+	 * @param key The key to look up in the localization files.
+	 * @return The localized string.
+	 */
+	public static function getSettings(key:String):String
+	{
+		return tongue.get(key, 'settings');
+	}
+
+	/**
+	 * Gets the localized string for the given key.
+	 * @param key The key to look up in the localization files.
+	 * @return The localized string.
+	 */
+	public static function getString(key:String, context:String):String
+	{
+		return tongue.get(key, context);
 	}
 
 	/**
@@ -148,8 +193,8 @@ class Locale
 	 */
 	public static function getFile(path:String):String
 	{
-		if (Paths.exists('locales/$locale/$path'))
-			return 'locales/$locale/$path';
+		if (Paths.exists('assets/locales/$locale/$path'))
+			return 'assets/locales/$locale/$path';
 		return null;
 	}
 }

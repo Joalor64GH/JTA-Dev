@@ -3,13 +3,14 @@ package jta.states.config;
 import jta.Data;
 import jta.Paths;
 import jta.input.Input;
+import jta.locale.Locale;
 import jta.states.BaseState;
 import jta.states.config.Settings;
 import jta.substates.BaseSubState;
 
 class DeviceSelect extends BaseSubState
 {
-	var selections:Array<String> = ["Keyboard", "Back"];
+	var selections:Array<String> = ["$KEYBOARD", "$GAMEPAD", "$BACK"];
 	var selectedIndex:Int = 0;
 
 	var selectionGroup:FlxTypedGroup<FlxText>;
@@ -21,10 +22,6 @@ class DeviceSelect extends BaseSubState
 		super();
 
 		ignoreInputTimer = 0.5;
-
-		var gamepad = FlxG.gamepads.lastActive;
-		if (gamepad != null)
-			selections.insert(1, "Gamepad");
 	}
 
 	override public function create():Void
@@ -37,7 +34,7 @@ class DeviceSelect extends BaseSubState
 		bg.alpha = 0.5;
 		add(bg);
 
-		var title:FlxText = new FlxText(10, 10, FlxG.width, "CHOOSE DEVICE");
+		var title:FlxText = new FlxText(10, 10, FlxG.width, Locale.getSettings("$DEVICE"));
 		title.setFormat(Paths.font('main'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(title);
 
@@ -46,7 +43,7 @@ class DeviceSelect extends BaseSubState
 
 		for (i in 0...selections.length)
 		{
-			var selection:FlxText = new FlxText(10, 100 + i * 42, FlxG.width, selections[i]);
+			var selection:FlxText = new FlxText(10, 100 + i * 42, FlxG.width, (i != 2) ? Locale.getSettings(selections[i]) : Locale.getMenu(selections[i]));
 			selection.setFormat(Paths.font('main'), 36, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			selection.ID = i;
 			selectionGroup.add(selection);
@@ -71,13 +68,17 @@ class DeviceSelect extends BaseSubState
 		if (Input.justPressed('confirm'))
 		{
 			FlxG.sound.play(Paths.sound('select'));
-			switch (selections[selectedIndex])
+			switch (selectedIndex)
 			{
-				case "Keyboard":
+				case 0:
 					transitionState(new Controls(false));
-				case "Gamepad":
-					transitionState(new Controls(true));
-				case "Back":
+				case 1:
+					var gamepad = FlxG.gamepads.lastActive;
+					if (gamepad != null)
+						transitionState(new Controls(true));
+					else
+						FlxG.sound.play(Paths.sound('cancel'));
+				case 2:
 					close();
 			}
 		}
@@ -127,7 +128,7 @@ class Controls extends BaseState
 		bg.screenCenter();
 		add(bg);
 
-		var titleText = isGamepad ? "GAMEPAD BINDS" : "KEYBOARD BINDS";
+		var titleText = isGamepad ? Locale.getSettings("$GPBINDS") : Locale.getSettings("$KBBINDS");
 		var title:FlxText = new FlxText(10, 10, FlxG.width, titleText);
 		title.setFormat(Paths.font('main'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(title);
@@ -148,7 +149,7 @@ class Controls extends BaseState
 		tempBG.visible = false;
 		add(tempBG);
 
-		anyKeyTxt = new FlxText(0, 0, 0, "PRESS ANY " + (isGamepad ? "BUTTON" : "KEY"), 32);
+		anyKeyTxt = new FlxText(0, 0, 0, '', 32);
 		anyKeyTxt.setFormat(Paths.font('main'), 36, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		anyKeyTxt.screenCenter();
 		anyKeyTxt.visible = false;
@@ -170,12 +171,12 @@ class Controls extends BaseState
 			if (Input.justPressed('confirm'))
 			{
 				isChangingBind = true;
-				anyKeyTxt.text = "PRESS ANY " + (isGamepad ? "BUTTON" : "KEY");
+				anyKeyTxt.text = '${Locale.getSettings("$PRESS_ANY")} ${isGamepad ? Locale.getSettings("$BTN") : Locale.getSettings("$KEY")}';
 				anyKeyTxt.visible = true;
 				tempBG.visible = true;
 
 				var selectedText:FlxText = cast selectionGroup.members[selectedIndex];
-				selectedText.text = controls[selectedIndex].toUpperCase() + ": ...";
+				selectedText.text = '${controls[selectedIndex].toUpperCase()}: ...';
 			}
 			else if (Input.justPressed('cancel'))
 			{
@@ -219,9 +220,9 @@ class Controls extends BaseState
 	function getBindLabel(tag:String, index:Int):String
 	{
 		if (isGamepad)
-			return tag.toUpperCase() + ": " + FlxGamepadInputID.toStringMap.get(Data.settings.gamepadBinds[index]);
+			return '${tag.toUpperCase()}: ${FlxGamepadInputID.toStringMap.get(Data.settings.gamepadBinds[index])}';
 		else
-			return tag.toUpperCase() + ": " + FlxKey.toStringMap.get(Data.settings.keyboardBinds[index]);
+			return '${tag.toUpperCase()}: ${FlxKey.toStringMap.get(Data.settings.keyboardBinds[index])}';
 	}
 
 	function refreshBinds():Void

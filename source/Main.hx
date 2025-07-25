@@ -66,6 +66,16 @@ class Main extends openfl.display.Sprite
 		CrashHandler.init();
 		#end
 
+		#if linux
+		if (Assets.exists('icon.png'))
+		{
+			final icon:Null<openfl.display.BitmapData> = Assets.getBitmapData('icon.png', false);
+
+			if (icon != null)
+				Lib.application.window.setIcon(icon.image);
+		}
+		#end
+
 		#if windows
 		jta.api.native.WindowsAPI.darkMode(true);
 		#end
@@ -78,7 +88,7 @@ class Main extends openfl.display.Sprite
 		addChild(new FlxGame(config.gameDimensions[0], config.gameDimensions[1], config.initialState, config.framerate, config.framerate, config.skipSplash,
 			config.startFullscreen));
 
-		VideoInitializer.setupVideo(this, "assets/videos/DO NOT DELETE OR GAME WILL CRASH/dontDelete.webm");
+		VideoInitializer.setupVideo(this, 'assets/videos/DO NOT DELETE OR GAME WILL CRASH/dontDelete.webm');
 
 		FlxG.sound.volumeUpKeys = [];
 		FlxG.sound.volumeDownKeys = [];

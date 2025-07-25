@@ -15,7 +15,7 @@ class VideoHandler
 	public var video:Video;
 	public var isReady:Bool = false;
 	public var addOverlay:Bool = false;
-	public var vidPath:String = "";
+	public var vidPath:String = '';
 	public var ignoreShit:Bool = false;
 
 	public function new():Void
@@ -62,7 +62,7 @@ class VideoHandler
 
 	public function netStream_onAsyncError(event:AsyncErrorEvent):Void
 	{
-		trace("Error loading video");
+		trace('Error loading video');
 	}
 
 	public function netConnection_onNetStatus(event:NetStatusEvent):Void
@@ -146,13 +146,13 @@ class VideoHandler
 
 	public function onPlay(event:NetStatusEvent):Void
 	{
-		if (event.info.code == "NetStream.Play.Start")
+		if (event.info.code == 'NetStream.Play.Start')
 			played = true;
 	}
 
 	public function onEnd(event:NetStatusEvent):Void
 	{
-		if (event.info.code == "NetStream.Play.Complete")
+		if (event.info.code == 'NetStream.Play.Complete')
 			ended = true;
 	}
 

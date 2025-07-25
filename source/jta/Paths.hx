@@ -26,7 +26,7 @@ class Paths
 	/**
 	 * The sound extension to use.
 	 */
-	public static final SOUND_EXT:String = #if !web "ogg" #else "mp3" #end;
+	public static final SOUND_EXT:String = #if !web 'ogg' #else 'mp3' #end;
 
 	/**
 	 * Function to get the text content of a file at the given path.
@@ -86,7 +86,7 @@ class Paths
 	 * @return The path to the sound file.
 	 */
 	inline static public function sound(key:String, ?cache:Bool = true):Null<Sound>
-		return Assets.getSound(findAsset('assets/sounds/$key', [SOUND_EXT, "wav"]), cache);
+		return Assets.getSound(findAsset('assets/sounds/$key', [SOUND_EXT, 'wav']), cache);
 
 	/**
 	 * Gets a music track as a `Sound` object.
@@ -95,7 +95,7 @@ class Paths
 	 * @return The path to the music file.
 	 */
 	inline static public function music(key:String, ?cache:Bool = true):Null<Sound>
-		return Assets.getSound(findAsset('assets/music/$key', [SOUND_EXT, "wav"]), cache);
+		return Assets.getSound(findAsset('assets/music/$key', [SOUND_EXT, 'wav']), cache);
 
 	/**
 	 * Gets a font file.
@@ -104,7 +104,7 @@ class Paths
 	 * @return The font name.
 	 */
 	inline static public function font(key:String, ?cache:Bool = true):Null<String>
-		return Assets.getFont(findAsset('assets/fonts/$key', ["ttf", "otf"]), cache).fontName;
+		return Assets.getFont(findAsset('assets/fonts/$key', ['ttf', 'otf']), cache).fontName;
 
 	/**
 	 * Gets an image file.
@@ -129,7 +129,7 @@ class Paths
 	 * @return The path to the sound file.
 	 */
 	inline static public function videoSound(key:String, ?cache:Bool = true):Null<Sound>
-		return Assets.getSound(findAsset('assets/videos/$key', [SOUND_EXT, "wav"]), cache);
+		return Assets.getSound(findAsset('assets/videos/$key', [SOUND_EXT, 'wav']), cache);
 
 	/**
 	 * Gets a spritesheet in a specific format.

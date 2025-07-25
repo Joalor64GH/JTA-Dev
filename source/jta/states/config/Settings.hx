@@ -26,7 +26,7 @@ class Settings extends BaseState
 	{
 		super();
 
-		var option:Option = new Option('Master Volume', OptionType.Integer(0, 100, 1), FlxG.sound.volume * 100);
+		var option:Option = new Option(Locale.getSettings("$VOLUME"), OptionType.Integer(0, 100, 1), FlxG.sound.volume * 100);
 		option.showPercentage = true;
 		option.onChange = (value:Dynamic) ->
 		{
@@ -36,7 +36,7 @@ class Settings extends BaseState
 		options.push(option);
 
 		#if !html5
-		var option:Option = new Option('Framerate', OptionType.Integer(60, 240, 10),
+		var option:Option = new Option(Locale.getSettings("$FRAMERATE"), OptionType.Integer(60, 240, 10),
 			Std.int(FlxMath.bound(FlxG.stage.application.window.displayMode.refreshRate, 60, 240)));
 		option.onChange = (value:Dynamic) ->
 		{
@@ -46,7 +46,7 @@ class Settings extends BaseState
 		options.push(option);
 		#end
 
-		var option:Option = new Option('FPS Counter', OptionType.Toggle, Data.settings.fpsCounter);
+		var option:Option = new Option(Locale.getSettings("$FPS_DISP"), OptionType.Toggle, Data.settings.fpsCounter);
 		option.onChange = (value:Dynamic) ->
 		{
 			Data.settings.fpsCounter = value;
@@ -56,7 +56,7 @@ class Settings extends BaseState
 		options.push(option);
 
 		#if desktop
-		var option:Option = new Option('Fullscreen', OptionType.Toggle, Data.settings.fullscreen);
+		var option:Option = new Option(Locale.getSettings("$FLSCRN"), OptionType.Toggle, Data.settings.fullscreen);
 		option.onChange = (value:Dynamic) ->
 		{
 			Data.settings.fullscreen = value;
@@ -65,22 +65,27 @@ class Settings extends BaseState
 		options.push(option);
 		#end
 
-		var option:Option = new Option('Skip Splash', OptionType.Toggle, Data.settings.skipSplash);
+		var option:Option = new Option(Locale.getSettings("$SKIP_SPLASH"), OptionType.Toggle, Data.settings.skipSplash);
 		option.onChange = (value:Dynamic) -> Data.settings.skipSplash = value;
 		options.push(option);
 
-		var option:Option = new Option('Language', OptionType.Choice(Locale.locales), Data.settings.locale);
-		option.onChange = (value:Dynamic) -> Data.settings.locale = value;
+		var option:Option = new Option(Locale.getSettings("$LANG"), OptionType.Choice(Locale.locales), Data.settings.locale);
+		option.onChange = (value:Dynamic) ->
+		{
+			Data.settings.locale = value;
+			Locale.loadLanguage(Data.settings.locale);
+			FlxG.resetState();
+		};
 		options.push(option);
 
-		var option:Option = new Option('Controls', OptionType.Function, function():Void
+		var option:Option = new Option(Locale.getSettings("$CTRLS"), OptionType.Function, function():Void
 		{
 			Data.saveSettings();
 			openSubState(new Controls.DeviceSelect());
 		});
 		options.push(option);
 
-		var option:Option = new Option('Exit', OptionType.Function, function():Void
+		var option:Option = new Option(Locale.getMenu("$EXIT"), OptionType.Function, function():Void
 		{
 			Data.saveSettings();
 			transitionState(new MainMenu());
@@ -98,7 +103,7 @@ class Settings extends BaseState
 		bg.screenCenter();
 		add(bg);
 
-		var title:FlxText = new FlxText(10, 10, FlxG.width, "SETTINGS");
+		var title:FlxText = new FlxText(10, 10, FlxG.width, Locale.getSettings("$SETTINGS"));
 		title.setFormat(Paths.font('main'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(title);
 
@@ -145,6 +150,7 @@ class Settings extends BaseState
 		}
 		else if (Input.justPressed('cancel'))
 		{
+			Data.saveSettings();
 			FlxG.sound.play(Paths.sound('cancel'));
 			transitionState(new MainMenu());
 		}

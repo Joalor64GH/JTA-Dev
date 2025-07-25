@@ -70,7 +70,7 @@ class MainMenu extends BaseState
 
 		FlxTween.tween(player, {y: 500}, 1, {ease: FlxEase.quadOut});
 
-		versionTxt = new FlxText(0, FlxG.height - 30, 250, "v" + Lib.application.meta.get('version') + " (DEMO)", 24);
+		versionTxt = new FlxText(0, FlxG.height - 30, 250, 'v${Lib.application.meta.get('version')} (DEMO)', 24);
 		versionTxt.setFormat(Paths.font('main'), 24, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionTxt);
 
@@ -130,10 +130,10 @@ class MainMenu extends BaseState
 			animCooldown = 3 + FlxG.random.float(0, 2);
 			isAnimating = true;
 
-			var anims:Array<String> = ["idle", "left", "right"];
+			var anims:Array<String> = ['idle', 'left', 'right'];
 			var nextAnim = FlxG.random.getObject(anims);
 
-			player.animation.play("blink");
+			player.animation.play('blink');
 
 			FlxTimer.wait(0.2, function():Void
 			{
