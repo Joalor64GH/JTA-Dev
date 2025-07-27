@@ -1,0 +1,76 @@
+{
+    "dependencies": [
+        {
+            "name": "lime",
+            "type": "haxelib"
+        },
+        {
+            "name": "openfl",
+            "type": "haxelib"
+        },
+        {
+            "name": "flixel",
+            "type": "haxelib"
+        },
+        {
+            "name": "flixel-addons",
+            "type": "haxelib"
+        },
+        {
+            "name": "hxcpp",
+            "type": "haxelib"
+        },
+        {
+            "name": "hxcpp-debug-server",
+            "type": "haxelib"
+        },
+        {
+            "name": "hscript",
+            "type": "haxelib"
+        },
+        {
+            "name": "actuate",
+            "type": "haxelib"
+        },
+        {
+            "name": "extension-webm",
+            "type": "git",
+            "ref": "master",
+            "url": "https://github.com/KadeDev/extension-webm"
+        },
+        {
+            "name": "polymod",
+            "type": "git",
+            "ref": "scripting-updates",
+            "url": "https://github.com/larsiusprime/polymod"
+        },
+        {
+            "name": "thx.core",
+            "type": "git",
+            "ref": "master",
+            "url": "https://github.com/fponticelli/thx.core.git"
+        },
+        {
+            "name": "thx.semver",
+            "type": "haxelib"
+        },
+        {
+            "name": "jsonpath",
+            "type": "git",
+            "ref": "main",
+            "url": "https://github.com/EliteMasterEric/jsonpath.git"
+        },
+        {
+            "name": "jsonpatch",
+            "type": "haxelib"
+        },
+        {
+            "name": "firetongue",
+            "type": "haxelib"
+        },
+        {
+            "name": "hxdiscord_rpc",
+            "type": "haxelib"
+        }
+    ]
+}
