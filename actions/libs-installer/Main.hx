@@ -2,7 +2,7 @@ import sys.FileSystem;
 import sys.io.File;
 import haxe.Json;
 
-**
+/**
  * Represents the configuration structure for the HMM tool, containing an array of library dependencies.
  */
 typedef HmmConfig =
