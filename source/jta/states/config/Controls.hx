@@ -105,7 +105,7 @@ class DeviceSelect extends BaseSubState
 
 class Controls extends BaseState
 {
-	var controls:Array<String> = ["left", "down", "up", "right", "jump", "run", "confirm", "cancel"];
+	var controls:Array<String> = ['left', 'down', 'up', 'right', 'jump', 'run', 'confirm', 'cancel'];
 	var selectionGroup:FlxTypedGroup<FlxText>;
 	var selectedIndex:Int = 0;
 

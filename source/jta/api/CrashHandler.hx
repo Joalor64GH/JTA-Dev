@@ -58,7 +58,7 @@ class CrashHandler
 			if (!FileSystem.exists('./crash/'))
 				FileSystem.createDirectory('./crash/');
 
-			File.saveContent('./crash/${Lib.application.meta.get('file')}-${Date.now().toString().replace(' ', '-').replace(':', "'")}.txt', '$msg\n');
+			File.saveContent('./crash/${Lib.application.meta.get('file')}-${Date.now().toString().replace(' ', '-').replace(':', '\'')}.txt', '$msg\n');
 		}
 		catch (e:Dynamic)
 			Sys.println('Error!\nCouldn\'t save the crash dump because:\n$e');
@@ -109,10 +109,10 @@ class CrashHandler
 			}
 		}
 
-		errMsg += "\n\nPlease report this error to the GitHub page: https://github.com/JoaTH-Team/JTA/issues";
+		errMsg += '\n\nPlease report this error to the GitHub page: https://github.com/JoaTH-Team/JTA/issues';
 
-		if (!FileSystem.exists("./crash/"))
-			FileSystem.createDirectory("./crash/");
+		if (!FileSystem.exists('./crash/'))
+			FileSystem.createDirectory('./crash/');
 
 		File.saveContent(path, '$errMsg\n');
 

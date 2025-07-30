@@ -21,7 +21,6 @@ package jta.api.native;
     #define DWMWA_USE_IMMERSIVE_DARK_MODE 20 // support for windows 11
     #endif
     ')
-@:dox(hide)
 class WindowsAPI
 {
 	@:functionCode('

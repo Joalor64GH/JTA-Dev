@@ -8,7 +8,7 @@
     * [X] Spanish
 * [X] Added more polymod feature
 * [ ] World 1 Demo
-    * [ ] Level 1 (Fresh Start)
+    * [X] Level 1 (Fresh Start)
     * [ ] Level 2 (Keep Going!)
     * [ ] Level 3 (Walkathon)
     * [ ] World 1 End Cutscene

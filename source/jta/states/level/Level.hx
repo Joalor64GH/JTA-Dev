@@ -86,7 +86,7 @@ class Level extends BaseState
 	override public function create():Void
 	{
 		#if hxdiscord_rpc
-		jta.api.DiscordClient.changePresence('Playing Level: ' + levelName, null);
+		jta.api.DiscordClient.changePresence('Playing Level: $levelName', null);
 		#end
 
 		camHUD = new FlxCamera();
@@ -201,7 +201,8 @@ class Level extends BaseState
 	public function loadMap(path:String, image:String, ?w:Int = 16, ?h:Int = 16):FlxTilemap
 	{
 		map = new FlxTilemap();
-		map.loadMapFromCSV(Paths.csv('levels/' + path + '-map'), Paths.image('tiles/' + image), w, h);
+		map.loadMapFromCSV(Paths.csv('levels/$path-map'), Paths.image('tiles/$image'), w, h);
+		map.follow();
 		add(map);
 		return map;
 	}
@@ -219,8 +220,9 @@ class Level extends BaseState
 	public function loadMapBackground(path:String, image:String, ?w:Int = 16, ?h:Int = 16, ?scrollFactorX:Float = 1, ?scrollFactorY:Float = 1):FlxTilemap
 	{
 		background = new FlxTilemap();
-		background.loadMapFromCSV(Paths.csv('levels/' + path + '-background'), Paths.image('tiles/' + image + '_bg'), w, h);
+		background.loadMapFromCSV(Paths.csv('levels/$path-background'), Paths.image('tiles/$image' + '_bg'), w, h);
 		background.scrollFactor.set(scrollFactorX, scrollFactorY);
+		background.follow();
 		add(background);
 		return background;
 	}
@@ -233,7 +235,7 @@ class Level extends BaseState
 	 */
 	public function loadObjects(path:String, ?w:Int = 16, ?h:Int = 16):Void
 	{
-		var rows = Assets.getText(Paths.csv('levels/' + path + '-objects')).split('\n');
+		var rows = Assets.getText(Paths.csv('levels/$path-objects')).split('\n');
 
 		for (rowIndex in 0...rows.length)
 		{

@@ -1,0 +1,23 @@
+import jta.modding.module.ScriptedModule;
+import jta.states.level.Level;
+import flixel.FlxG;
+import Std;
+
+class GlobalModule extends ScriptedModule
+{
+	public function new():Void
+	{
+		super('globalModule', 1);
+	}
+
+	public override function update(elapsed:Float):Void
+	{
+		if (FlxG.keys.justPressed.F5)
+		{
+			if (Std.isOfType(FlxG.state, Level))
+				Level.resetLevel();
+			else
+				FlxG.resetState();
+		}
+	}
+}

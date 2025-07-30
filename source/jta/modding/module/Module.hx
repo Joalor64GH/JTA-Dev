@@ -31,8 +31,13 @@ class Module extends FlxBasic
 		this.priority = priority;
 	}
 
+	override public function toString():String
+	{
+		return 'Module (${this.moduleID})';
+	}
+
 	/**
-	 * Called once when the module is added to a state.
+	 * Called when the module is added to a state.
 	 */
 	public function create():Void {}
 

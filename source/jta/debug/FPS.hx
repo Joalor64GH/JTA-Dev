@@ -37,7 +37,7 @@ class FPS extends TextField
 			border.height = 720;
 		}
 
-		text = "";
+		text = '';
 		this.x = x;
 		this.y = y;
 		width = 1280;

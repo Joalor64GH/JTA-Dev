@@ -11,6 +11,6 @@ class BaseObject
 
 	public function toString():String
 	{
-		return "(BaseObject)";
+		return '(BaseObject)';
 	}
 }

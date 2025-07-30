@@ -41,7 +41,7 @@ class LevelSelect extends BaseState
 		}
 
 		titleText = new FlxText(0, 60, FlxG.width, '');
-		titleText.setFormat(Paths.font("main"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		titleText.setFormat(Paths.font('main'), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		titleText.screenCenter(X);
 		add(titleText);
 
