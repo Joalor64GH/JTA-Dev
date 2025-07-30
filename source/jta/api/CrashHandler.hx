@@ -58,7 +58,7 @@ class CrashHandler
 			if (!FileSystem.exists('./crash/'))
 				FileSystem.createDirectory('./crash/');
 
-			File.saveContent('./crash/${Lib.application.meta.get('file')}-${Date.now().toString().replace(' ', '-').replace(':', '\'')}.txt', '$msg\n');
+			File.saveContent('./crash/${Lib.application.meta.get('file')}-${Date.now().toString().replace(' ', '-').replace(':', "'")}.txt', '$msg\n');
 		}
 		catch (e:Dynamic)
 			Sys.println('Error!\nCouldn\'t save the crash dump because:\n$e');
