@@ -21,7 +21,7 @@
 --define polymod
 --define hxdiscord_rpc
 --define REDIRECT_ASSETS_FOLDER
---define NO_REDIRECT_ASSETS_FOLDE
+--define NO_REDIRECT_ASSETS_FOLDER
 --define FLX_NO_HEALTH
 --define FLX_NO_DEBUG
 
