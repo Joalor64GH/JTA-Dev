@@ -1,20 +1,19 @@
 # To-Dos
-## Current To-Dos
-* [X] Tiles
+## Demo 1
 * [ ] Music
 * [ ] Enemies
-* [X] Firetongue Support
-    * [X] English
-    * [X] Spanish
-* [X] Added more polymod feature
-* [ ] World 1 Demo
+* [ ] World 1
     * [X] Level 1 (Fresh Start)
     * [ ] Level 2 (Keep Going!)
     * [ ] Level 3 (Walkathon)
     * [ ] World 1 End Cutscene
 
-## Future To-Dos
-* Interactive World Selection
-* Credits Menu
-* Worlds 2-4
-* Android Support
+## Demo 2
+* [ ] Interactive World Selection
+* [ ] Credits Menu
+* [ ] Worlds 2-4
+* [ ] Android Support
+
+## Initial Release
+* [ ] Worlds 5-8
+* [ ] Secret Final Level
