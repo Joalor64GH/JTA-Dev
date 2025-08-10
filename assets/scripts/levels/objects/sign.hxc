@@ -1,5 +1,10 @@
 import jta.Paths;
+import jta.Assets;
+import jta.states.level.Level;
 import jta.objects.level.Object;
+import flixel.util.FlxTimer;
+import flixel.FlxG;
+import haxe.Json;
 
 class SignObject extends Object
 {
@@ -11,20 +16,41 @@ class SignObject extends Object
 
 		loadGraphic(Paths.image('objects/' + objectID), true, 16, 16);
 
-		animation.add("idle", [0], 1, true);
-		animation.add("highlight", [1], 1, true);
-		animation.play("idle");
+		animation.add('idle', [0], 1, true);
+		animation.add('highlight', [1], 1, true);
+		animation.play('idle');
 	}
 
 	public override function update(elapsed:Float):Void
 	{
-		animation.play("idle");
+		animation.play('idle');
 
 		super.update(elapsed);
 	}
 
 	public override function overlap():Void
 	{
-		animation.play("highlight");
+		animation.play('highlight');
+	}
+
+	public override function interact():Void
+	{
+		if (FlxG.state.player != null)
+			FlxG.state.player.characterControllable = false;
+
+		objectInteractable = false;
+
+		var dialogue = Json.parse(Assets.getText(Paths.json('data/dialogue/' + FlxG.state.levelNumber + '/dialogue1')));
+
+		FlxG.state.startDialogue(dialogue.dialogueData, function():Void
+		{
+			if (FlxG.state.player != null)
+				FlxG.state.player.characterControllable = true;
+
+			new FlxTimer().start(0.5, function():Void
+			{
+				objectInteractable = true;
+			});
+		});
 	}
 }

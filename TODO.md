@@ -7,10 +7,12 @@
     * [ ] Level 2 (Keep Going!)
     * [ ] Level 3 (Walkathon)
     * [ ] World 1 End Cutscene
+    * [ ] Dialogue
 
 ## Demo 2
 * [ ] Interactive World Selection
 * [ ] Credits Menu
+* [ ] Minigames
 * [ ] Worlds 2-4
 * [ ] Android Support
 

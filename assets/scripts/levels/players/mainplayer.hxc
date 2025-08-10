@@ -78,7 +78,7 @@ class MainPlayer extends Player
 			}
 
 			#if debug
-			if (FlxG.keys.justPressed.F2)
+			if (FlxG.keys.justPressed.F4)
 				trace('player position:' + x + ', ' + y);
 			#end
 		}

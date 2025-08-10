@@ -4,6 +4,7 @@ import jta.Global;
 import jta.input.Input;
 import jta.locale.Locale;
 import jta.states.MainMenu;
+import jta.states.level.Level;
 import jta.substates.BaseSubState;
 
 class GameOver extends BaseSubState
@@ -59,7 +60,7 @@ class GameOver extends BaseSubState
 			{
 				case 0:
 					FlxG.sound.play(Paths.sound('select'));
-					FlxG.resetState();
+					Level.resetLevel();
 				case 1:
 					FlxG.sound.play(Paths.sound('cancel'));
 					transitionState(new MainMenu());

@@ -8,6 +8,7 @@
 "$FLSCRN","Fullscreen"
 "$SKIP_SPLASH","Skip Splash"
 "$LANG","Language"
+"$FILTER","Filter"
 "$CTRLS","Controls"
 "$DEVICE","CHOOSE DEVICE"
 "$KEYBOARD","Keyboard"

@@ -1,6 +1,7 @@
 package jta.states;
 
 import jta.Paths;
+import jta.Assets;
 import jta.input.Input;
 import jta.states.MainMenu;
 import jta.states.BaseState;
@@ -14,6 +15,9 @@ class LevelSelect extends BaseState
 	var coverGroup:FlxTypedGroup<FlxSprite>;
 	var titleText:FlxText;
 
+	var arrowL:FlxSprite;
+	var arrowR:FlxSprite;
+
 	override public function create():Void
 	{
 		#if hxdiscord_rpc
@@ -26,7 +30,7 @@ class LevelSelect extends BaseState
 
 		var initLevels:Array<String> = Paths.getTextArray(Paths.txt('levels/levelList'));
 
-		if (Paths.exists(Paths.txt('levels/levelList')))
+		if (Assets.exists(Paths.txt('levels/levelList')))
 		{
 			initLevels = Paths.getText(Paths.txt('levels/levelList')).trim().split('\n');
 
@@ -48,6 +52,23 @@ class LevelSelect extends BaseState
 		coverGroup = new FlxTypedGroup<FlxSprite>();
 		add(coverGroup);
 
+		arrowL = new FlxSprite(0, FlxG.height / 2).loadGraphic(Paths.image('menu/level/arrow'), true, 16, 16);
+		arrowL.animation.add('idle', [0], 1);
+		arrowL.animation.add('pressed', [1], 1);
+		arrowL.animation.play('idle');
+		arrowL.scale.set(5, 5);
+		arrowL.updateHitbox();
+		add(arrowL);
+
+		arrowR = new FlxSprite(0, FlxG.height / 2).loadGraphic(Paths.image('menu/level/arrow'), true, 16, 16);
+		arrowR.animation.add('idle', [0], 1);
+		arrowR.animation.add('pressed', [1], 1);
+		arrowR.animation.play('idle');
+		arrowR.scale.set(5, 5);
+		arrowR.updateHitbox();
+		arrowR.flipX = true;
+		add(arrowR);
+
 		updateCovers();
 
 		super.create();
@@ -60,6 +81,8 @@ class LevelSelect extends BaseState
 		if (levelList.length == 0)
 			return;
 
+		var centerCover:FlxSprite = null;
+
 		for (i in -1...2)
 		{
 			var idx = selectedIndex + i;
@@ -70,7 +93,7 @@ class LevelSelect extends BaseState
 			var sprite = new FlxSprite();
 
 			var imagePath:String = 'menu/level/${formatLevelPath(level.name)}';
-			if (Paths.exists(Paths.image(imagePath)))
+			if (Assets.exists(Paths.image(imagePath)))
 				sprite.loadGraphic(Paths.image(imagePath));
 			else
 			{
@@ -79,7 +102,10 @@ class LevelSelect extends BaseState
 			}
 
 			if (i == 0)
+			{
 				sprite.scale.set(4, 4);
+				centerCover = sprite;
+			}
 			else
 				sprite.scale.set(3, 3);
 
@@ -101,11 +127,27 @@ class LevelSelect extends BaseState
 			coverGroup.add(sprite);
 		}
 
+		if (centerCover != null)
+		{
+			arrowL.x = centerCover.x - arrowL.width - 20;
+			arrowR.x = centerCover.x + centerCover.width + 20;
+		}
+
 		titleText.text = levelList[selectedIndex].name;
 	}
 
 	override public function update(elapsed:Float):Void
 	{
+		if (Input.pressed('left'))
+			arrowL.animation.play('pressed');
+		else
+			arrowL.animation.play('idle');
+
+		if (Input.pressed('right'))
+			arrowR.animation.play('pressed');
+		else
+			arrowR.animation.play('idle');
+
 		if (Input.justPressed('left'))
 		{
 			FlxG.sound.play(Paths.sound('scroll'));

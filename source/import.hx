@@ -11,15 +11,14 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.addons.transition.FlxTransitionableState;
-import openfl.Lib;
-import openfl.Assets;
 import lime.app.Application;
+import openfl.Lib;
+
 #if sys
 import sys.*;
 import sys.io.*;
-#else
-import openfl.Assets;
 #end
+
 import haxe.*;
 #end
 

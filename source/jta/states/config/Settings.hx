@@ -7,6 +7,7 @@ import jta.states.MainMenu;
 import jta.states.BaseState;
 import jta.states.config.Option;
 import jta.states.config.Controls;
+import jta.util.FilterUtil;
 
 /**
  * Settings menu to configure game options.
@@ -75,6 +76,14 @@ class Settings extends BaseState
 			Data.settings.locale = value;
 			Locale.loadLanguage(Data.settings.locale);
 			FlxG.resetState();
+		};
+		options.push(option);
+
+		var option:Option = new Option(Locale.getSettings("$FILTER"), OptionType.Choice(FilterUtil.getFiltersKeys().concat(['None'])), Data.settings.filter);
+		option.onChange = (value:Dynamic) ->
+		{
+			Data.settings.filter = value;
+			FilterUtil.reloadGameFilter(Data.settings.filter);
 		};
 		options.push(option);
 

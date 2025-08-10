@@ -1,5 +1,7 @@
 package jta;
 
+import jta.util.FilterUtil;
+
 @:structInit class Settings
 {
 	public var volume:Int = 100;
@@ -11,6 +13,7 @@ package jta;
 
 	public var skipSplash:Bool = false;
 	public var locale:String = 'en-US';
+	public var filter:String = 'None';
 
 	public var keyboardBinds:Array<FlxKey> = [LEFT, DOWN, UP, RIGHT, SPACE, SHIFT, ENTER, ESCAPE];
 	public var gamepadBinds:Array<FlxGamepadInputID> = [DPAD_LEFT, DPAD_DOWN, DPAD_UP, DPAD_RIGHT, A, RIGHT_TRIGGER, START, BACK];
@@ -45,6 +48,9 @@ class Data
 		}
 
 		Main.framerate = settings.framerate;
+
+		if (settings.filter != null)
+			FilterUtil.reloadGameFilter(settings.filter);
 	}
 
 	/**

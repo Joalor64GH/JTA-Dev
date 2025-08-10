@@ -6,13 +6,17 @@
 	<app title="Journey Through Aubekhia" package="com.joalor64.jta" file="JTA" main="Main"
 		version="0.1.0" company="Joalor64" />
 
+	<!-- [ Architecture Settings ] -->
+
+	<architecture exclude="armv7" if="android" />
+
 	<!-- [ Window Settings ] -->
 
 	<!-- All targets -->
 	<window width="800" height="600" fps="60" background="#000000" hardware="true" vsync="false" />
 
 	<!-- HTML5 -->
-	<window if="html5" resizable="false" />
+	<window if="html5" resizable="true" />
 
 	<!-- Desktop -->
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
@@ -21,6 +25,10 @@
 	<window if="mac" orientation="auto" fullscreen="false" resizable="true" vsync="false"
 		allow-high-dpi="true" />
 
+	<!-- Mobile -->
+	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0"
+		resizable="false" />
+
 	<!-- [ Path Settings ] -->
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
@@ -28,8 +36,19 @@
 
 	<source path="source" />
 
-	<assets path="assets" exclude="*.ogg" if="web" />
-	<assets path="assets" exclude="*.mp3" unless="web" />
+	<assets path="assets/data" />
+	<assets path="assets/fonts" />
+	<assets path="assets/images" />
+	<assets path="assets/levels" />
+	<assets path="assets/locales" />
+	<assets path="assets/scripts" />
+
+	<assets path="assets/music" exclude="*.ogg" if="web" />
+	<assets path="assets/music" exclude="*.mp3" unless="web" />
+	<assets path="assets/sounds" exclude="*.ogg" if="web" />
+	<assets path="assets/sounds" exclude="*.mp3" unless="web" />
+	<assets path="assets/videos" exclude="*.ogg" if="web" />
+	<assets path="assets/videos" exclude="*.mp3" unless="web" />
 
 	<define name="NO_REDIRECT_ASSETS_FOLDER" />
 
@@ -46,6 +65,8 @@
 	<haxelib name="firetongue" />
 	<haxelib name="hxdiscord_rpc" if="desktop" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug" />
+
+	<haxelib name="extension-androidtools" if="android" />
 
 	<!-- [ Haxe Defines ] -->
 
@@ -92,6 +113,7 @@
 	<haxeflag name="--macro"
 		value="include('flixel', true, ['flixel.addons.editors.spine.*', 'flixel.addons.nape.*', 'flixel.system.macros.*'])" />
 	<haxeflag name="--macro" value="nullSafety('jta.registries')" />
+	<haxeflag name="--macro" value="nullSafety('jta.util')" />
 
 	<!-- [ Icons ] -->
 

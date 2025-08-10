@@ -1,4 +1,5 @@
 import jta.objects.dialogue.portraits.Portrait;
+import jta.Assets;
 import jta.Paths;
 
 class PlayerPortrait extends Portrait
@@ -18,7 +19,7 @@ class PlayerPortrait extends Portrait
 
 	public override function changeFace(name:String):Void
 	{
-		if (Paths.exists(Paths.image('portraits/face_player' + name)))
+		if (Assets.exists(Paths.image('portraits/face_player' + name)))
 			loadGraphic(Paths.image('portraits/face_player' + name));
 	}
 }

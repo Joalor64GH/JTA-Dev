@@ -22,7 +22,8 @@ class RouletteObject extends Object
 
 	public override function overlap():Void
 	{
-		if (FlxG.state.player != null && !locked)
+		var player = FlxG.state.player;
+		if (player != null && !locked)
 		{
 			locked = true;
 			animation.curAnim.stop();
@@ -42,9 +43,9 @@ class RouletteObject extends Object
 			}
 			Global.save();
 
-			FlxG.state.player.characterControllable = false;
-			FlxG.state.player.animation.play('idle');
-			FlxG.state.player.velocity.x = 0;
+			player.characterControllable = false;
+			player.animation.play('idle');
+			player.velocity.x = 0;
 
 			new FlxTimer().start(2, function(tmr:FlxTimer):Void
 			{

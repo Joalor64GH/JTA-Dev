@@ -21,14 +21,15 @@ class SpikeObject extends Object
 
 	public override function overlap():Void
 	{
-		if (FlxG.state.player != null)
+		var player = FlxG.state.player;
+		if (player != null)
 		{
 			FlxG.sound.play(Paths.sound('die'));
 			Global.lives -= 1;
 			Global.save();
-			FlxG.state.player.characterControllable = false;
-			FlxG.state.player.animation.play('dead');
-			FlxG.state.player.velocity.x = 0;
+			player.characterControllable = false;
+			player.animation.play('dead');
+			player.velocity.x = 0;
 			if (Global.lives > 0)
 			{
 				new FlxTimer().start(3, function(tmr:FlxTimer):Void

@@ -1,9 +1,14 @@
 package;
 
+import jta.Game;
+import jta.Assets;
 import jta.debug.FPS;
 import jta.api.CrashHandler;
 import jta.api.DiscordClient;
-import jta.api.VideoInitializer;
+import jta.video.GlobalVideo;
+import jta.video.VideoHandler;
+import jta.video.WebmHandler;
+import jta.util.CleanupUtil;
 
 typedef GameConfig =
 {
@@ -62,6 +67,12 @@ class Main extends openfl.display.Sprite
 	{
 		super();
 
+		#if android
+		Sys.setCwd(Path.addTrailingSlash(android.os.Build.VERSION.SDK_INT > 30 ? android.content.Context.getObbDir() : android.content.Context.getExternalFilesDir()));
+		#elseif ios
+		Sys.setCwd(Path.addTrailingSlash(openfl.filesystem.File.documentsDirectory.nativePath));
+		#end
+
 		#if (desktop && !debug)
 		CrashHandler.init();
 		#end
@@ -84,11 +95,36 @@ class Main extends openfl.display.Sprite
 		jta.api.DiscordClient.load();
 		#end
 
+		CleanupUtil.init();
+
 		framerate = 60; // Default framerate
-		addChild(new FlxGame(config.gameDimensions[0], config.gameDimensions[1], config.initialState, config.framerate, config.framerate, config.skipSplash,
+		addChild(new Game(config.gameDimensions[0], config.gameDimensions[1], config.initialState, config.framerate, config.framerate, config.skipSplash,
 			config.startFullscreen));
 
-		VideoInitializer.setupVideo(this, 'assets/videos/DO NOT DELETE OR GAME WILL CRASH/dontDelete.webm');
+		var vidSource:String = 'assets/videos/DO NOT DELETE OR GAME WILL CRASH/dontDelete.webm';
+
+		#if web
+		var str1:String = 'HTML VIDEO';
+		var vHandler = new VideoHandler();
+		vHandler.init1();
+		vHandler.video.name = str1;
+		addChild(vHandler.video);
+		vHandler.init2();
+		GlobalVideo.setVid(vHandler);
+		vHandler.source(vidSource);
+		#elseif desktop
+		var str1:String = 'WEBM VIDEO';
+		var webmHandle = new WebmHandler();
+		webmHandle.source(vidSource);
+		webmHandle.makePlayer();
+		webmHandle.webm.name = str1;
+		addChild(webmHandle.webm);
+		GlobalVideo.setWebm(webmHandle);
+		#end
+
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
 
 		FlxG.sound.volumeUpKeys = [];
 		FlxG.sound.volumeDownKeys = [];

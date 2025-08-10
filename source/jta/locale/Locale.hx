@@ -2,6 +2,7 @@ package jta.locale;
 
 import jta.Data;
 import jta.Paths;
+import jta.Assets;
 import firetongue.Replace;
 import firetongue.FireTongue;
 
@@ -193,7 +194,7 @@ class Locale
 	 */
 	public static function getFile(path:String):String
 	{
-		if (Paths.exists('assets/locales/$locale/$path'))
+		if (Assets.exists('assets/locales/$locale/$path'))
 			return 'assets/locales/$locale/$path';
 		return null;
 	}

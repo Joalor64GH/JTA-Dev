@@ -13,6 +13,7 @@
 -L jsonpatch
 -L thx.core
 -L thx.semver
+-L extension-androidtools
 
 -cp source
 
@@ -33,6 +34,7 @@
 --macro include('jta')
 --macro include('flixel', true, ['flixel.addons.editors.spine.*', 'flixel.addons.nape.*', 'flixel.system.macros.*'])
 --macro nullSafety('jta.registries')
+--macro nullSafety('jta.util')
 --macro keep('Main')
 
 --no-output

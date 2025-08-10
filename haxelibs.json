@@ -71,6 +71,10 @@
         {
             "name": "hxdiscord_rpc",
             "type": "haxelib"
+        },
+        {
+            "name": "extension-androidtools",
+            "type": "haxelib"
         }
     ]
 }

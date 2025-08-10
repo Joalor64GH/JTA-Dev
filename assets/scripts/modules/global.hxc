@@ -1,9 +1,9 @@
-import jta.modding.module.ScriptedModule;
+import jta.modding.module.Module;
 import jta.states.level.Level;
 import flixel.FlxG;
 import Std;
 
-class GlobalModule extends ScriptedModule
+class GlobalModule extends Module
 {
 	public function new():Void
 	{
@@ -12,7 +12,7 @@ class GlobalModule extends ScriptedModule
 
 	public override function update(elapsed:Float):Void
 	{
-		if (FlxG.keys.justPressed.F5)
+		if (FlxG.keys.justPressed.F3)
 		{
 			if (Std.isOfType(FlxG.state, Level))
 				Level.resetLevel();

@@ -1,6 +1,7 @@
 package jta.substates;
 
 import jta.Data;
+import jta.registries.ModuleRegistry;
 
 /**
  * Base class used for all substates in the game.
@@ -11,6 +12,12 @@ class BaseSubState extends FlxSubState
 	override public function create():Void
 	{
 		super.create();
+
+		for (module in ModuleRegistry.getAllModules(true))
+		{
+			module.create();
+			add(module);
+		}
 	}
 
 	override public function update(elapsed:Float):Void
@@ -18,6 +25,16 @@ class BaseSubState extends FlxSubState
 		super.update(elapsed);
 
 		FlxG.stage.frameRate = Data.settings.framerate;
+
+		for (module in ModuleRegistry.getAllModules())
+			module.update(elapsed);
+	}
+
+	override public function destroy():Void
+	{
+		for (module in ModuleRegistry.getAllModules())
+			module.destroy();
+		super.destroy();
 	}
 
 	public function transitionState(state:FlxState, ?noTransition:Bool = false):Void

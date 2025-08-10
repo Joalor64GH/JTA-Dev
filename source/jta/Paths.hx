@@ -2,6 +2,7 @@ package jta;
 
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.media.Sound;
+import jta.Assets;
 
 using haxe.io.Path;
 
@@ -48,20 +49,12 @@ class Paths
 	}
 
 	/**
-	 * Checks is an asset exists at the given path.
-	 * @param path The path to the asset.
-	 * @return `true` if the asset exists, `false` otherwise.
-	 */
-	public static function exists(path:String):Bool
-		return Assets.exists(path);
-
-	/**
 	 * Gets an array of strings from the text content of a file at the given path.
 	 * @param path The path to the file.
 	 * @return The array of strings, each representing a line in the file.
 	 */
 	inline public static function getTextArray(path:String):Array<String>
-		return exists(path) ? [for (i in getText(path).trim().split('\n')) i.trim()] : [];
+		return Assets.exists(path) ? [for (i in getText(path).trim().split('\n')) i.trim()] : [];
 
 	/**
 	 * Gets a text file.
@@ -70,6 +63,14 @@ class Paths
 	 */
 	inline static public function txt(key:String):String
 		return 'assets/$key.txt';
+
+	/**
+	 * Gets a JSON file.
+	 * @param key The key for the JSON file.
+	 * @return The path to the JSON file.
+	 */
+	inline static public function json(key:String):String
+		return 'assets/$key.json';
 
 	/**
 	 * Gets a CSV file.
