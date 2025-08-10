@@ -1,9 +1,7 @@
 # Journey Through Aubekhia
-<a href="https://github.com/JoaTH-Team/JTA/actions/workflows/main.yml">
-  <img src="https://github.com/JoaTH-Team/JTA/actions/workflows/main.yml/badge.svg">
-</a>
-<img src="https://img.shields.io/github/repo-size/JoaTH-Team/JTA">
-<img src="https://img.shields.io/github/issues/JoaTH-Team/JTA">
+[![Build](https://github.com/JoaTH-Team/JTA/actions/workflows/main.yml/badge.svg)](https://github.com/JoaTH-Team/JTA/actions/workflows/main.yml)
+![](https://img.shields.io/github/repo-size/JoaTH-Team/JTA)
+![](https://img.shields.io/github/issues/JoaTH-Team/JTA)
 
 Just a silly little platformer where you explore! <br>
 Will be downloadable on [itch.io](https://joalor64.itch.io) when it's finished!
