@@ -7,7 +7,11 @@ import jta.macros.ClassMacro;
 #if windows
 import jta.api.native.WindowsAPI;
 #end
+import jta.util.TimerUtil;
 import jta.locale.Locale;
+#if sys
+import sys.FileSystem;
+#end
 
 /**
  * Handles the initialization and management of mods in the game.
@@ -83,6 +87,30 @@ class PolymodHandler
 		Polymod.blacklistImport('Reflect');
 		Polymod.blacklistImport('Type');
 
+		for (cls in ClassMacro.listClassesInPackage('jta.macros'))
+		{
+			if (cls == null)
+				continue;
+
+			Polymod.blacklistImport(Type.getClassName(cls));
+		}
+
+		for (cls in ClassMacro.listClassesInPackage('extension.androidtools'))
+		{
+			if (cls == null)
+				continue;
+
+			Polymod.blacklistImport(Type.getClassName(cls));
+		}
+
+		for (cls in ClassMacro.listClassesInPackage('hscript'))
+		{
+			if (cls == null)
+				continue;
+
+			Polymod.blacklistImport(Type.getClassName(cls));
+		}
+
 		for (cls in ClassMacro.listClassesInPackage('polymod'))
 		{
 			if (cls == null)
@@ -122,8 +150,11 @@ class PolymodHandler
 			useScriptedClasses: true,
 			loadScriptsAsync: #if html5 true #else false #end,
 			ignoredFiles: Polymod.getDefaultIgnoreList(),
+			extensionMap: ['frag' => TEXT, 'vert' => TEXT],
 			firetongue: Locale.tongue
 		});
+
+		final registriesStart:Float = TimerUtil.start();
 
 		jta.registries.dialogue.TyperRegistry.loadTypers();
 		jta.registries.dialogue.PortraitRegistry.loadPortraits();
@@ -134,6 +165,8 @@ class PolymodHandler
 		jta.registries.LevelRegistry.loadLevels();
 
 		jta.registries.ModuleRegistry.loadModules();
+
+		FlxG.log.notice('Registries loading took: ${TimerUtil.seconds(registriesStart)}');
 	}
 
 	public static function getMods():Array<String>

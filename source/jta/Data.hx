@@ -1,6 +1,8 @@
 package jta;
 
 import jta.util.FilterUtil;
+import flixel.input.keyboard.FlxKey;
+import flixel.input.gamepad.FlxGamepadInputID;
 
 @:structInit class Settings
 {

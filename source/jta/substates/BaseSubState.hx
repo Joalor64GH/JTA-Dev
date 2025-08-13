@@ -1,7 +1,8 @@
 package jta.substates;
 
-import jta.Data;
+import flixel.addons.transition.FlxTransitionableState;
 import jta.registries.ModuleRegistry;
+import jta.Data;
 
 /**
  * Base class used for all substates in the game.

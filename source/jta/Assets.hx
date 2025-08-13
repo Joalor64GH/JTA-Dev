@@ -1,10 +1,8 @@
 package jta;
 
-import haxe.io.Path;
-import haxe.Exception;
-import openfl.display.BitmapData;
-import openfl.media.Sound;
 import openfl.text.Font;
+import openfl.media.Sound;
+import openfl.display.BitmapData;
 import openfl.utils.Assets as OpenFLAssets;
 
 /**

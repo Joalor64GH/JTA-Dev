@@ -4,6 +4,7 @@ import jta.Paths;
 import jta.input.Input;
 import jta.locale.Locale;
 import jta.states.MainMenu;
+import jta.states.LevelSelect;
 import jta.substates.BaseSubState;
 
 class LevelComplete extends BaseSubState
@@ -69,7 +70,7 @@ class LevelComplete extends BaseSubState
 					if (onContinue != null)
 						onContinue();
 					else
-						transitionState(new MainMenu());
+						transitionState(new LevelSelect());
 				case 1:
 					FlxG.sound.play(Paths.sound('cancel'));
 					transitionState(new MainMenu());

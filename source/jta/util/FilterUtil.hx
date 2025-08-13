@@ -1,8 +1,8 @@
 package jta.util;
 
+import jta.Data;
 import openfl.filters.BitmapFilter;
 import openfl.filters.ColorMatrixFilter;
-import jta.Data;
 
 /**
  * Utility class for managing color filters.

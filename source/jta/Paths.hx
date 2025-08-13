@@ -30,11 +30,6 @@ class Paths
 	public static final SOUND_EXT:String = #if !web 'ogg' #else 'mp3' #end;
 
 	/**
-	 * Function to get the text content of a file at the given path.
-	 */
-	public static final getText:String->String = #if sys File.getContent #else Assets.getText #end;
-
-	/**
 	 * Finds an asset by checking the given path with multiple extensions.
 	 * @param path The base path of the asset.
 	 * @param exts What extensions to check for the asset.
@@ -54,7 +49,7 @@ class Paths
 	 * @return The array of strings, each representing a line in the file.
 	 */
 	inline public static function getTextArray(path:String):Array<String>
-		return Assets.exists(path) ? [for (i in getText(path).trim().split('\n')) i.trim()] : [];
+		return Assets.exists(path) ? [for (i in Assets.getText(path).trim().split('\n')) i.trim()] : [];
 
 	/**
 	 * Gets a text file.

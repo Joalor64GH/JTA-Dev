@@ -29,13 +29,13 @@ class WindowsAPI
         if (S_OK != DwmSetWindowAttribute(window, DWMWA_USE_IMMERSIVE_DARK_MODE, reinterpret_cast<LPCVOID>(&darkMode), sizeof(darkMode)))
             DwmSetWindowAttribute(window, DWMWA_USE_IMMERSIVE_DARK_MODE, reinterpret_cast<LPCVOID>(&darkMode), sizeof(darkMode));
     ')
-	public static function setDarkMode(enable:Bool) {}
+	public static function setDarkMode(enable:Bool):Void {}
 
 	/**
 	 * Enables or disables dark mode for the current application window.
 	 * @param enable Whether to enable or disable dark mode.
 	 */
-	public static function darkMode(enable:Bool)
+	public static function darkMode(enable:Bool):Void
 	{
 		setDarkMode(enable);
 		Application.current.window.borderless = true;
@@ -45,7 +45,7 @@ class WindowsAPI
 	@:functionCode('
         int result = MessageBox(GetActiveWindow(), message, caption, icon | MB_SETFOREGROUND);
     ')
-	public static function showMessageBox(caption:String, message:String, icon:MessageBoxIcon = MSG_WARNING) {}
+	public static function showMessageBox(caption:String, message:String, icon:MessageBoxIcon = MSG_WARNING):Void {}
 
 	/**
 	 * Shows a message box with the specified caption, message, and icon.
@@ -53,7 +53,7 @@ class WindowsAPI
 	 * @param message The message to display in the message box.
 	 * @param icon The icon to display in the message box.
 	 */
-	public static function messageBox(caption:String, message:String, icon:MessageBoxIcon = MSG_WARNING)
+	public static function messageBox(caption:String, message:String, icon:MessageBoxIcon = MSG_WARNING):Void
 	{
 		showMessageBox(caption, message, icon);
 	}

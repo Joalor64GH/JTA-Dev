@@ -7,6 +7,9 @@ import jta.locale.Locale;
 import jta.states.BaseState;
 import jta.states.config.Settings;
 import jta.substates.BaseSubState;
+import flixel.input.keyboard.FlxKey;
+import flixel.input.gamepad.FlxGamepad;
+import flixel.input.gamepad.FlxGamepadInputID;
 
 class DeviceSelect extends BaseSubState
 {

@@ -1,6 +1,5 @@
 package jta.states.config;
 
-import haxe.Exception;
 import jta.locale.Locale;
 
 /**

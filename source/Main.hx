@@ -9,30 +9,21 @@ import jta.video.GlobalVideo;
 import jta.video.VideoHandler;
 import jta.video.WebmHandler;
 import jta.util.CleanupUtil;
-
-typedef GameConfig =
-{
-	var gameDimensions:Array<Int>;
-	var framerate:Int;
-	var initialState:Class<FlxState>;
-	var skipSplash:Bool;
-	var startFullscreen:Bool;
-}
+import jta.util.ResizeUtil;
+#if hxgamemode
+import hxgamemode.GamemodeClient;
+#end
 
 /**
  * The main entry point for the game.
  */
-#if (linux && !debug)
-@:cppInclude('./external/gamemode_client.h')
-@:cppFileCode('#define GAMEMODE_AUTO')
-#end
 class Main extends openfl.display.Sprite
 {
 	/**
 	 * Configuration for the game.
 	 * This includes the game dimensions, framerate, initial state, and options for splash screen and fullscreen.
 	 */
-	public final config:GameConfig = {
+	public final config:Dynamic = {
 		gameDimensions: [800, 600],
 		framerate: 60,
 		initialState: jta.states.Startup,
@@ -59,6 +50,19 @@ class Main extends openfl.display.Sprite
 
 	static function get_framerate():Float
 		return Lib.current.stage.frameRate;
+
+	/**
+	 * This will make it so it's run right at startup.
+	 */
+	private static function __init__():Void
+	{
+		#if hxgamemode
+		if (GamemodeClient.request_start() != 0)
+			Sys.println('Failed to request gamemode start: ${GamemodeClient.error_string()}...');
+		else
+			Sys.println('Succesfully requested gamemode to start...');
+		#end
+	}
 
 	/**
 	 * Initializes the game and sets up the application.
@@ -92,10 +96,11 @@ class Main extends openfl.display.Sprite
 		#end
 
 		#if hxdiscord_rpc
-		jta.api.DiscordClient.load();
+		DiscordClient.load();
 		#end
 
 		CleanupUtil.init();
+		ResizeUtil.init();
 
 		framerate = 60; // Default framerate
 		addChild(new Game(config.gameDimensions[0], config.gameDimensions[1], config.initialState, config.framerate, config.framerate, config.skipSplash,

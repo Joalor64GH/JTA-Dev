@@ -7,7 +7,8 @@
 -L hscript
 -L polymod
 -L firetongue
--L hxdiscord_rpc 
+-L hxgamemode
+-L hxdiscord_rpc
 -L hxcpp-debug-server
 -L jsonpath
 -L jsonpatch

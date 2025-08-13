@@ -4,6 +4,8 @@ package jta.api;
 import openfl.events.UncaughtErrorEvent;
 import haxe.CallStack;
 import haxe.io.Path;
+import sys.io.File;
+import sys.FileSystem;
 import jta.api.DiscordClient;
 import jta.api.native.WindowsAPI;
 
@@ -58,7 +60,7 @@ class CrashHandler
 			if (!FileSystem.exists('./crash/'))
 				FileSystem.createDirectory('./crash/');
 
-			File.saveContent('./crash/${Lib.application.meta.get('file')}-${Date.now().toString().replace(' ', '-').replace(':', "'")}.txt', '$msg\n');
+			File.saveContent('./crash/${Lib.application.meta.get('file')}-${Date.now().toString().replace(' ', '_').replace(':', '-')}.txt', '$msg\n');
 		}
 		catch (e:Dynamic)
 			Sys.println('Error!\nCouldn\'t save the crash dump because:\n$e');
@@ -92,7 +94,7 @@ class CrashHandler
 		var dateNow:String = Date.now().toString();
 
 		dateNow = dateNow.replace(' ', '_');
-		dateNow = dateNow.replace(':', "'");
+		dateNow = dateNow.replace(':', "-");
 
 		path = './crash/JTA_$dateNow.txt';
 

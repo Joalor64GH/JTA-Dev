@@ -6,6 +6,8 @@ import jta.locale.Locale;
 import jta.states.BaseState;
 import jta.states.LevelSelect;
 import jta.states.config.Settings;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 
 class MainMenu extends BaseState
 {

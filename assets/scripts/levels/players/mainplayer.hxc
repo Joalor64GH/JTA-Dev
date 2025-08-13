@@ -1,5 +1,4 @@
 import flixel.FlxG;
-import flixel.FlxObject;
 import jta.input.Input;
 import jta.objects.level.Player;
 import jta.Paths;

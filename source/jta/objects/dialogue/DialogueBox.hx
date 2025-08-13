@@ -1,5 +1,6 @@
 package jta.objects.dialogue;
 
+import flixel.group.FlxSpriteGroup;
 import flixel.addons.display.shapes.FlxShapeBox;
 import jta.registries.dialogue.PortraitRegistry;
 import jta.objects.dialogue.portraits.Portrait;

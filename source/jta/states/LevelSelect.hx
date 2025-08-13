@@ -32,7 +32,7 @@ class LevelSelect extends BaseState
 
 		if (Assets.exists(Paths.txt('levels/levelList')))
 		{
-			initLevels = Paths.getText(Paths.txt('levels/levelList')).trim().split('\n');
+			initLevels = Assets.getText(Paths.txt('levels/levelList')).trim().split('\n');
 
 			for (i in 0...initLevels.length)
 				initLevels[i] = initLevels[i].trim();
@@ -52,20 +52,22 @@ class LevelSelect extends BaseState
 		coverGroup = new FlxTypedGroup<FlxSprite>();
 		add(coverGroup);
 
-		arrowL = new FlxSprite(0, FlxG.height / 2).loadGraphic(Paths.image('menu/level/arrow'), true, 16, 16);
+		arrowL = new FlxSprite().loadGraphic(Paths.image('menu/level/arrow'), true, 16, 16);
 		arrowL.animation.add('idle', [0], 1);
 		arrowL.animation.add('pressed', [1], 1);
 		arrowL.animation.play('idle');
 		arrowL.scale.set(5, 5);
 		arrowL.updateHitbox();
+		arrowL.screenCenter(Y);
 		add(arrowL);
 
-		arrowR = new FlxSprite(0, FlxG.height / 2).loadGraphic(Paths.image('menu/level/arrow'), true, 16, 16);
+		arrowR = new FlxSprite().loadGraphic(Paths.image('menu/level/arrow'), true, 16, 16);
 		arrowR.animation.add('idle', [0], 1);
 		arrowR.animation.add('pressed', [1], 1);
 		arrowR.animation.play('idle');
 		arrowR.scale.set(5, 5);
 		arrowR.updateHitbox();
+		arrowR.screenCenter(Y);
 		arrowR.flipX = true;
 		add(arrowR);
 
