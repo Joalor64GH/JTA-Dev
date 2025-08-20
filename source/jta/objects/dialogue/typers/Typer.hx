@@ -1,5 +1,6 @@
 package jta.objects.dialogue.typers;
 
+import flixel.math.FlxPoint;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxDestroyUtil;
 import openfl.media.Sound;

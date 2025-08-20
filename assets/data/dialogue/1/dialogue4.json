@@ -1,0 +1,9 @@
+{
+    "dialogueData": [
+        {
+            "typer": "sign",
+            "portrait": "sign",
+            "text": "Hello, I am test dialogue!"
+        }
+    ]
+}

@@ -250,6 +250,18 @@ class Level extends BaseState
 	}
 
 	/**
+	 * Loads a dialogue file from a specified path.
+	 * Made as a workaround to not get any errors when loading it through polymod scripts.
+	 * @param path The path to the dialogue file.
+	 * @param id The level ID to load the dialogue file from.
+	 * @return The dialogue file.
+	 */
+	public function loadDialogue(path:Dynamic, id:Int):Dynamic
+	{
+		return Json.parse(Assets.getText(Paths.json('data/dialogue/$id/$path')));
+	}
+
+	/**
 	 * Starts dialogue with the given `dialogue` data.
 	 * @param dialogue The dialogue data needed for the `Writer` to display.
 	 * @param finishCallback What to do when the dialogue finishes.

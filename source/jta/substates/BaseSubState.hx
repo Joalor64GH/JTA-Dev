@@ -1,6 +1,7 @@
 package jta.substates;
 
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.util.typeLimit.NextState;
 import jta.registries.ModuleRegistry;
 import jta.Data;
 
@@ -38,7 +39,7 @@ class BaseSubState extends FlxSubState
 		super.destroy();
 	}
 
-	public function transitionState(state:FlxState, ?noTransition:Bool = false):Void
+	public function transitionState(state:NextState, ?noTransition:Bool = false):Void
 	{
 		FlxTransitionableState.skipNextTransIn = noTransition;
 		FlxTransitionableState.skipNextTransOut = noTransition;

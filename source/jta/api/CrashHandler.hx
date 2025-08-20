@@ -94,7 +94,7 @@ class CrashHandler
 		var dateNow:String = Date.now().toString();
 
 		dateNow = dateNow.replace(' ', '_');
-		dateNow = dateNow.replace(':', "-");
+		dateNow = dateNow.replace(':', '-');
 
 		path = './crash/JTA_$dateNow.txt';
 

@@ -180,6 +180,7 @@ class Locale
 	/**
 	 * Gets the localized string for the given key.
 	 * @param key The key to look up in the localization files.
+	 * @param context A key specifying which index to look for the key in.
 	 * @return The localized string.
 	 */
 	public static function getString(key:String, context:String):String

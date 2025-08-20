@@ -6,6 +6,8 @@
 	<app title="Journey Through Aubekhia" packageName="com.joalor64.jta" package="com.joalor64.jta"
 		file="JTA" main="Main" version="0.1.0" company="Joalor64" />
 
+	<app preloader="jta.api.Preloader" if="web" />
+
 	<!-- [ Architecture Settings ] -->
 
 	<architecture exclude="armv7" if="android" />
@@ -27,7 +29,7 @@
 
 	<!-- Mobile -->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0"
-		resizable="false" />
+		resizable="false" allow-shaders="true" allow-high-dpi="true" />
 
 	<!-- [ Path Settings ] -->
 
@@ -50,6 +52,8 @@
 	<assets path="assets/sounds" exclude="*.mp3" unless="web" />
 	<assets path="assets/videos" exclude="*.ogg" if="web" />
 	<assets path="assets/videos" exclude="*.mp3" unless="web" />
+
+	<assets path="mobile" rename="assets/images/mobile" if="mobile" />
 
 	<define name="NO_REDIRECT_ASSETS_FOLDER" />
 

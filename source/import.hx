@@ -1,8 +1,8 @@
 #if !macro
 import haxe.*;
 import flixel.*;
-import flixel.math.*;
 import flixel.util.*;
+import flixel.math.FlxMath;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import lime.app.Application;

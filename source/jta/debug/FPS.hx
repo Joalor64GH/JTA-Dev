@@ -45,7 +45,7 @@ class FPS extends TextField
 		selectable = false;
 		defaultTextFormat = new TextFormat(Paths.font((font != null) ? font : 'main'), 16, color);
 
-		addEventListener(Event.ENTER_FRAME, (_) ->
+		addEventListener(Event.ENTER_FRAME, function(_):Void
 		{
 			final now:Float = Timer.stamp() * 1000;
 			times.push(now);

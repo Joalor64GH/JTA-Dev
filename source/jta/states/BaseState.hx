@@ -3,7 +3,10 @@ package jta.states;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
+import flixel.util.typeLimit.NextState;
 import flixel.graphics.FlxGraphic;
+import flixel.math.FlxPoint;
+import flixel.math.FlxRect;
 import jta.registries.ModuleRegistry;
 import jta.states.Startup;
 import jta.Data;
@@ -76,7 +79,7 @@ class BaseState extends FlxTransitionableState
 		super.destroy();
 	}
 
-	public function transitionState(state:FlxState, ?noTransition:Bool = false):Void
+	public function transitionState(state:NextState, ?noTransition:Bool = false):Void
 	{
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
