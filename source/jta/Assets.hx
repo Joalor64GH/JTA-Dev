@@ -1,5 +1,6 @@
 package jta;
 
+import haxe.Exception;
 import openfl.text.Font;
 import openfl.media.Sound;
 import openfl.display.BitmapData;

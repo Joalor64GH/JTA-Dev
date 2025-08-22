@@ -1,5 +1,7 @@
 package jta.states.level;
 
+import haxe.Json;
+import flixel.FlxCamera;
 import flixel.tile.FlxTilemap;
 import jta.states.BaseState;
 import jta.substates.GameOver;
@@ -53,7 +55,7 @@ class Level extends BaseState
 	private var objects:FlxTypedGroup<Object>;
 
 	/**
-	 * `flixel.FlxCamera` used for the HUD.
+	 * `FlxCamera` used for the HUD.
 	 */
 	private var camHUD:FlxCamera;
 

@@ -1,15 +1,10 @@
 package;
 
 import jta.Game;
-import jta.Assets;
 import jta.debug.FPS;
-import jta.api.CrashHandler;
-import jta.api.DiscordClient;
 import jta.video.GlobalVideo;
 import jta.video.VideoHandler;
 import jta.video.WebmHandler;
-import jta.util.CleanupUtil;
-import jta.util.ResizeUtil;
 #if hxgamemode
 import hxgamemode.GamemodeClient;
 #end
@@ -65,42 +60,45 @@ class Main extends openfl.display.Sprite
 	}
 
 	/**
+	 * The entry point of the application.
+	 */
+	public static function main():Void
+	{
+		#if android
+		Sys.setCwd(haxe.io.Path.addTrailingSlash(android.os.Build.VERSION.SDK_INT > 30 ? android.content.Context.getObbDir() : android.content.Context.getExternalFilesDir()));
+		#elseif ios
+		Sys.setCwd(haxe.io.Path.addTrailingSlash(openfl.filesystem.File.documentsDirectory.nativePath));
+		#end
+
+		#if (!web && !debug)
+		jta.api.CrashHandler.init();
+		#end
+
+		jta.util.WindowUtil.init();
+
+		Lib.current.stage.align = openfl.display.StageAlign.TOP_LEFT;
+		Lib.current.stage.quality = openfl.display.StageQuality.LOW;
+		Lib.current.stage.scaleMode = openfl.display.StageScaleMode.NO_SCALE;
+		Lib.current.addChild(new Main());
+	}
+
+	/**
 	 * Initializes the game and sets up the application.
 	 */
 	public function new():Void
 	{
 		super();
 
-		#if android
-		Sys.setCwd(Path.addTrailingSlash(android.os.Build.VERSION.SDK_INT > 30 ? android.content.Context.getObbDir() : android.content.Context.getExternalFilesDir()));
-		#elseif ios
-		Sys.setCwd(Path.addTrailingSlash(openfl.filesystem.File.documentsDirectory.nativePath));
-		#end
-
-		#if (desktop && !debug)
-		CrashHandler.init();
-		#end
-
-		#if linux
-		if (Assets.exists('icon.png'))
-		{
-			final icon:Null<openfl.display.BitmapData> = Assets.getBitmapData('icon.png', false);
-
-			if (icon != null)
-				Lib.application.window.setIcon(icon.image);
-		}
-		#end
-
 		#if windows
 		jta.api.native.WindowsAPI.darkMode(true);
 		#end
 
 		#if hxdiscord_rpc
-		DiscordClient.load();
+		jta.api.DiscordClient.load();
 		#end
 
-		CleanupUtil.init();
-		ResizeUtil.init();
+		jta.util.CleanupUtil.init();
+		jta.util.ResizeUtil.init();
 
 		framerate = 60; // Default framerate
 		addChild(new Game(config.gameDimensions[0], config.gameDimensions[1], config.initialState, config.framerate, config.framerate, config.skipSplash,
@@ -110,7 +108,7 @@ class Main extends openfl.display.Sprite
 
 		#if web
 		var str1:String = 'HTML VIDEO';
-		var vHandler = new VideoHandler();
+		var vHandler:VideoHandler = new VideoHandler();
 		vHandler.init1();
 		vHandler.video.name = str1;
 		addChild(vHandler.video);
@@ -119,7 +117,7 @@ class Main extends openfl.display.Sprite
 		vHandler.source(vidSource);
 		#elseif desktop
 		var str1:String = 'WEBM VIDEO';
-		var webmHandle = new WebmHandler();
+		var webmHandle:WebmHandler = new WebmHandler();
 		webmHandle.source(vidSource);
 		webmHandle.makePlayer();
 		webmHandle.webm.name = str1;

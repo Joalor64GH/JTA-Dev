@@ -1,6 +1,7 @@
 package jta;
 
 import jta.util.FilterUtil;
+import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepadInputID;
 

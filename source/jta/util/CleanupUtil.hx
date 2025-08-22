@@ -5,6 +5,7 @@ import polymod.Polymod;
 import jta.util.MemoryUtil;
 #end
 import jta.util.TimerUtil;
+import flixel.FlxState;
 
 /**
  * Utility class for handling state-related cache management and garbage collection in HaxeFlixel.

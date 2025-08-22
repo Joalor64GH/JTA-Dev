@@ -72,7 +72,8 @@ class MainMenu extends BaseState
 
 		FlxTween.tween(player, {y: 500}, 1, {ease: FlxEase.quadOut});
 
-		versionTxt = new FlxText(0, FlxG.height - 30, 250, 'v${Lib.application.meta.get('version')} (DEMO)', 24);
+		versionTxt = new FlxText(0, FlxG.height - 30, 250, 'v${Lib.application.meta.get('version')}', 24);
+		versionTxt.text += #if (debug && !web) ' (${jta.macros.git.GitMacro.getCommitId()})' #else versionTxt.text += ' (DEMO)' #end;
 		versionTxt.setFormat(Paths.font('main'), 24, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionTxt);
 
@@ -105,7 +106,7 @@ class MainMenu extends BaseState
 			}
 		}
 
-		selectionGroup.forEach(function(text:FlxText)
+		selectionGroup.forEach(function(text:FlxText):Void
 		{
 			text.color = (text.ID == selectedIndex) ? FlxColor.YELLOW : FlxColor.WHITE;
 		});

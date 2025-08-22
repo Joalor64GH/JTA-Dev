@@ -91,7 +91,7 @@ class DeviceSelect extends BaseSubState
 			close();
 		}
 
-		selectionGroup.forEach(function(text:FlxText)
+		selectionGroup.forEach(function(text:FlxText):Void
 		{
 			text.color = (text.ID == selectedIndex) ? FlxColor.YELLOW : FlxColor.WHITE;
 		});
@@ -158,7 +158,6 @@ class Controls extends BaseState
 		anyKeyTxt.visible = false;
 		add(anyKeyTxt);
 
-		updateSelection();
 		super.create();
 	}
 
@@ -210,7 +209,11 @@ class Controls extends BaseState
 			}
 		}
 
-		updateSelection();
+		selectionGroup.forEach(function(text:FlxText):Void
+		{
+			text.color = (text.ID == selectedIndex) ? FlxColor.YELLOW : FlxColor.WHITE;
+		});
+
 		super.update(elapsed);
 	}
 
@@ -235,15 +238,6 @@ class Controls extends BaseState
 			var label = getBindLabel(controls[i], i);
 			var text:FlxText = cast selectionGroup.members[i];
 			text.text = label;
-		}
-	}
-
-	function updateSelection():Void
-	{
-		for (i in 0...selectionGroup.length)
-		{
-			var text:FlxText = cast selectionGroup.members[i];
-			text.color = (i == selectedIndex) ? FlxColor.YELLOW : FlxColor.WHITE;
 		}
 	}
 }

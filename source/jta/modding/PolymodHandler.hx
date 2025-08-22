@@ -7,6 +7,7 @@ import jta.macros.ClassMacro;
 #if windows
 import jta.api.native.WindowsAPI;
 #end
+import jta.util.WindowUtil;
 import jta.util.TimerUtil;
 import jta.locale.Locale;
 #if sys
@@ -218,14 +219,18 @@ class PolymodHandler
 			case WARNING:
 				FlxG.log.warn('($code) ${error.message}');
 
-				#if (windows && debug)
+				#if (windows && debug && cpp)
 				WindowsAPI.messageBox(code, error.message);
+				#elseif debug
+				WindowUtil.showAlert(code, error.message);
 				#end
 			case ERROR:
 				FlxG.log.error('($code) ${error.message}');
 
-				#if windows
+				#if (windows && cpp)
 				WindowsAPI.messageBox(code, error.message, MSG_ERROR);
+				#else
+				WindowUtil.showAlert(code, error.message);
 				#end
 		}
 	}

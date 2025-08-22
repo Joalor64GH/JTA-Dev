@@ -1,11 +1,11 @@
 #if !macro
-import haxe.*;
-import flixel.*;
-import flixel.util.*;
+import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.math.FlxMath;
-import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
+import flixel.group.FlxGroup;
 import flixel.text.FlxText;
-import lime.app.Application;
 import openfl.Lib;
 #end
 

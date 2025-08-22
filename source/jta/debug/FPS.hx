@@ -1,10 +1,12 @@
 package jta.debug;
 
 import jta.Paths;
+import haxe.Timer;
 import openfl.events.Event;
 import openfl.system.System;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
+import flixel.util.FlxStringUtil;
 
 /**
  * Class for displaying FPS and memory usage in the game.

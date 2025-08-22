@@ -1,5 +1,7 @@
 package jta.api.native;
 
+import lime.app.Application;
+
 /**
  * Class for Windows API-related functions.
  */
@@ -11,9 +13,6 @@ package jta.api.native;
     ')
 @:cppFileCode('
     #include <Windows.h>
-    #include <cstdio>
-    #include <iostream>
-    #include <tchar.h>
     #include <dwmapi.h>
     #include <winuser.h>
 
@@ -56,6 +55,14 @@ class WindowsAPI
 	public static function messageBox(caption:String, message:String, icon:MessageBoxIcon = MSG_WARNING):Void
 	{
 		showMessageBox(caption, message, icon);
+	}
+
+	/**
+	 * Disables the "Report to Microsoft" dialog that appears when the application crashes.
+	 */
+	public static function disableErrorReporting():Void
+	{
+		untyped SetErrorMode(untyped SEM_FAILCRITICALERRORS | untyped SEM_NOGPFAULTERRORBOX);
 	}
 }
 

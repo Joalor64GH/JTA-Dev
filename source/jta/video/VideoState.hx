@@ -43,7 +43,7 @@ class VideoState extends BaseState
 		this.onComplete = onComplete;
 	}
 
-	override function create():Void
+	override public function create():Void
 	{
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.pause();
@@ -79,7 +79,7 @@ class VideoState extends BaseState
 		super.create();
 	}
 
-	override function update(elapsed:Float):Void
+	override public function update(elapsed:Float):Void
 	{
 		var ourVideo:Dynamic = GlobalVideo.get();
 

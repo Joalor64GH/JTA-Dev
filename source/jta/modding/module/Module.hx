@@ -1,5 +1,6 @@
 package jta.modding.module;
 
+import flixel.FlxBasic;
 import jta.registries.ModuleRegistry;
 
 /**

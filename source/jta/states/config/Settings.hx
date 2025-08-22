@@ -164,7 +164,7 @@ class Settings extends BaseState
 			transitionState(new MainMenu());
 		}
 
-		selectionGroup.forEach(function(text:FlxText)
+		selectionGroup.forEach(function(text:FlxText):Void
 		{
 			text.color = (text.ID == selectedIndex) ? FlxColor.YELLOW : FlxColor.WHITE;
 		});

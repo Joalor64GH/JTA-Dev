@@ -1,6 +1,6 @@
 package jta.api;
 
-#if (desktop && !debug)
+#if (!web && !debug)
 import openfl.events.UncaughtErrorEvent;
 import haxe.CallStack;
 import haxe.io.Path;
@@ -8,6 +8,8 @@ import sys.io.File;
 import sys.FileSystem;
 import jta.api.DiscordClient;
 import jta.api.native.WindowsAPI;
+import jta.util.WindowUtil;
+import jta.util.DateUtil;
 
 /**
  * Class to handle crashes in the application.
@@ -20,6 +22,10 @@ class CrashHandler
 	public static function init():Void
 	{
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
+
+		#if (windows && cpp)
+		WindowsAPI.disableErrorReporting();
+		#end
 
 		#if cpp
 		untyped __global__.__hxcpp_set_critical_error_handler(onFatalCrash);
@@ -60,7 +66,7 @@ class CrashHandler
 			if (!FileSystem.exists('./crash/'))
 				FileSystem.createDirectory('./crash/');
 
-			File.saveContent('./crash/${Lib.application.meta.get('file')}-${Date.now().toString().replace(' ', '_').replace(':', '-')}.txt', '$msg\n');
+			File.saveContent('./crash/${Lib.application.meta.get('file')}-${DateUtil.getFormattedDateTimeForFile()}.txt', '$msg\n');
 		}
 		catch (e:Dynamic)
 			Sys.println('Error!\nCouldn\'t save the crash dump because:\n$e');
@@ -77,8 +83,8 @@ class CrashHandler
 		WindowsAPI.messageBox('Error!', 'Uncaught Error: \n$msg
 			\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/JoaTH-Team/JTA/issues', MSG_ERROR);
 		#else
-		Lib.application.window.alert('Uncaught Error: \n$msg
-			\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/JoaTH-Team/JTA/issues', 'Error!');
+		WindowUtil.showAlert('Error!', 'Uncaught Error: \n$msg
+			\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/JoaTH-Team/JTA/issues');
 		#end
 		Sys.println('Uncaught Error: \n$msg
 			\n\nIf you think this shouldn\'t have happened, report this error to GitHub repository!\nhttps://github.com/JoaTH-Team/JTA/issues');
@@ -91,12 +97,8 @@ class CrashHandler
 		var errMsg:String = '';
 		var path:String;
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
-		var dateNow:String = Date.now().toString();
 
-		dateNow = dateNow.replace(' ', '_');
-		dateNow = dateNow.replace(':', '-');
-
-		path = './crash/JTA_$dateNow.txt';
+		path = './crash/JTA_${DateUtil.getFormattedDateTimeForFile()}.txt';
 
 		errMsg += '${msg}\n';
 
@@ -122,9 +124,9 @@ class CrashHandler
 			FlxG.sound.music.stop();
 
 		Sys.println(errMsg);
-		Sys.println('Crash dump saved in ${Path.normalize(path)}');
+		Sys.println('Crash dump saved in ${haxe.io.Path.normalize(path)}');
 
-		Application.current.window.alert(errMsg, 'CRITICAL ERROR!');
+		WindowUtil.showAlert('Fatal Error!', errMsg);
 		#if hxdiscord_rpc
 		DiscordClient.shutdown();
 		#end

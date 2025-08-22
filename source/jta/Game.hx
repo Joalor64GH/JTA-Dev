@@ -1,5 +1,7 @@
 package jta;
 
+import flixel.FlxGame;
+
 /**
  * Custom game class that extends FlxGame, incorporating error handling for various lifecycle events.
  * This class ensures that uncaught errors during the game's execution are handled appropriately

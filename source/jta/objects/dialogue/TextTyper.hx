@@ -4,6 +4,7 @@ import jta.objects.dialogue.typers.Typer;
 import jta.objects.dialogue.TextParser;
 import flixel.sound.FlxSound;
 import flixel.util.FlxSignal;
+import flixel.util.FlxDestroyUtil;
 
 /**
  * Displays text with a typewriter effect, revealing characters one by one.

@@ -50,7 +50,7 @@ class DiscordClient
 		handlers.errored = cpp.Function.fromStaticFunction(onError);
 		Discord.Initialize(clientID, cpp.RawPointer.addressOf(handlers), false, null);
 
-		Thread.create(function()
+		Thread.create(function():Void
 		{
 			while (true)
 			{
@@ -59,11 +59,8 @@ class DiscordClient
 			}
 		});
 
-		Application.current.window.onClose.add(() ->
-		{
-			if (initialized)
-				shutdown();
-		});
+		if (Lib.application != null && !Lib.application.onExit.has(shutdown))
+			Lib.application.onExit.add(shutdown);
 
 		initialized = true;
 	}
@@ -107,8 +104,10 @@ class DiscordClient
 		clientID = _defaultID;
 	}
 
-	public static function shutdown():Void
+	public static function shutdown(?exitCode:Int):Void
 	{
+		if (!initialized)
+			return;
 		initialized = false;
 		Discord.Shutdown();
 	}

@@ -77,7 +77,7 @@ class LevelComplete extends BaseSubState
 			}
 		}
 
-		selectionGroup.forEach(function(text:FlxText)
+		selectionGroup.forEach(function(text:FlxText):Void
 		{
 			text.color = (text.ID == selectedIndex) ? FlxColor.YELLOW : FlxColor.WHITE;
 		});

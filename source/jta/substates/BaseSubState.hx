@@ -1,5 +1,6 @@
 package jta.substates;
 
+import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.typeLimit.NextState;
 import jta.registries.ModuleRegistry;

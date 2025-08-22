@@ -1,5 +1,7 @@
 package jta;
 
+import flixel.util.FlxSave;
+
 class Global
 {
 	public static var coins:Int = 0;
