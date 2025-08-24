@@ -10,10 +10,7 @@ class TrampolineObject extends Object
 
 		objectInteractable = true;
 
-		loadGraphic(Paths.image('objects/' + objectID), true, 16, 16);
-
-		animation.add('idle', [0], 1, true);
-		animation.play('idle');
+		loadGraphic(Paths.image('objects/' + objectID));
 	}
 
 	public override function overlap():Void

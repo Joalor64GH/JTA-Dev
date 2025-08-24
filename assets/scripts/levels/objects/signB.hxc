@@ -34,15 +34,16 @@ class SignBObject extends Object
 
 	public override function interact():Void
 	{
-		if (FlxG.state.player != null)
-			FlxG.state.player.characterControllable = false;
+		var state = FlxG.state;
+		if (state.player != null)
+			state.player.characterControllable = false;
 
 		objectInteractable = false;
 
-		FlxG.state.startDialogue(FlxG.state.loadDialogue('dialogue2', FlxG.state.levelNumber).dialogueData, function():Void
+		state.startDialogue(state.loadDialogue('dialogue2', state.levelNumber).dialogueData, function():Void
 		{
-			if (FlxG.state.player != null)
-				FlxG.state.player.characterControllable = true;
+			if (state.player != null)
+				state.player.characterControllable = true;
 
 			new FlxTimer().start(0.5, function():Void
 			{

@@ -22,7 +22,7 @@ class DeviceSelect extends BaseSubState
 
 	public function new():Void
 	{
-		super();
+		super(0x80000000);
 
 		ignoreInputTimer = 0.5;
 	}
@@ -32,10 +32,6 @@ class DeviceSelect extends BaseSubState
 		#if hxdiscord_rpc
 		jta.api.DiscordClient.changePresence('Configuring Controls', null);
 		#end
-
-		var bg:FlxSprite = new FlxSprite().makeGraphic(900, FlxG.height, FlxColor.BLACK);
-		bg.alpha = 0.5;
-		add(bg);
 
 		var title:FlxText = new FlxText(10, 10, FlxG.width, Locale.getSettings("$DEVICE"));
 		title.setFormat(Paths.font('main'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

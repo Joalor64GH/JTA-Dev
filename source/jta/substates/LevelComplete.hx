@@ -16,9 +16,9 @@ class LevelComplete extends BaseSubState
 
 	var selectionGroup:FlxTypedGroup<FlxText>;
 
-	public function new(?onContinue:Void->Void)
+	public function new(?onContinue:Void->Void):Void
 	{
-		super();
+		super(0x80000000);
 
 		this.onContinue = onContinue;
 	}
@@ -28,11 +28,6 @@ class LevelComplete extends BaseSubState
 		cameras = [FlxG.cameras.list[1]];
 
 		FlxG.sound.play(Paths.sound('win'));
-
-		var bg:FlxSprite = new FlxSprite().makeGraphic(900, FlxG.height, FlxColor.BLACK);
-		bg.scrollFactor.set();
-		bg.alpha = 0.5;
-		add(bg);
 
 		var title:FlxText = new FlxText(10, 10, FlxG.width, Locale.getMenu("$LEVEL_COMPLETE"));
 		title.setFormat(Paths.font('main'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

@@ -2,6 +2,7 @@ package jta.states.level;
 
 import haxe.Json;
 import flixel.FlxCamera;
+import flixel.FlxSubState;
 import flixel.tile.FlxTilemap;
 import jta.states.BaseState;
 import jta.substates.GameOver;
@@ -73,6 +74,8 @@ class Level extends BaseState
 	 * Dialogue box used for displaying dialogue.
 	 */
 	private var dialogueBox:DialogueBox;
+
+	var paused:Bool = false;
 
 	/**
 	 * Initializes the level with a specified level number.
@@ -160,6 +163,27 @@ class Level extends BaseState
 		}
 	}
 
+	override function openSubState(SubState:FlxSubState):Void
+	{
+		if (paused)
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.pause();
+
+		super.openSubState(SubState);
+	}
+
+	override function closeSubState():Void
+	{
+		if (paused)
+		{
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.resume();
+			paused = false;
+		}
+
+		super.closeSubState();
+	}
+
 	/**
 	 * Creates a new player character in the level.
 	 * @param id The player ID to load.
@@ -237,14 +261,14 @@ class Level extends BaseState
 	 */
 	public function loadObjects(path:String, ?w:Int = 16, ?h:Int = 16):Void
 	{
-		var rows = Assets.getText(Paths.csv('levels/$path-objects')).split('\n');
+		var rows:Array<String> = Assets.getText(Paths.csv('levels/$path-objects')).split('\n');
 
 		for (rowIndex in 0...rows.length)
 		{
 			var cols = rows[rowIndex].split(',');
 			for (colIndex in 0...cols.length)
 			{
-				var objID = StringTools.trim(cols[colIndex]);
+				var objID:String = StringTools.trim(cols[colIndex]);
 				if (objID != '' && objID != '0' && objID != '.')
 					createObject(objID, colIndex * w, rowIndex * h);
 			}

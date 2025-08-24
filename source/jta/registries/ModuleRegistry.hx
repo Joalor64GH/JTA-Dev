@@ -71,7 +71,7 @@ class ModuleRegistry
 	 */
 	public static function getAllModules(sortByPriority:Bool = false):Array<Module>
 	{
-		var list = [for (m in loadedModules) m];
+		var list:Array<Module> = [for (m in loadedModules) m];
 		if (sortByPriority)
 			list.sort((a, b) -> Reflect.compare(b.priority, a.priority));
 		return list;

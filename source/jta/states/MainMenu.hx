@@ -2,10 +2,12 @@ package jta.states;
 
 import jta.Paths;
 import jta.input.Input;
+import jta.util.DateUtil;
 import jta.locale.Locale;
 import jta.states.BaseState;
 import jta.states.LevelSelect;
 import jta.states.config.Settings;
+import flixel.effects.particles.FlxEmitter;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 
@@ -24,9 +26,13 @@ class MainMenu extends BaseState
 
 	var versionTxt:FlxText;
 
+	var weather:Int = 0;
+
 	public function new():Void
 	{
 		super();
+
+		weather = DateUtil.getWeather();
 
 		#if desktop
 		selections.push("$EXIT");
@@ -42,6 +48,32 @@ class MainMenu extends BaseState
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/menu_bg'));
 		bg.screenCenter();
 		add(bg);
+
+		if (weather != 3)
+		{
+			var particles:FlxEmitter = new FlxEmitter(0, 0);
+			particles.loadParticles(Paths.image('menu/particles/' + (weather == 1 ? 'snow' : 'leaf')), 120);
+			particles.alpha.set(0.5, 0.5);
+			particles.scale.set(2, 2);
+
+			switch (weather)
+			{
+				case 2:
+					particles.color.set(FlxColor.interpolate(FlxColor.RED, FlxColor.WHITE, 0.5));
+				case 4:
+					particles.color.set(FlxColor.YELLOW, FlxColor.fromRGB(255, 159, 64), FlxColor.RED);
+			}
+
+			particles.width = FlxG.width;
+			particles.launchMode = SQUARE;
+			particles.acceleration.set(120, 120, 120, 120);
+			particles.velocity.set(-10, 80, 0, FlxG.height);
+			add(particles);
+			new FlxTimer().start(0.1, function(tmr:FlxTimer):Void
+			{
+				particles.start(false, 0.01);
+			});
+		}
 
 		var logo:FlxSprite = new FlxSprite(0, 125).loadGraphic(Paths.image('menu/mainmenu/logo'));
 		logo.scale.set(4, 4);

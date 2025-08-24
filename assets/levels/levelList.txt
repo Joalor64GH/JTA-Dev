@@ -1,3 +1,4 @@
 Fresh Start|1
-Test|272
+Keep Going|2
+Walkathon|3
 Test|272

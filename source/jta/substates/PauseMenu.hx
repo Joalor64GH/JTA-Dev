@@ -14,14 +14,14 @@ class PauseMenu extends BaseSubState
 
 	var selectionGroup:FlxTypedGroup<FlxText>;
 
+	public function new():Void
+	{
+		super(0x80000000);
+	}
+
 	override public function create():Void
 	{
 		cameras = [FlxG.cameras.list[1]];
-
-		var bg:FlxSprite = new FlxSprite().makeGraphic(900, FlxG.height, FlxColor.BLACK);
-		bg.scrollFactor.set();
-		bg.alpha = 0.5;
-		add(bg);
 
 		var title:FlxText = new FlxText(10, 10, FlxG.width, Locale.getMenu("$PAUSE"));
 		title.setFormat(Paths.font('main'), 40, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
