@@ -9,7 +9,7 @@ import jta.registries.LevelRegistry;
 
 class LevelSelect extends BaseState
 {
-	var levelList:Array<{name:String, id:String}> = [];
+	var levelList:Array<{name:String, id:String, ?cover:String}> = [];
 	var selectedIndex:Int = 0;
 
 	var coverGroup:FlxTypedGroup<FlxSprite>;
@@ -41,7 +41,7 @@ class LevelSelect extends BaseState
 		for (i in 0...initLevels.length)
 		{
 			var data:Array<String> = initLevels[i].split('|');
-			levelList.push({name: data[0], id: data[1]});
+			levelList.push({name: data[0], id: data[1], cover: (data.length > 2) ? data[2] : null});
 		}
 
 		titleText = new FlxText(0, 60, FlxG.width, '');
@@ -94,7 +94,7 @@ class LevelSelect extends BaseState
 			var level = levelList[idx];
 			var sprite = new FlxSprite();
 
-			var imagePath:String = 'menu/level/${formatLevelPath(level.name)}';
+			var imagePath:String = 'menu/level/' + ((level.cover != null) ? formatLevelPath(level.cover) : formatLevelPath(level.name));
 			if (Assets.exists(Paths.image(imagePath)))
 				sprite.loadGraphic(Paths.image(imagePath));
 			else

@@ -1,4 +1,4 @@
-package jta.macros.git;
+package jta.util.macro.git;
 
 #if sys
 import sys.io.Process;

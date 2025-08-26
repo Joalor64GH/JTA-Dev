@@ -2,11 +2,12 @@ package jta.modding;
 
 import polymod.Polymod;
 import polymod.format.ParseRules;
+import polymod.fs.ZipFileSystem;
 import flixel.util.FlxStringUtil;
-import jta.macros.ClassMacro;
 #if windows
 import jta.api.native.WindowsAPI;
 #end
+import jta.util.macro.ClassMacro;
 import jta.util.WindowUtil;
 import jta.util.TimerUtil;
 import jta.locale.Locale;
@@ -88,7 +89,7 @@ class PolymodHandler
 		Polymod.blacklistImport('Reflect');
 		Polymod.blacklistImport('Type');
 
-		for (cls in ClassMacro.listClassesInPackage('jta.macros'))
+		for (cls in ClassMacro.listClassesInPackage('jta.util.macro'))
 		{
 			if (cls == null)
 				continue;
@@ -152,6 +153,7 @@ class PolymodHandler
 			loadScriptsAsync: #if html5 true #else false #end,
 			ignoredFiles: Polymod.getDefaultIgnoreList(),
 			extensionMap: ['frag' => TEXT, 'vert' => TEXT],
+			customFilesystem: buildFileSystem(),
 			firetongue: Locale.tongue
 		});
 
@@ -198,6 +200,11 @@ class PolymodHandler
 	public static function getModIDs():Array<String>
 	{
 		return (trackedMods.length > 0) ? [for (i in trackedMods) i.id] : [];
+	}
+
+	private static inline function buildFileSystem():ZipFileSystem
+	{
+		return new ZipFileSystem({modRoot: MOD_DIR, autoScan: true});
 	}
 
 	public static function getParseRules():ParseRules

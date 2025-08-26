@@ -1,4 +1,4 @@
-package jta.macros;
+package jta.util.macro;
 
 #if macro
 import haxe.macro.Context:

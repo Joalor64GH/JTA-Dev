@@ -19,7 +19,7 @@ class Startup extends BaseState
 
 	override public function create():Void
 	{
-		super.create();
+		FlxG.autoPause = FlxG.fixedTimestep = false;
 
 		Data.init();
 		Global.load();

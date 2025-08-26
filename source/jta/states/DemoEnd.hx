@@ -18,9 +18,9 @@ class DemoEnd extends BaseState
 		text2.setFormat(Paths.font('main'), 20, FlxColor.WHITE, CENTER);
 		add(text2);
 
-		FlxG.sound.play(Paths.sound('end'));
-
 		super.create();
+
+		FlxG.sound.play(Paths.sound('end'));
 	}
 
 	override public function update(elapsed:Float):Void

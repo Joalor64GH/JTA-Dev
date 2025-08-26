@@ -1,9 +1,9 @@
-package jta.macros;
+package jta.util.macro;
 
 import haxe.macro.Context;
 import haxe.macro.Expr;
 import haxe.macro.Type;
-import jta.macros.MacroUtil;
+import jta.util.macro.MacroUtil;
 
 /**
  * Macros to generate lists of classes at compile time.
@@ -30,7 +30,7 @@ class ClassMacro
 
 		classListsToGenerate.push(request);
 
-		return macro jta.macros.CompiledClassList.get($v{request});
+		return macro jta.util.macro.CompiledClassList.get($v{request});
 	}
 
 	/**
@@ -58,7 +58,7 @@ class ClassMacro
 
 		classListsToGenerate.push(request);
 
-		return macro jta.macros.CompiledClassList.getTyped($v{request}, ${targetClassExpr});
+		return macro jta.util.macro.CompiledClassList.getTyped($v{request}, ${targetClassExpr});
 	}
 
 	#if macro
@@ -96,7 +96,7 @@ class ClassMacro
 	@:noCompletion
 	private static function compileClassLists():Void
 	{
-		final compiledClassList:ClassType = MacroUtil.getClassType('jta.macros.CompiledClassList');
+		final compiledClassList:ClassType = MacroUtil.getClassType('jta.util.macro.CompiledClassList');
 
 		if (compiledClassList == null)
 			throw 'Could not find CompiledClassList class.';
