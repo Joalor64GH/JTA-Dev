@@ -8,6 +8,7 @@ import flixel.graphics.FlxGraphic;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import jta.registries.ModuleRegistry;
+import jta.mobile.MobilePad;
 import jta.states.Startup;
 import jta.Data;
 
@@ -17,6 +18,8 @@ import jta.Data;
  */
 class BaseState extends FlxTransitionableState
 {
+	var controls:MobilePad;
+
 	/**
 	 * @param noTransition Whether or not to skip the transition when entering a state.
 	 */
@@ -49,6 +52,9 @@ class BaseState extends FlxTransitionableState
 	{
 		super.create();
 
+		controls = new MobilePad();
+		add(controls);
+
 		for (module in ModuleRegistry.getAllModules(true))
 		{
 			module.create();
@@ -62,6 +68,8 @@ class BaseState extends FlxTransitionableState
 		if (FlxG.save.data != null)
 			FlxG.fullscreen = Data.settings.fullscreen;
 		#end
+
+		controls.updateInput();
 
 		super.update(elapsed);
 
