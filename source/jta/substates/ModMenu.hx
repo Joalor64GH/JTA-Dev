@@ -7,10 +7,10 @@ import jta.substates.BaseSubState;
 class ModMenu extends BaseSubState
 {
     var mods:FlxTypedGroup<FlxText>;
-    var icons:FlxTypedGroup<ModIcon>;
+    // var icons:FlxTypedGroup<ModIcon>;
     var desc:FlxText;
     var selectedIndex:Int = 0;
-    var camera:FlxObject;
+    var came:FlxObject;
 
     public function new():Void
     {
@@ -21,9 +21,9 @@ class ModMenu extends BaseSubState
     {
         cameras = [FlxG.cameras.list[1]];
 
-        camera = new FlxObject(80, 0, 0, 0);
-        camera.screenCenter(X);
-        add(camera);
+        came = new FlxObject(80, 0, 0, 0);
+        came.screenCenter(X);
+        add(came);
 
         if (PolymodHandler.trackedMods.length > 0){
 
@@ -60,7 +60,7 @@ class ModMenu extends BaseSubState
     }
 }
 
-class ModIcon extends FlxSprite
+/*class ModIcon extends FlxSprite
 {
 	public var sprTracker:FlxSprite;
 
@@ -111,4 +111,4 @@ class ModIcon extends FlxSprite
 			scrollFactor.set(sprTracker.scrollFactor.x, sprTracker.scrollFactor.y);
 		}
 	}
-}
+}*/
