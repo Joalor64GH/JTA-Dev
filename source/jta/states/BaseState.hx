@@ -64,7 +64,7 @@ class BaseState extends FlxTransitionableState
 			FlxG.fullscreen = Data.settings.fullscreen;
 		#end
 
-		if (Input.justPressed('4'))
+		if (Input.justPressed('four'))
 			openSubState(new jta.substates.ModMenu());
 
 		super.update(elapsed);
