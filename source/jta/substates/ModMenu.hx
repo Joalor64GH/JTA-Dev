@@ -1,6 +1,7 @@
 package jta.substates;
 
 import flixel.FlxObject;
+import jta.input.Input;
 import jta.modding.PolymodHandler;
 import jta.substates.BaseSubState;
 
