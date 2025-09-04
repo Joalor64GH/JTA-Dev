@@ -8,6 +8,7 @@ import jta.video.WebmHandler;
 #if hxgamemode
 import hxgamemode.GamemodeClient;
 #end
+import haxe.ui.Toolkit;
 
 /**
  * The main entry point for the game.
@@ -88,6 +89,12 @@ class Main extends openfl.display.Sprite
 	public function new():Void
 	{
 		super();
+
+		Toolkit.init();
+    	Toolkit.theme = 'dark'; 
+    	Toolkit.autoScale = false;
+    	haxe.ui.focus.FocusManager.instance.autoFocus = false;
+    	haxe.ui.tooltips.ToolTipManager.defaultDelay = 200;
 
 		#if windows
 		jta.api.native.WindowsAPI.darkMode(true);

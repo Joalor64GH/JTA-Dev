@@ -62,6 +62,9 @@
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
 
+	<haxelib name="haxeui-core" />
+	<haxelib name="haxeui-flixel" />
+
 	<haxelib name="actuate" />
 	<haxelib name="extension-webm" />
 
@@ -120,6 +123,18 @@
 		value="include('flixel', true, ['flixel.addons.editors.spine.*', 'flixel.addons.nape.*', 'flixel.system.macros.*'])" />
 	<haxeflag name="--macro" value="nullSafety('jta.registries')" />
 	<haxeflag name="--macro" value="nullSafety('jta.util')" />
+
+	<haxeflag name="--macro" value="include('haxe.ui.backend.flixel.components')" />
+	<haxeflag name="--macro" value="include('haxe.ui.containers.dialogs')" />
+	<haxeflag name="--macro" value="include('haxe.ui.containers.menus')" />
+	<haxeflag name="--macro" value="include('haxe.ui.containers.properties')" />
+	<haxeflag name="--macro" value="include('haxe.ui.core')" />
+	<haxeflag name="--macro" value="include('haxe.ui.components')" />
+	<haxeflag name="--macro" value="include('haxe.ui.containers')" />
+
+	<haxedef name="haxeui_no_mouse_reset" />
+	<haxedef name="haxeui_focus_out_on_click" />
+	<haxedef name="haxeui_dont_impose_base_class" />
 
 	<!-- [ Icons ] -->
 

@@ -151,6 +151,11 @@ class MainMenu extends BaseState
 				transitionState(new jta.states.MainMenu());
 			}));
 		}
+
+		if (Input.justPressed('e'))
+		{
+			transitionState(new jta.states.level.editor.LevelEditor());
+		}
 		#end
 
 		super.update(elapsed);
