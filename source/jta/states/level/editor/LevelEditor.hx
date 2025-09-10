@@ -31,9 +31,11 @@ class LevelEditor extends haxe.ui.backend.flixel.UIState
     var camHUD:FlxCamera;
     var camEditor:FlxCamera;
 
-    private override function create():Void
+    override function create():Void
     {
         FlxG.mouse.visible = true;
+
+        super.create();
 
         var gridLine:FlxSprite = new FlxSprite();
 		var gfx = gridLine.makeGraphic(FlxG.width, FlxG.height, 0x00000000, true);
@@ -48,11 +50,9 @@ class LevelEditor extends haxe.ui.backend.flixel.UIState
 		gridLine.pixels = gfx.pixels;
 		gridLine.dirty = true;
 		add(gridLine);
-
-        super.create();
     }
 
-    private override function update(elapsed:Float):Void
+    override function update(elapsed:Float):Void
     {
         super.update(elapsed);
 
