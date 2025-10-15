@@ -19,14 +19,6 @@ class ScriptUtil
 	{
 		return new FlxTypedSpriteGroup<FlxSprite>();
 	}
-
-	public static inline function screenCenter(obj:FlxObject, ?x:Bool = true, ?y:Bool = true):Void
-	{
-		if (x)
-			obj.x = (FlxG.width - obj.width) / 2;
-		if (y)
-			obj.y = (FlxG.height - obj.height) / 2;
-	}
 }
 
 class NativeJson
