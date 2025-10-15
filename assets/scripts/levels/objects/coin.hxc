@@ -1,6 +1,8 @@
 import jta.Paths;
 import jta.Global;
 import jta.objects.level.Object;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 import flixel.FlxG;
 
 class CoinObject extends Object
@@ -31,5 +33,15 @@ class CoinObject extends Object
 		Global.save();
 		this.kill();
 		this.destroy();
+	}
+
+	override function kill():Void
+	{
+		alive = false;
+		FlxTween.tween(this, {alpha: 0, y: y - 16}, 0.22, {
+            ease: FlxEase.circOut, onComplete: function(_) {
+                exists = false;
+            }
+        });
 	}
 }

@@ -81,7 +81,7 @@ class FlxAxes
 		return FlxAxes.fromBools(x, y);
 	}
 
-	public static function fromString(axes:String):.FlxAxes
+	public static function fromString(axes:String):FlxAxes
 	{
 		return FlxAxes.fromString(axes);
 	}

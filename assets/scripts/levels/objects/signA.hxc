@@ -40,7 +40,8 @@ class SignAObject extends Object
 
 		objectInteractable = false;
 
-		state.startDialogue(state.loadDialogue('dialogue1', state.levelNumber).dialogueData, function():Void
+		var dialogue = Json.parse(Assets.getText(Paths.json('data/dialogue/' + state.levelNumber + '/dialogue1')));
+		state.startDialogue(dialogue.dialogueData, function():Void
 		{
 			if (state.player != null)
 				state.player.characterControllable = true;
