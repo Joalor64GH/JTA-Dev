@@ -271,8 +271,6 @@ class Level extends BaseState
 				var objID:String = StringTools.trim(cols[colIndex]);
 				if (objID != '' && objID != '0' && objID != '.')
 					createObject(objID, colIndex * w, rowIndex * h);
-				else if (objID.contains('player'))
-					loadPlayer(objID, colIndex * w, rowIndex * h);
 			}
 		}
 	}
