@@ -4,7 +4,8 @@ import haxe.Json;
 import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.util.FlxAxes;
-import flixel.tweens.FlxTween;
+import flixel.tweens.FlxTween.FlxTweenType;
+import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import openfl.display.BlendMode as BaseBlendMode;
 
