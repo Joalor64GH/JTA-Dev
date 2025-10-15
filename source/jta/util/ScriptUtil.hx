@@ -2,6 +2,7 @@ package jta.util;
 
 import haxe.Json;
 import flixel.FlxBasic;
+import flixel.FlxObject;
 import flixel.util.FlxAxes;
 import flixel.tweens.FlxTween;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
