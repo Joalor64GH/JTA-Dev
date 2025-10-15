@@ -8,7 +8,7 @@ import flixel.tweens.FlxTween;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import openfl.display.BlendMode as BaseBlendMode;
 
-class ScriptingUtil
+class ScriptUtil
 {
 	public static inline function makeFlxGroup():FlxTypedGroup<FlxBasic>
 	{
