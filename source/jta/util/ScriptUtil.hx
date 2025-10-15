@@ -4,7 +4,6 @@ import haxe.Json;
 import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.util.FlxAxes;
-import flixel.tweens.FlxTween.FlxTweenType;
 import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import openfl.display.BlendMode as BaseBlendMode;
@@ -47,15 +46,6 @@ class BlendMode
 	public static var SCREEN = BaseBlendMode.SCREEN;
 	public static var SHADER = BaseBlendMode.SHADER;
 	public static var SUBTRACT = BaseBlendMode.SUBTRACT;
-}
-
-class FlxTweenType
-{
-	public static var PERSIST = FlxTween.FlxTweenType.PERSIST;
-	public static var LOOPING = FlxTween.FlxTweenType.LOOPING;
-	public static var PINGPONG = FlxTween.FlxTweenType.PINGPONG;
-	public static var ONESHOT = FlxTween.FlxTweenType.ONESHOT;
-	public static var BACKWARD = FlxTween.FlxTweenType.BACKWARD;
 }
 
 class FlxTextBorderStyle

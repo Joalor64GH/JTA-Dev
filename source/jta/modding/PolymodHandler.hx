@@ -70,7 +70,6 @@ class PolymodHandler
 		Polymod.addDefaultImport(jta.util.ScriptUtil);
 		Polymod.addDefaultImport(jta.util.ScriptUtil.BlendMode);
 		Polymod.addDefaultImport(jta.util.ScriptUtil.FlxTextBorderStyle);
-		Polymod.addDefaultImport(jta.util.ScriptUtil.FlxTweenType);
 		Polymod.addDefaultImport(jta.util.ScriptUtil.FlxAxes);
 
 		Polymod.addImportAlias('flixel.effects.particles.FlxEmitter', flixel.effects.particles.FlxEmitter);
