@@ -68,9 +68,6 @@ class PolymodHandler
 		Polymod.clearScripts();
 
 		Polymod.addDefaultImport(jta.util.ScriptUtil);
-		Polymod.addDefaultImport(jta.util.ScriptUtil.BlendMode);
-		Polymod.addDefaultImport(jta.util.ScriptUtil.FlxTextBorderStyle);
-		Polymod.addDefaultImport(jta.util.ScriptUtil.FlxAxes);
 
 		Polymod.addImportAlias('flixel.effects.particles.FlxEmitter', flixel.effects.particles.FlxEmitter);
 		Polymod.addImportAlias('flixel.group.FlxContainer', flixel.group.FlxContainer);
@@ -82,10 +79,6 @@ class PolymodHandler
 		Polymod.addImportAlias("lime.utils.Assets", Assets);
 		Polymod.addImportAlias("openfl.utils.Assets", Assets);
 		Polymod.addImportAlias("haxe.Json", jta.util.ScriptUtil.NativeJson);
-		
-		Polymod.addImportAlias("flash.display.BlendMode", jta.util.ScriptUtil.BlendMode);
-		Polymod.addImportAlias("openfl.display.BlendMode", jta.util.ScriptUtil.BlendMode);
-		Polymod.addImportAlias("flixel.util.FlxAxes", jta.util.ScriptUtil.FlxAxes);
 
 		#if cpp
 		Polymod.blacklistImport('cpp.Lib');
