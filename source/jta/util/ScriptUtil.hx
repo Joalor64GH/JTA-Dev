@@ -19,11 +19,6 @@ class ScriptingUtil
 		return new FlxTypedSpriteGroup<FlxSprite>();
 	}
 
-	public static inline function keyFromString(key:String):FlxKey
-	{
-		return FlxKey.fromString(key);
-	}
-
 	public static inline function screenCenter(obj:FlxObject, ?x:Bool = true, ?y:Bool = true):Void
 	{
 		if (x)
