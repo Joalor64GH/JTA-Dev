@@ -21,6 +21,7 @@ class CoinObject extends Object
 
 	public override function overlap():Void
 	{
+		if (!objectInteractable) return;
 		objectInteractable = false;
 		FlxG.sound.play(Paths.sound('coin'));
 		Global.coins += 1;
@@ -31,17 +32,22 @@ class CoinObject extends Object
 			Global.lives += 1;
 		}
 		Global.save();
-		this.kill();
-		this.destroy();
+		kill();
 	}
 
 	override function kill():Void
 	{
-		alive = false;
-		FlxTween.tween(this, {alpha: 0, y: y - 16}, 0.22, {
-            ease: FlxEase.circOut, onComplete: function(_) {
-                exists = false;
-            }
-        });
+    if (!alive) return;
+
+    alive = false;
+
+
+    FlxTween.num(1, 0, 0.22, {ease: FlxEase.circOut}, function(v:Float)
+{
+    this.alpha = v;
+    this.y -= 0.72; // about 16px over the tween duration
+}).onComplete = function(_) exists = false;
+
 	}
+
 }
