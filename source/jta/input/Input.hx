@@ -142,17 +142,9 @@ class Input
 		}
 		else
 		{
-			#if FLX_KEYBOARD
-			var kbInput = FlxKey.fromString(tag);
-			if (kbInput != null && kbInput != FlxKey.NONE && FlxG.keys.checkStatus(kbInput, state))
-				return true;
-			#end
+			#if FLX_KEYBOARD var kbInput:Null<FlxKey> = FlxKey.fromString(tag); if (kbInput != null && kbInput != FlxKey.NONE && FlxG.keys.checkStatus(kbInput, state)) return true; #end
 
-			#if FLX_GAMEPAD
-			var gpInput = FlxGamepadInputID.fromString(tag);
-			if (gamepad != null && gpInput != null && gpInput != FlxGamepadInputID.NONE && gamepad.checkStatus(gpInput, state))
-				return true;
-			#end
+			#if FLX_GAMEPAD var gpInput:Null<FlxGamepadInputID> = FlxGamepadInputID.fromString(tag); if (gamepad != null && gpInput != null && gpInput != FlxGamepadInputID.NONE && gamepad.checkStatus(gpInput, state)) return true; #end
 		}
 
 		return false;
@@ -168,7 +160,7 @@ class Input
 	{
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (tags == null || tags.length >= 0)
+		if (tags == null || tags.length <= 0)
 			return false;
 
 		for (tag in tags)
@@ -192,15 +184,11 @@ class Input
 			else
 			{
 				#if FLX_KEYBOARD
-				var kbInput = FlxKey.fromString(tag);
-				if (kbInput != null && kbInput != FlxKey.NONE && FlxG.keys.checkStatus(kbInput, state))
-					return true;
+				var kbInput:Null<FlxKey> = FlxKey.fromString(tag); if (kbInput != null && kbInput != FlxKey.NONE && FlxG.keys.checkStatus(kbInput, state)) return true;
 				#end
 
 				#if FLX_GAMEPAD
-				var gpInput = FlxGamepadInputID.fromString(tag);
-				if (gamepad != null && gpInput != null && gpInput != FlxGamepadInputID.NONE && gamepad.checkStatus(gpInput, state))
-					return true;
+				var gpInput:Null<FlxGamepadInputID> = FlxGamepadInputID.fromString(tag); if (gamepad != null && gpInput != null && gpInput != FlxGamepadInputID.NONE && gamepad.checkStatus(gpInput, state)) return true;
 				#end
 			}
 		}
