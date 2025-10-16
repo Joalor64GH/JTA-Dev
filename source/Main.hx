@@ -13,6 +13,7 @@ import haxe.ui.Toolkit;
 /**
  * The main entry point for the game.
  */
+@:nullSafety
 class Main extends openfl.display.Sprite
 {
 	/**

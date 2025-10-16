@@ -22,6 +22,7 @@ enum SpriteSheetType
  * Provides utility functions for handling asset paths and loading assets in a game.
  */
 @:keep
+@:nullSafety
 class Paths
 {
 	/**

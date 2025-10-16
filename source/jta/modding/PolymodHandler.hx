@@ -19,6 +19,7 @@ import sys.FileSystem;
  * Handles the initialization and management of mods in the game.
  * @see https://github.com/FunkinCrew/Funkin/blob/main/source/funkin/modding/PolymodHandler.hx
  */
+@:nullSafety
 class PolymodHandler
 {
 	/**

@@ -25,6 +25,7 @@ typedef Bind =
  * Class for handling Input.
  * @author Joalor64
  */
+@:nullSafety
 class Input
 {
 	static public var kBinds:Array<FlxKey> = Data.settings.keyboardBinds;
