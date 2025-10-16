@@ -219,8 +219,7 @@ class PolymodHandler
 		final output:ParseRules = ParseRules.getDefault();
 		output.addType('txt', TextFileFormat.LINES);
 		output.addType('hxc', TextFileFormat.PLAINTEXT);
-		if (output != null)
-			return output;
+		return output;
 	}
 
 	static function onError(error:PolymodError):Void
