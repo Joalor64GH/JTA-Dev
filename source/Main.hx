@@ -31,7 +31,7 @@ class Main extends openfl.display.Sprite
 	/**
 	 * The frame rate display.
 	 */
-	public static var fpsDisplay:FPS;
+	public static var fpsDisplay:Null<FPS>;
 
 	public static var framerate(get, set):Float;
 

@@ -143,13 +143,14 @@ class Input
 		else
 		{
 			#if FLX_KEYBOARD
-			if (FlxKey.fromString(tag) != FlxKey.NONE && FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
+			var kbInput = FlxKey.fromString(tag);
+			if (kbInput != null && kbInput != FlxKey.NONE && FlxG.keys.checkStatus(kbInput, state))
 				return true;
 			#end
 
 			#if FLX_GAMEPAD
 			var gpInput = FlxGamepadInputID.fromString(tag);
-			if (gamepad != null && gpInput != FlxGamepadInputID.NONE && gamepad.checkStatus(gpInput, state))
+			if (gamepad != null && gpInput != null && gpInput != FlxGamepadInputID.NONE && gamepad.checkStatus(gpInput, state))
 				return true;
 			#end
 		}
@@ -191,13 +192,14 @@ class Input
 			else
 			{
 				#if FLX_KEYBOARD
-				if (FlxKey.fromString(tag) != FlxKey.NONE && FlxG.keys.checkStatus(FlxKey.fromString(tag), state))
+				var kbInput = FlxKey.fromString(tag);
+				if (kbInput != null && kbInput != FlxKey.NONE && FlxG.keys.checkStatus(kbInput, state))
 					return true;
 				#end
 
 				#if FLX_GAMEPAD
 				var gpInput = FlxGamepadInputID.fromString(tag);
-				if (gamepad != null && gpInput != FlxGamepadInputID.NONE && gamepad.checkStatus(gpInput, state))
+				if (gamepad != null && gpInput != null && gpInput != FlxGamepadInputID.NONE && gamepad.checkStatus(gpInput, state))
 					return true;
 				#end
 			}
