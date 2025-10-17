@@ -21,8 +21,10 @@ class MainPlayer extends Player
 
 		animation.play('idle');
 
-		maxVelocity.y = 290;
-		acceleration.y = 900;
+		characterHitbox.maxVelocity.y = 290;
+		characterHitbox.acceleration.y = 900;
+
+		initializeHitbox(12, 14);
 	}
 
 	public override function update(elapsed:Float):Void
@@ -32,13 +34,13 @@ class MainPlayer extends Player
 			if (jumping && !Input.pressed('jump'))
 				jumping = false;
 
-			if (jumpTimer >= 0 && Input.pressed('jump') && velocity.y == 0)
+			if (jumpTimer >= 0 && Input.pressed('jump') && characterHitbox.velocity.y == 0)
 			{
 				FlxG.sound.play(Paths.sound('jump'));
 				jumpTimer += elapsed;
 				jumping = true;
 				if (jumpTimer > 0 && jumpTimer < 0.25)
-					velocity.y = -290;
+					characterHitbox.velocity.y = -290;
 			}
 			else
 			{
@@ -59,11 +61,11 @@ class MainPlayer extends Player
 				animation.play('idle');
 
 			if (Input.pressed('left'))
-				velocity.x = -150;
+				characterHitbox.velocity.x = -150;
 			else if (Input.pressed('right'))
-				velocity.x = 150;
+				characterHitbox.velocity.x = 150;
 			else
-				velocity.x = 0;
+				characterHitbox.velocity.x = 0;
 
 			if (velocity.x != 0)
 				flipX = velocity.x < 0;
@@ -71,9 +73,9 @@ class MainPlayer extends Player
 			if (Input.pressed('run'))
 			{
 				if (Input.pressed('left'))
-					velocity.x -= 50;
+					characterHitbox.velocity.x -= 50;
 				else if (Input.pressed('right'))
-					velocity.x += 50;
+					characterHitbox.velocity.x += 50;
 			}
 
 			#if debug

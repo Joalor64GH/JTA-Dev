@@ -142,7 +142,7 @@ class Level extends BaseState
 		if (player != null)
 		{
 			if (map != null)
-				FlxG.collide(map, player);
+				FlxG.collide(map, player.characterHitbox);
 
 			if (camFollowControllable && player.y >= 0 && player.y <= FlxG.height)
 				FlxG.camera.follow(player, LOCKON, 0.9);
@@ -151,7 +151,7 @@ class Level extends BaseState
 			{
 				objects.forEach(function(obj:Object):Void
 				{
-					if (obj != null && player.characterControllable && player.overlaps(obj) && obj.objectInteractable)
+					if (obj != null && player.characterControllable && player.characterHitbox.overlaps(obj) && obj.objectInteractable)
 					{
 						if (Input.pressed('confirm'))
 							obj.interact();
