@@ -87,7 +87,7 @@ class Player extends FlxSprite
 			characterHitbox.draw();
 
 			#if FLX_DEBUG
-			if (Controls.pressed('confirm'))
+			if (jta.input.Input.pressed('confirm'))
 				characterHitbox.drawDebug();
 			#end
 		}
